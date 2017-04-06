@@ -1,94 +1,55 @@
 package com.GameForAll.models;
 
+import java.io.Serializable;
 
-public class Student implements User {
-	private int StudentId;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "student")
+public class Student implements Serializable,User {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5890878254374709122L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int Id;
+
+	@Column(name = "Name")
 	private String Name;
+
+	@Column(name = "Email")
 	private String Email;
+
+	@Column(name = "Password")
 	private String Password;
+
+	@Column(name = "Age")
 	private int Age;
+
+	@Column(name = "Gender")
 	private String Gender;
-	private String UserName;
+
+	@Column(name = "Username")
+	private String Username;
 
 	public Student() {
-		Name = "Mariam";
-		Email = "Mariam";
-		Password = "Mariam";
-		Age = 12;
-		Gender = "female";
-		UserName = "Mariam";
-		StudentId = 2;
+
 	}
 
-	public String getName() {
-		return Name;
-	}
-
-	public void setName(String name) {
+	public Student(String name, String email, String password, int age, String gender, String userName) {
 		Name = name;
-	}
-
-	public String getEmail() {
-		return Email;
-	}
-
-	public void setEmail(String email) {
 		Email = email;
-	}
-
-	public String getPassword() {
-		return Password;
-	}
-
-	public void setPassword(String password) {
 		Password = password;
-	}
-
-	public int getAge() {
-		return Age;
-	}
-
-	public void setAge(int age) {
 		Age = age;
-	}
-
-	public String getGender() {
-		return Gender;
-	}
-
-	public void setGender(String gender) {
 		Gender = gender;
-	}
-
-	public String getUserName() {
-		return UserName;
-	}
-
-	public void setUserName(String userName) {
-		UserName = userName;
-	}
-
-	public int getStudentId() {
-		return StudentId;
-	}
-
-	@Override
-	public boolean AddUser(User user) {
-		return true;
-		// if the name is not valid or the a missing field is it will return
-		// false;
-	}
-
-	@Override
-	public boolean SearchUser(User user) {
-		return true;
-	}
-
-	@Override
-	public User LoadUser(String UserName, String Password) {
-		User user = new Student();
-		return user;
-
+		Username = userName;
 	}
 
 }

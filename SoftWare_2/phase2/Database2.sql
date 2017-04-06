@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 27, 2017 at 11:41 PM
+-- Generation Time: Apr 06, 2017 at 07:04 PM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 7.0.9
 
@@ -44,6 +44,17 @@ CREATE TABLE `category` (
   `category_name` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `category`
+--
+
+INSERT INTO `category` (`category_id`, `category_name`) VALUES
+(3, 'Ehab'),
+(4, 'Ehab'),
+(5, 'Ehab'),
+(6, 'Ehab'),
+(7, 'Ehab');
+
 -- --------------------------------------------------------
 
 --
@@ -80,10 +91,10 @@ CREATE TABLE `game` (
 --
 
 CREATE TABLE `question` (
-  `Id` int(11) NOT NULL,
-  `Question` varchar(100) NOT NULL,
-  `GameId` int(11) NOT NULL,
-  `Level` int(11) NOT NULL
+  `id` int(11) NOT NULL,
+  `question` varchar(100) NOT NULL,
+  `game_id` int(11) NOT NULL,
+  `level` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -144,6 +155,13 @@ CREATE TABLE `teacher` (
   `password` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `teacher`
+--
+
+INSERT INTO `teacher` (`id`, `name`, `username`, `age`, `gender`, `email`, `password`) VALUES
+(1, 'sameh', 'Sameh16', 22, 'm', 'sameh@gmail.com', '123');
+
 -- --------------------------------------------------------
 
 --
@@ -152,7 +170,7 @@ CREATE TABLE `teacher` (
 
 CREATE TABLE `teachergame` (
   `game_id` int(11) NOT NULL,
-  `teache_id` int(11) NOT NULL
+  `teacher_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -175,7 +193,7 @@ CREATE TABLE `type` (
 --
 ALTER TABLE `answer`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `Questio_id` (`Questio_id`);
+  ADD KEY `Question_id` (`question_id`);
 
 --
 -- Indexes for table `category`
@@ -191,7 +209,7 @@ ALTER TABLE `course`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `CourseName` (`name`),
   ADD KEY `category_id` (`category_id`),
-  ADD KEY `teacher_id` (`teache_id`);
+  ADD KEY `teacher_id` (`teacher_id`);
 
 --
 -- Indexes for table `game`
@@ -266,7 +284,7 @@ ALTER TABLE `type`
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `catrgory_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `course`
 --
@@ -296,7 +314,7 @@ ALTER TABLE `studentgame`
 -- AUTO_INCREMENT for table `teacher`
 --
 ALTER TABLE `teacher`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `teachergame`
 --
@@ -312,17 +330,19 @@ ALTER TABLE `type`
 --
 
 --
--- Constraints for table `category`
+-- Constraints for table `answer`
 --
-ALTER TABLE `category`
-  ADD CONSTRAINT `category_ibfk_1` FOREIGN KEY (`categoty_id`) REFERENCES `course` (`categoty_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `answer`
+  ADD CONSTRAINT `answer_ibfk_1` FOREIGN KEY (`question_id`) REFERENCES `question` (`id`);
 
 --
 -- Constraints for table `course`
 --
 ALTER TABLE `course`
-  ADD CONSTRAINT `course_ibfk_1` FOREIGN KEY (`id`) REFERENCES `game` (`course_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `course_ibfk_2` FOREIGN KEY (`teacher_id`) REFERENCES `teacher` (`id`);
+  ADD CONSTRAINT `FKkyes7515s3ypoovxrput029bh` FOREIGN KEY (`category_id`) REFERENCES `category` (`category_id`),
+  ADD CONSTRAINT `FKsybhlxoejr4j3teomm5u2bx1n` FOREIGN KEY (`teacher_id`) REFERENCES `teacher` (`id`),
+  ADD CONSTRAINT `course_ibfk_3` FOREIGN KEY (`category_id`) REFERENCES `category` (`category_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `course_ibfk_4` FOREIGN KEY (`teacher_id`) REFERENCES `teacher` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `game`
@@ -335,8 +355,7 @@ ALTER TABLE `game`
 -- Constraints for table `question`
 --
 ALTER TABLE `question`
-  ADD CONSTRAINT `question_ibfk_1` FOREIGN KEY (`game_id`) REFERENCES `game` (`game_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `question_ibfk_2` FOREIGN KEY (`id`) REFERENCES `answer` (`question_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `question_ibfk_1` FOREIGN KEY (`game_id`) REFERENCES `game` (`game_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `studentcourse`

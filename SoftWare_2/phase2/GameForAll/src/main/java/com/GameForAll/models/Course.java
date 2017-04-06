@@ -1,63 +1,114 @@
 package com.GameForAll.models;
 
-import java.util.ArrayList;
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
-public class Course {
+@Entity
+@Table(name = "course")
+public class Course implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6720185840479776582L;
+	
+	@Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+	private int Id;
+	
+	@Column(name = "Name")
 	private String CourseName;
-	private int CategoryId;
-	private int TeacherID;
-	private int CourseId;
+	
+	@Column(name = "Age")
 	private int MinimunAge;
 	
+	@ManyToOne
+	@JoinColumn(name = "CategoryId")
+	private Category category;
+	
+	
+	@ManyToOne
+	@JoinColumn(name = "TeacherId")
+	private Teacher teacher;
+	
+
+	
+	public Course(String courseName, int minimunAge, Category category, Teacher teacher) {
+
+		CourseName = courseName;
+		MinimunAge = minimunAge;
+		this.category = category;
+		this.teacher = teacher;
+	}
+
+
 	public Course()
 	{
-		CourseId=1;
-		CourseName="Mariam";
-		TeacherID = 5;
-		MinimunAge = 10;
 		
 	}
-	public String getCourseName() 
-	{
+
+
+	public String getCourseName() {
 		return CourseName;
 	}
+
+
 	public void setCourseName(String courseName) {
 		CourseName = courseName;
 	}
-	public int getCategoryId() {
-		return CategoryId;
-	}
-	public void setCategoryId(int categoryId) {
-		CategoryId = categoryId;
-	}
-	public int getTeacherID() {
-		return TeacherID;
-	}
-	public void setTeacherID(int teacherID) {
-		TeacherID = teacherID;
-	}
-	public int getCourseId() {
-		return CourseId;
-	}
-	public void setCourseId(int courseId) {
-		CourseId = courseId;
-	}
+
+
 	public int getMinimunAge() {
 		return MinimunAge;
 	}
+
+
 	public void setMinimunAge(int minimunAge) {
 		MinimunAge = minimunAge;
 	}
-	public ArrayList<Course> SelectAll(int categoryId2)
-	{
-		ArrayList<Course> courses=new ArrayList<>();
-		Course course = new Course();
-		course.setCategoryId(categoryId2);
-		courses.add(course);
-		return courses;
+
+
+	public Category getCategory() {
+		return category;
 	}
-	public boolean SaveCourse(Course course)
-	{
-		return true;
+
+
+	public void setCategory(Category category) {
+		this.category = category;
 	}
+
+
+	public Teacher getTeacher() {
+		return teacher;
+	}
+
+
+	public void setTeacher(Teacher teacher) {
+		this.teacher = teacher;
+	}
+
+
+	public int getId() {
+		return Id;
+	}
+
+
+	public void setId(int id) {
+		Id = id;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Course [Id=" + Id + ", CourseName=" + CourseName + ", MinimunAge=" + MinimunAge + ", category="
+				+ category + ", teacher=" + teacher + "]";
+	}
+	
+	
 }

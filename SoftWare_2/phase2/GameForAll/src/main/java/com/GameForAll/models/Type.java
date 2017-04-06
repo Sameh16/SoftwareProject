@@ -1,24 +1,38 @@
 package com.GameForAll.models;
 
-public class Type {
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "type")
+public class Type implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7151214259447799698L;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int TypeId;
+
+	@Column(name = "TypeName")
+	private String TypeName;
 
 	
-	private String TypeName;
-	private int TypeId;
-	
-	
-	public String getTypeName() {
-		return TypeName;
-	}
-	public void setTypeName(String typeName) {
+	public Type(String typeName) {
+
 		TypeName = typeName;
 	}
-	public int getTypeId() {
-		return TypeId;
+
+	public Type() {
+
 	}
-	public void setTypeId(int typeId) {
-		TypeId = typeId;
-	}
-	
-	
+
 }

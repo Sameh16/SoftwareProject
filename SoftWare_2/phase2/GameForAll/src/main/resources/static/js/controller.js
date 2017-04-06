@@ -1,7 +1,7 @@
 var app = angular.module('app', []);
 app.controller('postcontroller', function($scope, $http, $location) {
     $scope.submitForm = function(){
-        var url = $location.absUrl() + "addcourse";
+        var url = $location.absUrl() + "addcourse/"+$scope.TeacherID+"/"+$scope.CategoryId;
          
         var config = {
                 headers : {
@@ -11,12 +11,10 @@ app.controller('postcontroller', function($scope, $http, $location) {
         var data = {
         	minimunAge: $scope.MinimunAge,
         	teacherID: $scope.TeacherID,
-        	courseId: $scope.CourseId,
         	categoryId: $scope.CategoryId,
         	courseName: $scope.CourseName
       
         };
-         
          
         $http.post(url, data, config).then(function (response) {
             $scope.postResultMessage = "Sucessful!";
@@ -27,7 +25,6 @@ app.controller('postcontroller', function($scope, $http, $location) {
         $scope.CourseName="";
     	$scope.CategoryId="";
     	$scope.TeacherID="";
-    	$scope.CourseId="";
     	$scope.MinimunAge="";
     }
 });
