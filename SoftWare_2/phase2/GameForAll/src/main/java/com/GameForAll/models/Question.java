@@ -1,48 +1,101 @@
 package com.GameForAll.models;
 
-import java.util.ArrayList;
+import java.io.Serializable;
+import java.util.Set;
 
-public class Question {
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+
+@Entity
+@Table(name = "question")
+public class Question implements Serializable{
 	
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 9056633464889019979L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long Id;
+	
+	@Column(name = "Question")
 	private String Question;
-	private int coorrectIndex;
+	
+	@ManyToOne
+	@JoinColumn(name = "GameId")
+	private Game game;
+	
+	@Column(name = "Level")
 	private int Level;
-	private int GameId;
-	private ArrayList<String>Answers;
-	
-	
-	
-	public int getLevel() {
-		return Level;
+		
+	@OneToMany(mappedBy = "question" , cascade = CascadeType.ALL)
+	private Set<Answer> answers;
+
+	public Question() {
+		super();
 	}
-	public void setLevel(int level) {
+
+	public Question(String question, Game game, int level, Set<Answer> answers) {
+		super();
+		Question = question;
+		this.game = game;
 		Level = level;
+		this.answers = answers;
 	}
-	public int getGameId() {
-		return GameId;
+
+	public long getQuestionId() {
+		return Id;
 	}
-	public void setGameId(int gameId) {
-		GameId = gameId;
+
+	public void setQuestionId(long questionId) {
+		Id = questionId;
 	}
-	public ArrayList<String> getAnswers() {
-		return Answers;
-	}
-	public void setAnswers(ArrayList<String> answers) {
-		Answers = answers;
-	}
+
 	public String getQuestion() {
 		return Question;
 	}
+
 	public void setQuestion(String question) {
 		Question = question;
 	}
-	public int getCoorrectIndex() {
-		return coorrectIndex;
+
+	public Game getGame() {
+		return game;
 	}
-	public void setCoorrectIndex(int coorrectIndex) {
-		this.coorrectIndex = coorrectIndex;
+
+	public void setGame(Game game) {
+		this.game = game;
+	}
+
+	public int getLevel() {
+		return Level;
+	}
+
+	public void setLevel(int level) {
+		Level = level;
+	}
+
+	public Set<Answer> getAnswers() {
+		return answers;
+	}
+
+	public void setAnswers(Set<Answer> answers) {
+		this.answers = answers;
 	}
 	
+	
+
 	
 	
 

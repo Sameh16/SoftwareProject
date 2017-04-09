@@ -30,11 +30,41 @@ public class Category  {
 		
 	}
 
-	public Category(int categoryId,String categoryName)
+	public Category(String categoryName)
 	{
-		CategoryId=categoryId;
 		CategoryName = categoryName;
 	}
+
+	public long getCategoryId() {
+		return CategoryId;
+	}
+
+	public void setCategoryId(long categoryId) {
+		CategoryId = categoryId;
+	}
+
+	public String getCategoryName() {
+		return CategoryName;
+	}
+
+	public void setCategoryName(String categoryName) {
+		CategoryName = categoryName;
+	}
+
+	public Set<Course> getCourses() {
+		return courses;
+	}
+
+	public void setCourses(Set<Course> courses) {
+		this.courses = courses;
+	}
+
+	@Override
+	public String toString() {
+		return "Category [CategoryId=" + CategoryId + ", CategoryName=" + CategoryName + ", courses=" + courses + "]";
+	}
+	
+	
 	
 	
 

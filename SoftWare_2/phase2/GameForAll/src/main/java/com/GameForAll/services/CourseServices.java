@@ -6,7 +6,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.GameForAll.Repository.CategoryRepository;
 import com.GameForAll.Repository.CourseRepository;
+import com.GameForAll.models.Category;
 import com.GameForAll.models.Course;
 
 
@@ -14,11 +16,14 @@ import com.GameForAll.models.Course;
 public class CourseServices {
 	@Autowired
 	private CourseRepository courseRepository;
+	private CategoryRepository categoryRepository;
 	
-	public List<Course> GetAllCourses(int CategoryName)
+	
+	public List<Course> GetAllCourses(long CategoryId)
 	{
 		ArrayList<Course> arr=new ArrayList<>();
-		courseRepository.findByCategory(CategoryName).forEach(arr::add);
+		Category cat =  categoryRepository.findOne(CategoryId);
+		courseRepository.findByCategory(cat).forEach(arr::add);
 		return arr;
 		
 	}

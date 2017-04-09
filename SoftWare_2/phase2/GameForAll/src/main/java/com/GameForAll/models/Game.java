@@ -1,52 +1,65 @@
 package com.GameForAll.models;
 
-public class Game {
+import java.io.Serializable;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "game")
+public class Game implements Serializable{
 
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 353170622331771686L;
+
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long GameId;
+	
+	
+	@Column(name = "GameName")
 	private String GameName;
-	private String GameDescription;
-	private int GameId;
-	private int TypeId;
-	private int CourseId;
+	
+	@Column(name = "NumberOfLevel")
 	private  int NumOfLevel;
 	
+	@Column(name = "Description")
+	private String Description;
 	
-	public int getTypeId() {
-		return TypeId;
-	}
-	public void setTypeId(int typeId) {
-		TypeId = typeId;
-	}
-	public int getCourseId() {
-		return CourseId;
-	}
-	public void setCourseId(int courseId) {
-		CourseId = courseId;
-	}
-	public String getGameName() {
-		return GameName;
-	}
-	public void setGameName(String gameName) {
-		GameName = gameName;
-	}
-	public int getGameId() {
-		return GameId;
-	}
-	public void setGameId(int gameId) {
-		GameId = gameId;
-	}
-	public String getGameDescription() {
-		return GameDescription;
-	}
-	public void setGameDescription(String gameDescription) {
-		GameDescription = gameDescription;
-	}
-	public int getNumOfLevel() {
-		return NumOfLevel;
-	}
-	public void setNumOfLevel(int numOfLevel) {
-		NumOfLevel = numOfLevel;
-	} 
+	
+	@ManyToOne
+	@JoinColumn(name = "TypeId")
+	private Type type;
+	
+	@ManyToOne
+	@JoinColumn(name = "CourseId")
+	private Course course;
+	
+	
+	@OneToMany(mappedBy = "game" , cascade = CascadeType.ALL)
+	private Set<Question> questions;
+	
+	/*@ManyToMany(mappedBy = "game")
+    private Set<Teacher> teachers;*/
+
+	
+	
+	
+
 	
 	
 	

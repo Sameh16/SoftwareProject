@@ -1,13 +1,18 @@
 package com.GameForAll.models;
 
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -33,24 +38,27 @@ public class Course{
 	@JoinColumn(name = "TeacherId")
 	private Teacher teacher;
 	
-
 	
-	public Course(String courseName, int minimunAge, int categoryId, int teacherId) 
+	@OneToMany(mappedBy = "course" , cascade = CascadeType.ALL)
+	private Set<Game> games;
+	
+
+	/*@ManyToMany(mappedBy = "course")
+    private Set<Student> students;
+	*/
+	public Course(String courseName, int minimunAge, Teacher teacher, Category category) 
 	{
 		CourseName = courseName;
 		MinimunAge = minimunAge;
-	    category = new Category(categoryId,"");
-	    teacher= new Teacher(teacherId,"","", 0,"", "","");
+	    this.category =  category;
+	    this.teacher=teacher;
 	}
 
 
 
 	public Course() 
 	{
-		CourseName="";
-		MinimunAge=0;
-		category=new Category(0,"");
-		teacher=new Teacher(0,"","",0,"","","");
+	
 	}
 
 
