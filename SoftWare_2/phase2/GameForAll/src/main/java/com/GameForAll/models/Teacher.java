@@ -47,12 +47,20 @@ public class Teacher implements Serializable,User {
 	@OneToMany(mappedBy = "teacher" , cascade = CascadeType.ALL)
 	private Set<Course> courses;
 
-	public Teacher() {
-
+	public Teacher()
+	{
+		Id=0;
+		Name = "";
+		Password = "";
+		Age = 0;
+		Gender = "";
+		Username ="";
+		AcadmicMail = "";
 	}
 
 
-	public Teacher(String name, String password, int age, String gender, String username, String acadmicMail) {
+	public Teacher(int id,String name, String password, int age, String gender, String username, String acadmicMail) {
+		Id=id;
 		Name = name;
 		Password = password;
 		Age = age;

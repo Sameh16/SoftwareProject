@@ -1,8 +1,6 @@
 package com.GameForAll.models;
 
-import java.io.Serializable;
 import java.util.Set;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,16 +12,12 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "category")
-public class Category implements Serializable   {
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -19960765479030471L;
+public class Category  {
+
 
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-	private int CategoryId;
+	private long CategoryId;
 	
 	
 	@Column(name = "CategoryName")
@@ -36,9 +30,9 @@ public class Category implements Serializable   {
 		
 	}
 
-
-	public Category(String categoryName) {
-		
+	public Category(int categoryId,String categoryName)
+	{
+		CategoryId=categoryId;
 		CategoryName = categoryName;
 	}
 	

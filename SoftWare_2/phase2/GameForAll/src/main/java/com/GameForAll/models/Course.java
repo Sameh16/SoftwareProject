@@ -1,6 +1,6 @@
 package com.GameForAll.models;
 
-import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,15 +12,11 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "course")
-public class Course implements Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 6720185840479776582L;
+public class Course{
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-	private int Id;
+	private long Id;
 	
 	@Column(name = "Name")
 	private String CourseName;
@@ -39,19 +35,24 @@ public class Course implements Serializable {
 	
 
 	
-	public Course(String courseName, int minimunAge, Category category, Teacher teacher) {
-
+	public Course(String courseName, int minimunAge, int categoryId, int teacherId) 
+	{
 		CourseName = courseName;
 		MinimunAge = minimunAge;
-		this.category = category;
-		this.teacher = teacher;
+	    category = new Category(categoryId,"");
+	    teacher= new Teacher(teacherId,"","", 0,"", "","");
 	}
 
 
-	public Course()
+
+	public Course() 
 	{
-		
+		CourseName="";
+		MinimunAge=0;
+		category=new Category(0,"");
+		teacher=new Teacher(0,"","",0,"","","");
 	}
+
 
 
 	public String getCourseName() {
@@ -94,12 +95,12 @@ public class Course implements Serializable {
 	}
 
 
-	public int getId() {
+	public long getId() {
 		return Id;
 	}
 
 
-	public void setId(int id) {
+	public void setId(long id) {
 		Id = id;
 	}
 
