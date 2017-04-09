@@ -50,10 +50,10 @@ public class Teacher implements Serializable {
 	@OneToMany(mappedBy = "teacher" , cascade = CascadeType.ALL)
 	private Set<Course> courses;
 	
-	/*@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "teachergame", joinColumns = @JoinColumn(name = "TeacherId", referencedColumnName = "id"), 
     inverseJoinColumns = @JoinColumn(name = "GameId", referencedColumnName = "GameId"))
-    private Set<Game> games;*/
+    private Set<Game> games;
 
 	public Teacher()
 	{

@@ -53,8 +53,11 @@ public class Game implements Serializable{
 	@OneToMany(mappedBy = "game" , cascade = CascadeType.ALL)
 	private Set<Question> questions;
 	
-	/*@ManyToMany(mappedBy = "game")
-    private Set<Teacher> teachers;*/
+	@ManyToMany(mappedBy = "games")
+    private Set<Teacher> teachers;
+	
+	@ManyToMany(mappedBy = "games")
+    private Set<Student> students;
 
 	
 	

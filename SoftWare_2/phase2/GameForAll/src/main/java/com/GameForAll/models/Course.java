@@ -43,9 +43,9 @@ public class Course{
 	private Set<Game> games;
 	
 
-	/*@ManyToMany(mappedBy = "course")
+	@ManyToMany(mappedBy = "courses")
     private Set<Student> students;
-	*/
+	
 	public Course(String courseName, int minimunAge, Teacher teacher, Category category) 
 	{
 		CourseName = courseName;

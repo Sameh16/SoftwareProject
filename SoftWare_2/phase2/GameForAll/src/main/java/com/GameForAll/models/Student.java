@@ -44,10 +44,16 @@ public class Student implements Serializable {
 	@Column(name = "Username")
 	private String Username;
 	
-	/*@ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "studentcourse", joinColumns = @JoinColumn(name = "StudentId", referencedColumnName = "StudentId"), 
-    inverseJoinColumns = @JoinColumn(name = "CourseId", referencedColumnName = "CourseId"))
-    private Set<Course> courses;*/
+	@ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "studentcourse", joinColumns = @JoinColumn(name = "StudentId", referencedColumnName = "Id"), 
+    inverseJoinColumns = @JoinColumn(name = "CourseId", referencedColumnName = "Id"))
+    private Set<Course> courses;
+	
+	@ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "studentgame", joinColumns = @JoinColumn(name = "StudentId", referencedColumnName = "Id"), 
+    inverseJoinColumns = @JoinColumn(name = "GameId", referencedColumnName = "GameId"))
+    private Set<Game> games;
+	
 
 	public Student() {
 
