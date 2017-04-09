@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+ 
+<html>
+<head>
+      <title>Spring Boot - Angularjs Example</title>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.6.0/angular.min.js"></script>
+      <script src="/js/controller.js"></script>
+      <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" />
+       
+</head>
+<body>
+ 
+<div class="container" ng-app="app">
+ 
+     
+     
+    <div ng-controller="postcontroller">
+        <form name="customerForm" ng-submit="submitForm()">
+            <label>Course</label>
+            <input type="text" name="CourseName" class="form-control" ng-model="CourseName"/>
+            <input type="number" name="CategoryId" class="form-control" ng-model="CategoryId"/>
+            <input type="number" name="TeacherID" class="form-control" ng-model="TeacherID"/>
+            <input type="number" name="MinimunAge" class="form-control" ng-model="MinimunAge"/>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        <p>{{postResultMessage}}</p>
+    </div>
+     
+    <div ng-controller="getcontroller">
+        <button id="btn-id" ng-click="getfunction()">Get All Courses</button>
+         
+        <ul>
+            <li ng-repeat="courses in response">{{courses.courseName + " " + courses.categoryId}}</li>
+        </ul>
+         
+    </div>
+     
+</div>
+</body>
+</html>
