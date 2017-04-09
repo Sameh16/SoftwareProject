@@ -1,10 +1,11 @@
 package com.GameForAll.RestCotrollers;
 
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class GameController {
+public class GameRestController {
 
 	@RequestMapping("/palygame")
 	void PlayGame()
@@ -12,7 +13,7 @@ public class GameController {
 		
 	}
 	
-	@RequestMapping("/creategame")
+	@RequestMapping("/create-game")
 	void CreateGame()
 	{
 		

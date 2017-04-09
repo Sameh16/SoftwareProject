@@ -2,7 +2,7 @@ var app = angular.module('app', []);
 app.controller('postcontroller', function($scope, $http, $location) {
     $scope.submitForm = function(){
         var url = $location.absUrl() + "addcourse/"+$scope.TeacherID+"/"+$scope.CategoryId;
-         
+        
         var config = {
                 headers : {
                     'Content-Type': 'application/json;charset=utf-8;'
