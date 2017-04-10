@@ -10,7 +10,7 @@ public class GameController {
 	@RequestMapping(value="/game",method=RequestMethod.GET)
 	public String GamePage()
 	{
-		//hi
+		//hihi
 		return "GameIndex";
 	}
 
