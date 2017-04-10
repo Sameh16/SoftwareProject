@@ -35,7 +35,7 @@ public class CourseRestController {
 		List<Course> categories = new ArrayList<>();
 		if (category != null) {
 			categories = courseRepository.findByCategory(category);
-		}
+		}/*/**/
 		return categories;
 	}
 
