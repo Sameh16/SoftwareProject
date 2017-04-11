@@ -9,6 +9,7 @@ app.controller('GameController', function($scope, $http, $location) {
                     'Content-Type': 'application/json;charset=utf-8;'
                 }
         }
+        
         $http.get(url, config).then(function (response) {
             $scope.response = response.data
             
@@ -18,13 +19,13 @@ app.controller('GameController', function($scope, $http, $location) {
     }
 	
 	$scope.getcourse = function(){
-        var url = $location.absUrl()+"/get-course/"+$scope.Category;
+        var url = $location.absUrl()+"/get-courses/"+$scope.Category;
+        
         var config = {
                 headers : {
                     'Content-Type': 'application/json;charset=utf-8;'
                 }
         }
-        document.write(url);
         $http.get(url, config).then(function (response) {
             $scope.response = response.data
         }, function (response) {
@@ -40,7 +41,7 @@ app.controller('GameController', function($scope, $http, $location) {
 	                    'Content-Type': 'application/json;charset=utf-8;'
 	                }
 	        }
-	        document.write(5+6);
+	        
 	        $http.get(url, config).then(function (response) {
 	            $scope.response = response.data
 	        }, function (response) {
@@ -63,7 +64,7 @@ app.controller('GameController', function($scope, $http, $location) {
         	
       
         };
-        document.write($scope.Course);
+        
         $http.post(url, data, config).then(function (response) {
             $scope.postResultMessage = "Sucessful!";
         }, function (response) {

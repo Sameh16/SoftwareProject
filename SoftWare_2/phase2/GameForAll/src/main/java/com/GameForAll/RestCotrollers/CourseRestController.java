@@ -58,7 +58,7 @@ public class CourseRestController {
 		}
 	}
 	
-	@RequestMapping(value = "/game/get-courses/{categoryName}", method = RequestMethod.GET)
+	@RequestMapping(value = "/game/get-courses/{CategoryName}", method = RequestMethod.GET)
 	public List<Course> GetCourses(@PathVariable String CategoryName) {
 		Category category = categoryRepository.findByCategoryName(CategoryName);
 		List<Course> courses = new ArrayList<>();

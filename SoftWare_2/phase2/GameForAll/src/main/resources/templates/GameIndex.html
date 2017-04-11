@@ -19,12 +19,12 @@
             <p>Game Name: <input type="text" name="GameName" class="form-control" ng-model="GameName"/> </p>
    			  
          <p>Category :  
-        <select   ng-click="getcategory()"  class="form-control" ng-model="Category">
+        <select   ng-click="getcategory()"   ng-model="Category">
             <option ng-repeat="categories in response">{{categories.categoryName}}</option>
         </select></p> 
         
          <p>Course :  
-        <select   ng-click="getcourse()"  class="form-control" ng-model="Course">
+        <select   ng-click="getcourse()"   ng-model="Course">
             <option ng-repeat="courses in response">{{courses.courseName}}</option>
         </select></p> 
     

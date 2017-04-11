@@ -23,7 +23,7 @@ public class Category  {
 	
 	
 	@Column(name = "CategoryName")
-	private String CategoryName;
+	private String categoryName;
 
 	@OneToMany(mappedBy = "category" ,cascade = CascadeType.ALL )
 	private  Set<Course> courses;
@@ -34,7 +34,7 @@ public class Category  {
 
 	public Category(String categoryName)
 	{
-		CategoryName = categoryName;
+		this.categoryName = categoryName;
 	}
 
 	public long getCategoryId() {
@@ -47,12 +47,12 @@ public class Category  {
 
 	@JsonIgnore
 	public String getCategoryName() {
-		return CategoryName;
+		return categoryName;
 	}
 	
 	@JsonIgnore
 	public void setCategoryName(String categoryName) {
-		CategoryName = categoryName;
+		this.categoryName = categoryName;
 	}
 	
 	@JsonIgnore
@@ -67,7 +67,7 @@ public class Category  {
 
 	@Override
 	public String toString() {
-		return "Category [CategoryId=" + CategoryId + ", CategoryName=" + CategoryName + ", courses=" + courses + "]";
+		return "Category [CategoryId=" + CategoryId + ", CategoryName=" + categoryName + ", courses=" + courses + "]";
 	}
 
 	
