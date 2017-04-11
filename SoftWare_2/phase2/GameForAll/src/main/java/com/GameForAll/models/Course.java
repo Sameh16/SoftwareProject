@@ -15,6 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "course")
 public class Course{
@@ -82,7 +84,7 @@ public class Course{
 		MinimunAge = minimunAge;
 	}
 
-
+	@JsonIgnore
 	public Category getCategory() {
 		return category;
 	}
@@ -92,7 +94,7 @@ public class Course{
 		this.category = category;
 	}
 
-
+	@JsonIgnore
 	public Teacher getTeacher() {
 		return teacher;
 	}

@@ -15,6 +15,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import net.minidev.json.annotate.JsonIgnore;
+
 @Entity
 @Table(name = "teacher")
 public class Teacher implements Serializable {
@@ -140,7 +142,7 @@ public class Teacher implements Serializable {
 		AcadmicMail = acadmicMail;
 	}
 
-
+	@JsonIgnore
 	public Set<Course> getCourses() {
 		return courses;
 	}

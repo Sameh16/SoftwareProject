@@ -1,7 +1,8 @@
-var app = angular.module('app', []);
-app.controller('postcontroller', function($scope, $http, $location) {
+var app = angular.module('Course', []);
+
+app.controller('CourseController', function($scope, $http, $location) {
     $scope.submitForm = function(){
-        var url = $location.absUrl() + "addcourse/"+$scope.TeacherID+"/"+$scope.CategoryId;
+        var url = $location.absUrl() +"/addcourse/"+$scope.CategoryId+"/"+$scope.TeacherID;
         
         var config = {
                 headers : {
@@ -15,7 +16,6 @@ app.controller('postcontroller', function($scope, $http, $location) {
         	courseName: $scope.CourseName
       
         };
-         
         $http.post(url, data, config).then(function (response) {
             $scope.postResultMessage = "Sucessful!";
         }, function (response) {
@@ -29,20 +29,3 @@ app.controller('postcontroller', function($scope, $http, $location) {
     }
 });
  
-app.controller('getcontroller', function($scope, $http, $location) {
-    $scope.getfunction = function(){
-        var url = $location.absUrl() + "1";
-         
-        var config = {
-                headers : {
-                    'Content-Type': 'application/json;charset=utf-8;'
-                }
-        }
-         
-        $http.get(url, config).then(function (response) {
-            $scope.response = response.data
-        }, function (response) {
-            $scope.getResultMessage = "Fail!";
-        });
-    }
-});

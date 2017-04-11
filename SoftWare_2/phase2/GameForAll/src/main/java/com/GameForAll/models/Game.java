@@ -30,7 +30,6 @@ public class Game implements Serializable{
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long GameId;
 	
-	
 	@Column(name = "GameName")
 	private String GameName;
 	

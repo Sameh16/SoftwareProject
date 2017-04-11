@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import net.minidev.json.annotate.JsonIgnore;
+
 @Entity
 @Table(name = "category")
 public class Category  {
@@ -38,23 +40,27 @@ public class Category  {
 	public long getCategoryId() {
 		return CategoryId;
 	}
-
+	
 	public void setCategoryId(long categoryId) {
 		CategoryId = categoryId;
 	}
 
+	@JsonIgnore
 	public String getCategoryName() {
 		return CategoryName;
 	}
-
+	
+	@JsonIgnore
 	public void setCategoryName(String categoryName) {
 		CategoryName = categoryName;
 	}
-
+	
+	@JsonIgnore
 	public Set<Course> getCourses() {
 		return courses;
 	}
-
+	
+	@JsonIgnore
 	public void setCourses(Set<Course> courses) {
 		this.courses = courses;
 	}
@@ -63,9 +69,11 @@ public class Category  {
 	public String toString() {
 		return "Category [CategoryId=" + CategoryId + ", CategoryName=" + CategoryName + ", courses=" + courses + "]";
 	}
+
 	
 	
 	
+
 	
 
 	

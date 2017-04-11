@@ -17,6 +17,7 @@ import com.GameForAll.models.Category;
 import com.GameForAll.models.Course;
 import com.GameForAll.models.Teacher;
 
+
 @RestController
 public class CourseRestController {
 
@@ -56,5 +57,16 @@ public class CourseRestController {
 			return false;
 		}
 	}
+	
+	@RequestMapping(value = "/game/get-courses/{categoryName}", method = RequestMethod.GET)
+	public List<Course> GetCourses(@PathVariable String CategoryName) {
+		Category category = categoryRepository.findByCategoryName(CategoryName);
+		List<Course> courses = new ArrayList<>();
+		if (category != null) {
+			courses = courseRepository.findByCategory(category);
+		}
+		return courses;
+	}	
+
 
 }
