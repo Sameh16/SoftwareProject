@@ -14,6 +14,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "teacher")
 public class Teacher {
@@ -133,14 +135,30 @@ public class Teacher {
 		AcadmicMail = acadmicMail;
 	}
 
-
+	@JsonIgnore
 	public Set<Course> getCourses() {
 		return courses;
 	}
 
-
+	
 	public void setCourses(Set<Course> courses) {
 		this.courses = courses;
+	}
+
+	
+	@JsonIgnore
+	public Set<Game> getGames() {
+		return games;
+	}
+
+
+	public void setGames(Set<Game> games) {
+		this.games = games;
+	}
+
+
+	public void setId(long id) {
+		Id = id;
 	}
 
 

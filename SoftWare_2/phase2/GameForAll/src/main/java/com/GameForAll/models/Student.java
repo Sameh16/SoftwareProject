@@ -140,6 +140,8 @@ public class Student{
 	public void setGames(Set<Game> games) {
 		this.games = games;
 	}
+	
+	
 
 	
 	
