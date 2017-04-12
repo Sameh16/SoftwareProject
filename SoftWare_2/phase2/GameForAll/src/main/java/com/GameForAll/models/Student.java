@@ -1,6 +1,5 @@
 package com.GameForAll.models;
 
-import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -18,16 +17,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "student")
-public class Student implements Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -5890878254374709122L;
+public class Student{
+
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long Id;
-
+	
 	@Column(name = "Name")
 	private String Name;
 
@@ -46,13 +42,17 @@ public class Student implements Serializable {
 	@Column(name = "Username",  unique = true)
 	private String Username;
 
+	
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "studentcourse", joinColumns = @JoinColumn(name = "StudentId", referencedColumnName = "Id"), inverseJoinColumns = @JoinColumn(name = "CourseId", referencedColumnName = "Id"))
 	private Set<Course> courses;
 
 	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "studentgame", joinColumns = @JoinColumn(name = "StudentId", referencedColumnName = "Id"), inverseJoinColumns = @JoinColumn(name = "GameId", referencedColumnName = "GameId"))
-	private Set<Game> games;
+	@JoinTable(name = "studentgame", joinColumns = @JoinColumn(name = "StudentId", referencedColumnName = "Id"), 
+    inverseJoinColumns = @JoinColumn(name = "GameId", referencedColumnName = "GameId"))
+    private Set<Game> games;
+
+
 
 	public Student() {
 
@@ -140,5 +140,8 @@ public class Student implements Serializable {
 	public void setGames(Set<Game> games) {
 		this.games = games;
 	}
+
+	
+	
 
 }
