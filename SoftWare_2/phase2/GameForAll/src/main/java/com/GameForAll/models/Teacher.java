@@ -1,6 +1,5 @@
 package com.GameForAll.models;
 
-import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -15,18 +14,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import net.minidev.json.annotate.JsonIgnore;
-
 @Entity
 @Table(name = "teacher")
-public class Teacher implements Serializable {
-
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -663508675179779791L;
-	
+public class Teacher {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long Id;
@@ -43,8 +33,8 @@ public class Teacher implements Serializable {
 	@Column(name = "Gender")
 	private String Gender;
 	
-	@Column(name = "Username")
-	private String Username;
+	@Column(name = "UserName")
+	private String UserName;
 	
 	@Column(name = "Email")
 	private String AcadmicMail;
@@ -68,7 +58,7 @@ public class Teacher implements Serializable {
 		Password = password;
 		Age = age;
 		Gender = gender;
-		Username = username;
+		UserName = username;
 		AcadmicMail = acadmicMail;
 	}
 
@@ -124,12 +114,12 @@ public class Teacher implements Serializable {
 
 
 	public String getUsername() {
-		return Username;
+		return UserName;
 	}
 
 
 	public void setUsername(String username) {
-		Username = username;
+		UserName = username;
 	}
 
 
@@ -142,7 +132,7 @@ public class Teacher implements Serializable {
 		AcadmicMail = acadmicMail;
 	}
 
-	@JsonIgnore
+
 	public Set<Course> getCourses() {
 		return courses;
 	}
@@ -156,7 +146,7 @@ public class Teacher implements Serializable {
 	@Override
 	public String toString() {
 		return "Teacher [Id=" + Id + ", Name=" + Name + ", Password=" + Password + ", Age=" + Age + ", Gender=" + Gender
-				+ ", Username=" + Username + ", AcadmicMail=" + AcadmicMail + ", courses=" + courses + "]";
+				+ ", Username=" + UserName + ", AcadmicMail=" + AcadmicMail + ", courses=" + courses + "]";
 	}
 	
 	

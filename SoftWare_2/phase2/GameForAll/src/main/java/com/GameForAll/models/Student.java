@@ -1,6 +1,5 @@
 package com.GameForAll.models;
 
-import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -16,16 +15,13 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "student")
-public class Student implements Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -5890878254374709122L;
+public class Student{
+
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long Id;
-
+	
 	@Column(name = "Name")
 	private String Name;
 
@@ -41,8 +37,8 @@ public class Student implements Serializable {
 	@Column(name = "Gender")
 	private String Gender;
 
-	@Column(name = "Username")
-	private String Username;
+	@Column(name = "UserName")
+	private String UserName;
 	
 	@ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "studentcourse", joinColumns = @JoinColumn(name = "StudentId", referencedColumnName = "Id"), 
@@ -53,7 +49,79 @@ public class Student implements Serializable {
     @JoinTable(name = "studentgame", joinColumns = @JoinColumn(name = "StudentId", referencedColumnName = "Id"), 
     inverseJoinColumns = @JoinColumn(name = "GameId", referencedColumnName = "GameId"))
     private Set<Game> games;
-	
+
+	public long getId() {
+		return Id;
+	}
+
+	public void setId(long id) {
+		Id = id;
+	}
+
+	public String getName() {
+		return Name;
+	}
+
+	public void setName(String name) {
+		Name = name;
+	}
+
+	public String getEmail() {
+		return Email;
+	}
+
+	public void setEmail(String email) {
+		Email = email;
+	}
+
+	public String getPassword() {
+		return Password;
+	}
+
+	public void setPassword(String password) {
+		Password = password;
+	}
+
+	public int getAge() {
+		return Age;
+	}
+
+	public void setAge(int age) {
+		Age = age;
+	}
+
+	public String getGender() {
+		return Gender;
+	}
+
+	public void setGender(String gender) {
+		Gender = gender;
+	}
+
+	public String getUsername() {
+		return UserName;
+	}
+
+	public void setUsername(String username) {
+		UserName = username;
+	}
+
+	public Set<Course> getCourses() {
+		return courses;
+	}
+
+	public void setCourses(Set<Course> courses) {
+		this.courses = courses;
+	}
+
+	public Set<Game> getGames() {
+		return games;
+	}
+
+	public void setGames(Set<Game> games) {
+		this.games = games;
+	}
+
 
 	public Student() {
 
@@ -65,7 +133,7 @@ public class Student implements Serializable {
 		Password = password;
 		Age = age;
 		Gender = gender;
-		Username = userName;
+		UserName = userName;
 	}
 
 }
