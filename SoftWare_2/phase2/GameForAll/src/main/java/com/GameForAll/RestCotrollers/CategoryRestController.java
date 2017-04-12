@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.GameForAll.Repository.CategoryRepository;
 
 import com.GameForAll.models.Category;
-import com.GameForAll.models.Course;
 
 
 

@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "type")
 public class Type implements Serializable {
@@ -25,7 +27,7 @@ public class Type implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long TypeId;
 
-	@Column(name = "TypeName")
+	@Column(name = "TypeName",  unique = true)
 	private String TypeName;
 
 	
@@ -57,7 +59,7 @@ public class Type implements Serializable {
 	public void setTypeName(String typeName) {
 		TypeName = typeName;
 	}
-
+	@JsonIgnore
 	public Set<Game> getGames() {
 		return games;
 	}

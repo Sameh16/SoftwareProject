@@ -10,5 +10,6 @@ import com.GameForAll.models.Course;
 public interface CourseRepository extends CrudRepository<Course, Long> {
 
 	public List<Course> findByCategory(Category Category);
+	public Course findByCourseName(String courseName);
 	
 }

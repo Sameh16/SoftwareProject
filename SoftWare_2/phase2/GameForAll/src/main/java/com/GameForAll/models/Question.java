@@ -14,12 +14,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "question")
-public class Question implements Serializable{
-	
-	
+public class Question implements Serializable {
+
 	/**
 	 * 
 	 */
@@ -28,18 +28,18 @@ public class Question implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long Id;
-	
+
 	@Column(name = "Question")
 	private String Question;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "GameId")
 	private Game game;
-	
+
 	@Column(name = "Level")
 	private int Level;
-		
-	@OneToMany(mappedBy = "question" , cascade = CascadeType.ALL)
+
+	@OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
 	private Set<Answer> answers;
 
 	public Question() {
@@ -74,6 +74,7 @@ public class Question implements Serializable{
 		return game;
 	}
 
+	@JsonIgnore
 	public void setGame(Game game) {
 		this.game = game;
 	}
@@ -86,6 +87,7 @@ public class Question implements Serializable{
 		Level = level;
 	}
 
+	@JsonIgnore
 	public Set<Answer> getAnswers() {
 		return answers;
 	}
@@ -93,10 +95,5 @@ public class Question implements Serializable{
 	public void setAnswers(Set<Answer> answers) {
 		this.answers = answers;
 	}
-	
-	
-
-	
-	
 
 }

@@ -15,6 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "game")
 public class Game implements Serializable{
@@ -30,7 +32,7 @@ public class Game implements Serializable{
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long GameId;
 	
-	@Column(name = "GameName")
+	@Column(name = "GameName",  unique = true)
 	private String GameName;
 	
 	@Column(name = "NumberOfLevel")
@@ -57,6 +59,78 @@ public class Game implements Serializable{
 	
 	@ManyToMany(mappedBy = "games")
     private Set<Student> students;
+
+	public long getGameId() {
+		return GameId;
+	}
+
+	public void setGameId(long gameId) {
+		GameId = gameId;
+	}
+
+	public String getGameName() {
+		return GameName;
+	}
+
+	public void setGameName(String gameName) {
+		GameName = gameName;
+	}
+
+	public int getNumOfLevel() {
+		return NumOfLevel;
+	}
+
+	public void setNumOfLevel(int numOfLevel) {
+		NumOfLevel = numOfLevel;
+	}
+
+	public String getDescription() {
+		return Description;
+	}
+
+	public void setDescription(String description) {
+		Description = description;
+	}
+	@JsonIgnore
+	public Type getType() {
+		return type;
+	}
+
+	public void setType(Type type) {
+		this.type = type;
+	}
+	@JsonIgnore
+	public Course getCourse() {
+		return course;
+	}
+
+	public void setCourse(Course course) {
+		this.course = course;
+	}
+	@JsonIgnore
+	public Set<Question> getQuestions() {
+		return questions;
+	}
+
+	public void setQuestions(Set<Question> questions) {
+		this.questions = questions;
+	}
+	@JsonIgnore
+	public Set<Teacher> getTeachers() {
+		return teachers;
+	}
+
+	public void setTeachers(Set<Teacher> teachers) {
+		this.teachers = teachers;
+	}
+	@JsonIgnore
+	public Set<Student> getStudents() {
+		return students;
+	}
+
+	public void setStudents(Set<Student> students) {
+		this.students = students;
+	}
 
 	
 	

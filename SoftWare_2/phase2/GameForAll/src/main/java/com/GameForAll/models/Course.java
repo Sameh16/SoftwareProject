@@ -25,7 +25,7 @@ public class Course{
     @GeneratedValue(strategy = GenerationType.AUTO)
 	private long Id;
 	
-	@Column(name = "Name")
+	@Column(name = "Name",  unique = true)
 	private String CourseName;
 	
 	@Column(name = "Age")
@@ -113,6 +113,31 @@ public class Course{
 	public void setId(long id) {
 		Id = id;
 	}
+
+
+	@JsonIgnore
+	public Set<Game> getGames() {
+		return games;
+	}
+
+
+
+	public void setGames(Set<Game> games) {
+		this.games = games;
+	}
+
+
+	@JsonIgnore
+	public Set<Student> getStudents() {
+		return students;
+	}
+
+
+
+	public void setStudents(Set<Student> students) {
+		this.students = students;
+	}
+
 
 
 	@Override

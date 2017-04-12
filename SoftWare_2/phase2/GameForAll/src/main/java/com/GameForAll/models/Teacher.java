@@ -43,10 +43,10 @@ public class Teacher implements Serializable {
 	@Column(name = "Gender")
 	private String Gender;
 	
-	@Column(name = "Username")
+	@Column(name = "Username",  unique = true)
 	private String Username;
 	
-	@Column(name = "Email")
+	@Column(name = "Email",  unique = true)
 	private String AcadmicMail;
 	
 	@OneToMany(mappedBy = "teacher" , cascade = CascadeType.ALL)
