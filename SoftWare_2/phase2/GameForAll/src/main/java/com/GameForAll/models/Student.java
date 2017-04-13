@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -28,10 +29,10 @@ public class Student{
 	private String Name;
 
 	@Column(name = "Email" ,  unique = true)
-	private String Email;
+	private String email;
 
 	@Column(name = "Password")
-	private String Password;
+	private String password;
 
 	@Column(name = "Age")
 	private int Age;
@@ -40,17 +41,15 @@ public class Student{
 	private String Gender;
 
 	@Column(name = "Username",  unique = true)
-	private String Username;
+	private String username;
 
 	
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "studentcourse", joinColumns = @JoinColumn(name = "StudentId", referencedColumnName = "Id"), inverseJoinColumns = @JoinColumn(name = "CourseId", referencedColumnName = "Id"))
 	private Set<Course> courses;
 
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "studentgame", joinColumns = @JoinColumn(name = "StudentId", referencedColumnName = "Id"), 
-    inverseJoinColumns = @JoinColumn(name = "GameId", referencedColumnName = "GameId"))
-    private Set<Game> games;
+	@OneToMany (mappedBy = "student" , cascade = CascadeType.ALL)
+	private Set<StudentGame> studentGames;
 
 
 
@@ -60,11 +59,11 @@ public class Student{
 
 	public Student(String name, String email, String password, int age, String gender, String userName) {
 		Name = name;
-		Email = email;
-		Password = password;
+		this.email = email;
+		this.password = password;
 		Age = age;
 		Gender = gender;
-		Username = userName;
+		username = userName;
 	}
 
 	public long getId() {
@@ -84,19 +83,19 @@ public class Student{
 	}
 
 	public String getEmail() {
-		return Email;
+		return email;
 	}
 
 	public void setEmail(String email) {
-		Email = email;
+		this.email = email;
 	}
 
 	public String getPassword() {
-		return Password;
+		return password;
 	}
 
 	public void setPassword(String password) {
-		Password = password;
+		this.password = password;
 	}
 
 	public int getAge() {
@@ -116,11 +115,11 @@ public class Student{
 	}
 
 	public String getUsername() {
-		return Username;
+		return username;
 	}
 
 	public void setUsername(String username) {
-		Username = username;
+		this.username = username;
 	}
 
 	@JsonIgnore
@@ -133,13 +132,16 @@ public class Student{
 	}
 
 	@JsonIgnore
-	public Set<Game> getGames() {
-		return games;
+	public Set<StudentGame> getStudentGames() {
+		return studentGames;
 	}
 
-	public void setGames(Set<Game> games) {
-		this.games = games;
+	public void setStudentGames(Set<StudentGame> studentGames) {
+		this.studentGames = studentGames;
 	}
+
+	
+	
 	
 	
 

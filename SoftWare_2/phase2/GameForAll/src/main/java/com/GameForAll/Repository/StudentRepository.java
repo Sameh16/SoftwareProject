@@ -6,7 +6,7 @@ import com.GameForAll.models.Student;
 
 public interface StudentRepository extends CrudRepository<Student, Long>{
 	
-	Student findByUsername(String username);
+	public Student findByUsername(String username);
 	public Student findByEmail(String studentEmail);
 	public Student findByPassword(String studentPassword);
 

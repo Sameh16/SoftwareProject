@@ -8,9 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -27,7 +24,7 @@ public class Teacher {
 	private String Name;
 	
 	@Column(name = "Password")
-	private String Password;
+	private String password;
 	
 	@Column(name = "Age")
 	private int Age;
@@ -36,19 +33,17 @@ public class Teacher {
 	private String Gender;
 	
 	@Column(name = "Username",  unique = true)
-	private String Username;
+	private String username;
 
-	
 	@Column(name = "Email",  unique = true)
-	private String AcadmicMail;
+	private String acadmicMail;
 	
 	@OneToMany(mappedBy = "teacher" , cascade = CascadeType.ALL)
 	private Set<Course> courses;
 	
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "teachergame", joinColumns = @JoinColumn(name = "TeacherId", referencedColumnName = "id"), 
-    inverseJoinColumns = @JoinColumn(name = "GameId", referencedColumnName = "GameId"))
-    private Set<Game> games;
+	@OneToMany(mappedBy = "teacher" , cascade = CascadeType.ALL)
+	private Set<Game> games;
+	
 
 	public Teacher()
 	{
@@ -58,11 +53,11 @@ public class Teacher {
 
 	public Teacher(String name, String password, int age, String gender, String username, String acadmicMail) {
 		Name = name;
-		Password = password;
+		this.password = password;
 		Age = age;
 		Gender = gender;
-		Username = username;
-		AcadmicMail = acadmicMail;
+		this.username = username;
+		this.acadmicMail = acadmicMail;
 	}
 
 
@@ -75,6 +70,7 @@ public class Teacher {
 		Id = id;
 	}
 
+	
 
 	public String getName() {
 		return Name;
@@ -87,12 +83,12 @@ public class Teacher {
 
 
 	public String getPassword() {
-		return Password;
+		return password;
 	}
 
 
 	public void setPassword(String password) {
-		Password = password;
+		this.password = password;
 	}
 
 
@@ -117,22 +113,22 @@ public class Teacher {
 
 
 	public String getUsername() {
-		return Username;
+		return username;
 	}
 
 
 	public void setUsername(String username) {
-		Username = username;
+		this.username = username;
 	}
 
 
 	public String getAcadmicMail() {
-		return AcadmicMail;
+		return acadmicMail;
 	}
 
 
 	public void setAcadmicMail(String acadmicMail) {
-		AcadmicMail = acadmicMail;
+		this.acadmicMail = acadmicMail;
 	}
 
 	@JsonIgnore
@@ -160,12 +156,14 @@ public class Teacher {
 	public void setId(long id) {
 		Id = id;
 	}
+	
+	
 
 
 	@Override
 	public String toString() {
-		return "Teacher [Id=" + Id + ", Name=" + Name + ", Password=" + Password + ", Age=" + Age + ", Gender=" + Gender
-				+ ", Username=" + Username + ", AcadmicMail=" + AcadmicMail + ", courses=" + courses + "]";
+		return "Teacher [Id=" + Id + ", Name=" + Name + ", Password=" + password + ", Age=" + Age + ", Gender=" + Gender
+				+ ", Username=" + username + ", AcadmicMail=" + acadmicMail + ", courses=" + courses + "]";
 	}
 	
 	
