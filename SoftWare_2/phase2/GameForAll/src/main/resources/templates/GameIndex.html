@@ -17,20 +17,23 @@
         <form name="GameForm" ng-submit="submitForm()">
             <label>Game</label> <br></br>
             <p>Game Name: <input type="text" name="GameName" class="form-control" ng-model="GameName"/> </p>
-   			  
-         <p>Category :  
-        <select   ng-click="getcategory()"   ng-model="Category">
+   			
+         <p>Category :
+         <button ng-click="getcategory()" ng-click="getcourse()"  class="btn btn-primary">Get Categories</button>    
+        <select class="form-control" ng-model="Category">
             <option ng-repeat="categories in response">{{categories.categoryName}}</option>
         </select></p> 
         
-         <p>Course :  
-        <select   ng-click="getcourse()"   ng-model="Course">
+         <p>Course : 
+         <button ng-click="getcourse()" class="btn btn-primary">Get Courses</button> 
+        <select   class="form-control" ng-model="Course">
             <option ng-repeat="courses in response">{{courses.courseName}}</option>
         </select></p> 
     
         
         <p>Type of game :
-        <select   ng-click="gettype()"  class="form-control" ng-model="Type">
+        <button ng-click="gettype()" class="btn btn-primary">Get Types</button>
+        <select     class="form-control" ng-model="Type">
             <option ng-repeat="types in response">{{types.typeName}}</option>
         </select></p> 
         
