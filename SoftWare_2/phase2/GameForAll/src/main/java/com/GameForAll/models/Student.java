@@ -63,7 +63,7 @@ public class Student{
 		this.password = password;
 		Age = age;
 		Gender = gender;
-		username = userName;
+		this.username = userName;
 	}
 
 	public long getId() {

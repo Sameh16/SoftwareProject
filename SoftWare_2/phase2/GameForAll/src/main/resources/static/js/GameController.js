@@ -19,7 +19,7 @@ app.controller('GameController', function($scope, $http, $location) {
     }
 	
 	$scope.getcourse = function(){
-        var url = $location.absUrl()+"/get-courses/"+$scope.Category;
+        var url = $location.absUrl()+"/get-courses/"+$scope.Category+"/1";
         
         var config = {
                 headers : {
