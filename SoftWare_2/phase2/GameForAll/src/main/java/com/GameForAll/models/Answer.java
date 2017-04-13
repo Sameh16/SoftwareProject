@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "answer")
 public class Answer implements Serializable{
@@ -53,7 +55,7 @@ public class Answer implements Serializable{
 	public void setAnswerId(long answerId) {
 		AnswerId = answerId;
 	}
-
+	@JsonIgnore
 	public Question getQuestion() {
 		return question;
 	}

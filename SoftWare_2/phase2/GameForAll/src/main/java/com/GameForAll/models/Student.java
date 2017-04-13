@@ -1,6 +1,5 @@
 package com.GameForAll.models;
 
-import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -14,22 +13,21 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "student")
-public class Student implements Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -5890878254374709122L;
+public class Student{
+
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long Id;
-
+	
 	@Column(name = "Name")
 	private String Name;
 
-	@Column(name = "Email")
+	@Column(name = "Email" ,  unique = true)
 	private String Email;
 
 	@Column(name = "Password")
@@ -41,19 +39,20 @@ public class Student implements Serializable {
 	@Column(name = "Gender")
 	private String Gender;
 
-	@Column(name = "Username")
+	@Column(name = "Username",  unique = true)
 	private String Username;
+
 	
 	@ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "studentcourse", joinColumns = @JoinColumn(name = "StudentId", referencedColumnName = "Id"), 
-    inverseJoinColumns = @JoinColumn(name = "CourseId", referencedColumnName = "Id"))
-    private Set<Course> courses;
-	
+	@JoinTable(name = "studentcourse", joinColumns = @JoinColumn(name = "StudentId", referencedColumnName = "Id"), inverseJoinColumns = @JoinColumn(name = "CourseId", referencedColumnName = "Id"))
+	private Set<Course> courses;
+
 	@ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "studentgame", joinColumns = @JoinColumn(name = "StudentId", referencedColumnName = "Id"), 
+	@JoinTable(name = "studentgame", joinColumns = @JoinColumn(name = "StudentId", referencedColumnName = "Id"), 
     inverseJoinColumns = @JoinColumn(name = "GameId", referencedColumnName = "GameId"))
     private Set<Game> games;
-	
+
+
 
 	public Student() {
 
@@ -67,5 +66,84 @@ public class Student implements Serializable {
 		Gender = gender;
 		Username = userName;
 	}
+
+	public long getId() {
+		return Id;
+	}
+
+	public void setId(long id) {
+		Id = id;
+	}
+
+	public String getName() {
+		return Name;
+	}
+
+	public void setName(String name) {
+		Name = name;
+	}
+
+	public String getEmail() {
+		return Email;
+	}
+
+	public void setEmail(String email) {
+		Email = email;
+	}
+
+	public String getPassword() {
+		return Password;
+	}
+
+	public void setPassword(String password) {
+		Password = password;
+	}
+
+	public int getAge() {
+		return Age;
+	}
+
+	public void setAge(int age) {
+		Age = age;
+	}
+
+	public String getGender() {
+		return Gender;
+	}
+
+	public void setGender(String gender) {
+		Gender = gender;
+	}
+
+	public String getUsername() {
+		return Username;
+	}
+
+	public void setUsername(String username) {
+		Username = username;
+	}
+
+	@JsonIgnore
+	public Set<Course> getCourses() {
+		return courses;
+	}
+
+	public void setCourses(Set<Course> courses) {
+		this.courses = courses;
+	}
+
+	@JsonIgnore
+	public Set<Game> getGames() {
+		return games;
+	}
+
+	public void setGames(Set<Game> games) {
+		this.games = games;
+	}
+	
+	
+
+	
+	
 
 }

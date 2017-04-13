@@ -6,4 +6,8 @@ import com.GameForAll.models.Teacher;
 
 public interface TeacherRepository extends CrudRepository<Teacher, Long> {
 
+	public Teacher findByAcadmicMail(String teacherEmail);
+	public Teacher findByUsername(String teacherUserName);
+	public Teacher findByPassword(String teacherPassword);
+
 }

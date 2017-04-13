@@ -30,20 +30,20 @@ public class CourseRestController {
 	@Autowired
 	private TeacherRepository teacherRepository;
 
-	@RequestMapping(value = "/course/show-courses/{CategoryId}", method = RequestMethod.GET)
-	public List<Course> ShowCourse(@PathVariable long CategoryId) {
-		Category category = categoryRepository.findOne(CategoryId);
-		List<Course> categories = new ArrayList<>();
+	@RequestMapping(value = "/course/show-courses/{CategoryName}", method = RequestMethod.GET)
+	public List<Course> ShowCourse(@PathVariable String CategoryName) {
+		Category category = categoryRepository.findByCategoryName(CategoryName);
+		List<Course> courses = new ArrayList<>();
 		if (category != null) {
-			categories = courseRepository.findByCategory(category);
+			courses = courseRepository.findByCategory(category);
 		}
-		return categories;
+		return courses;
 	}
 
-	@RequestMapping(method = RequestMethod.POST, value = "/course/addcourse/{categoryId}/{teacherId}")
-	public boolean AddCourse(@RequestBody Course course, @PathVariable long categoryId, @PathVariable long teacherId) 
+	@RequestMapping(method = RequestMethod.POST, value = "/course/addcourse/{categoryName}/{teacherId}")
+	public boolean AddCourse(@RequestBody Course course, @PathVariable String categoryName, @PathVariable long teacherId) 
 	{
-		Category category = categoryRepository.findOne(categoryId);
+		Category category = categoryRepository.findByCategoryName(categoryName);
 		Teacher teacher = teacherRepository.findOne(teacherId);
 
 		if (category != null && teacher != null) {

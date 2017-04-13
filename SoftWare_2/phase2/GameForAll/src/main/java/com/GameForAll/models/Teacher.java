@@ -1,6 +1,5 @@
 package com.GameForAll.models;
 
-import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -15,18 +14,11 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import net.minidev.json.annotate.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "teacher")
-public class Teacher implements Serializable {
-
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -663508675179779791L;
-	
+public class Teacher {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long Id;
@@ -43,10 +35,11 @@ public class Teacher implements Serializable {
 	@Column(name = "Gender")
 	private String Gender;
 	
-	@Column(name = "Username")
+	@Column(name = "Username",  unique = true)
 	private String Username;
+
 	
-	@Column(name = "Email")
+	@Column(name = "Email",  unique = true)
 	private String AcadmicMail;
 	
 	@OneToMany(mappedBy = "teacher" , cascade = CascadeType.ALL)
@@ -147,9 +140,25 @@ public class Teacher implements Serializable {
 		return courses;
 	}
 
-
+	
 	public void setCourses(Set<Course> courses) {
 		this.courses = courses;
+	}
+
+	
+	@JsonIgnore
+	public Set<Game> getGames() {
+		return games;
+	}
+
+
+	public void setGames(Set<Game> games) {
+		this.games = games;
+	}
+
+
+	public void setId(long id) {
+		Id = id;
 	}
 
 
