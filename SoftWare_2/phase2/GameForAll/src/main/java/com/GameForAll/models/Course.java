@@ -26,7 +26,7 @@ public class Course{
 	private long Id;
 	
 	@Column(name = "Name",  unique = true)
-	private String CourseName;
+	private String courseName;
 	
 	@Column(name = "Age")
 	private int MinimunAge;
@@ -50,7 +50,7 @@ public class Course{
 	
 	public Course(String courseName, int minimunAge, Teacher teacher, Category category) 
 	{
-		CourseName = courseName;
+		this.courseName = courseName;
 		MinimunAge = minimunAge;
 	    this.category =  category;
 	    this.teacher=teacher;
@@ -66,12 +66,12 @@ public class Course{
 
 
 	public String getCourseName() {
-		return CourseName;
+		return courseName;
 	}
 
 
 	public void setCourseName(String courseName) {
-		CourseName = courseName;
+		courseName = courseName;
 	}
 
 
@@ -142,7 +142,7 @@ public class Course{
 
 	@Override
 	public String toString() {
-		return "Course [Id=" + Id + ", CourseName=" + CourseName + ", MinimunAge=" + MinimunAge + ", category="
+		return "Course [Id=" + Id + ", CourseName=" + courseName + ", MinimunAge=" + MinimunAge + ", category="
 				+ category + ", teacher=" + teacher + "]";
 	}
 	

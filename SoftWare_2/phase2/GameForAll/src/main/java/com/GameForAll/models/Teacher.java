@@ -27,7 +27,7 @@ public class Teacher {
 	private String Name;
 	
 	@Column(name = "Password")
-	private String Password;
+	private String password;
 	
 	@Column(name = "Age")
 	private int Age;
@@ -36,11 +36,11 @@ public class Teacher {
 	private String Gender;
 	
 	@Column(name = "Username",  unique = true)
-	private String Username;
+	private String username;
 
 	
 	@Column(name = "Email",  unique = true)
-	private String AcadmicMail;
+	private String acadmicMail;
 	
 	@OneToMany(mappedBy = "teacher" , cascade = CascadeType.ALL)
 	private Set<Course> courses;
@@ -58,11 +58,11 @@ public class Teacher {
 
 	public Teacher(String name, String password, int age, String gender, String username, String acadmicMail) {
 		Name = name;
-		Password = password;
+		this.password = password;
 		Age = age;
 		Gender = gender;
-		Username = username;
-		AcadmicMail = acadmicMail;
+		this.username = username;
+		this.acadmicMail = acadmicMail;
 	}
 
 
@@ -87,12 +87,12 @@ public class Teacher {
 
 
 	public String getPassword() {
-		return Password;
+		return password;
 	}
 
 
 	public void setPassword(String password) {
-		Password = password;
+		this.password = password;
 	}
 
 
@@ -117,22 +117,22 @@ public class Teacher {
 
 
 	public String getUsername() {
-		return Username;
+		return username;
 	}
 
 
 	public void setUsername(String username) {
-		Username = username;
+		this.username = username;
 	}
 
 
 	public String getAcadmicMail() {
-		return AcadmicMail;
+		return acadmicMail;
 	}
 
 
 	public void setAcadmicMail(String acadmicMail) {
-		AcadmicMail = acadmicMail;
+		acadmicMail = acadmicMail;
 	}
 
 	@JsonIgnore
@@ -164,8 +164,8 @@ public class Teacher {
 
 	@Override
 	public String toString() {
-		return "Teacher [Id=" + Id + ", Name=" + Name + ", Password=" + Password + ", Age=" + Age + ", Gender=" + Gender
-				+ ", Username=" + Username + ", AcadmicMail=" + AcadmicMail + ", courses=" + courses + "]";
+		return "Teacher [Id=" + Id + ", Name=" + Name + ", Password=" + password + ", Age=" + Age + ", Gender=" + Gender
+				+ ", Username=" + username + ", AcadmicMail=" + acadmicMail + ", courses=" + courses + "]";
 	}
 	
 	
