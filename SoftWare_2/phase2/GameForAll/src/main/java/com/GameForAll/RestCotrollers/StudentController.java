@@ -21,6 +21,8 @@ public class StudentController {
 
 	public boolean verification(Student student) 
 	{
+		
+		
 		if(studentRepository.findByEmail(student.getEmail())!=null || teacherRepository.findByAcadmicMail(student.getEmail())!=null || teacherRepository.findByUsername(teacher.getUsername())!=null || studentRepository.findByUsername(student.getUsername())!=null)
 		{
 			return false;

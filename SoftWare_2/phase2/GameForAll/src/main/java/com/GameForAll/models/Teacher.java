@@ -8,9 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -38,17 +35,15 @@ public class Teacher {
 	@Column(name = "Username",  unique = true)
 	private String username;
 
-	
 	@Column(name = "Email",  unique = true)
 	private String acadmicMail;
 	
 	@OneToMany(mappedBy = "teacher" , cascade = CascadeType.ALL)
 	private Set<Course> courses;
 	
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "teachergame", joinColumns = @JoinColumn(name = "TeacherId", referencedColumnName = "id"), 
-    inverseJoinColumns = @JoinColumn(name = "GameId", referencedColumnName = "GameId"))
-    private Set<Game> games;
+	@OneToMany(mappedBy = "teacher" , cascade = CascadeType.ALL)
+	private Set<Game> games;
+	
 
 	public Teacher()
 	{
@@ -75,6 +70,7 @@ public class Teacher {
 		Id = id;
 	}
 
+	
 
 	public String getName() {
 		return Name;
@@ -132,7 +128,7 @@ public class Teacher {
 
 
 	public void setAcadmicMail(String acadmicMail) {
-		acadmicMail = acadmicMail;
+		this.acadmicMail = acadmicMail;
 	}
 
 	@JsonIgnore
@@ -160,6 +156,8 @@ public class Teacher {
 	public void setId(long id) {
 		Id = id;
 	}
+	
+	
 
 
 	@Override

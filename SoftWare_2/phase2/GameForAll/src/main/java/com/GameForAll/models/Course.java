@@ -71,7 +71,7 @@ public class Course{
 
 
 	public void setCourseName(String courseName) {
-		courseName = courseName;
+		this.courseName = courseName;
 	}
 
 

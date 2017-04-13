@@ -9,5 +9,6 @@ import com.GameForAll.models.Category;
 
 
 public interface CategoryRepository  extends CrudRepository<Category, Long>{
-	 public Category findByCategoryName(String CategoryName);
+	 
+	public Category findByCategoryName(String categoryName);
 }

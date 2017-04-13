@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -47,10 +48,8 @@ public class Student{
 	@JoinTable(name = "studentcourse", joinColumns = @JoinColumn(name = "StudentId", referencedColumnName = "Id"), inverseJoinColumns = @JoinColumn(name = "CourseId", referencedColumnName = "Id"))
 	private Set<Course> courses;
 
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "studentgame", joinColumns = @JoinColumn(name = "StudentId", referencedColumnName = "Id"), 
-    inverseJoinColumns = @JoinColumn(name = "GameId", referencedColumnName = "GameId"))
-    private Set<Game> games;
+	@OneToMany (mappedBy = "student" , cascade = CascadeType.ALL)
+	private Set<StudentGame> studentGames;
 
 
 
@@ -133,13 +132,16 @@ public class Student{
 	}
 
 	@JsonIgnore
-	public Set<Game> getGames() {
-		return games;
+	public Set<StudentGame> getStudentGames() {
+		return studentGames;
 	}
 
-	public void setGames(Set<Game> games) {
-		this.games = games;
+	public void setStudentGames(Set<StudentGame> studentGames) {
+		this.studentGames = studentGames;
 	}
+
+	
+	
 	
 	
 
