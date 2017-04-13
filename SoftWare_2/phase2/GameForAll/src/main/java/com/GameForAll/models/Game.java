@@ -35,8 +35,8 @@ public class Game implements Serializable{
 	@Column(name = "GameName",  unique = true)
 	private String GameName;
 	
-	@Column(name = "NumberOfLevel")
-	private  int NumOfLevel;
+	@Column(name = "NumberOfLevels")
+	private  int NumOfLevels;
 	
 	@Column(name = "Description")
 	private String Description;
@@ -76,12 +76,12 @@ public class Game implements Serializable{
 		GameName = gameName;
 	}
 
-	public int getNumOfLevel() {
-		return NumOfLevel;
+	public int getNumOfLevels() {
+		return NumOfLevels;
 	}
 
-	public void setNumOfLevel(int numOfLevel) {
-		NumOfLevel = numOfLevel;
+	public void setNumOfLevels(int numOfLevels) {
+		NumOfLevels = numOfLevels;
 	}
 
 	public String getDescription() {

@@ -14,32 +14,33 @@
 <body>
 <div class="container" ng-app="Game">
 	<div ng-controller="GameController">
-        <form name="GameForm" ng-submit="submitForm()">
+        <form name="GameForm" ng-submit="AddGame()">
             <label>Game</label> <br></br>
-            <p>Game Name: <input type="text" name="GameName" class="form-control" ng-model="GameName"/> </p>
+            <p>Game Name: <input type="text" name="gameName" class="form-control" ng-model="gameName"/> </p>
    			
          <p>Category :
-         <button ng-click="getcategory()" ng-click="getcourse()"  class="btn btn-primary">Get Categories</button>    
-        <select class="form-control" ng-model="Category">
-            <option ng-repeat="categories in response">{{categories.categoryName}}</option>
+             
+        <select class="form-control" ng-model="Category" ng-options="categories as categories.categoryName for categories in CategoryResponse" ng-init="getcategory()" ng-change="getcourse()">
         </select></p> 
         
          <p>Course : 
-         <button ng-click="getcourse()" class="btn btn-primary">Get Courses</button> 
-        <select   class="form-control" ng-model="Course">
-            <option ng-repeat="courses in response">{{courses.courseName}}</option>
-        </select></p> 
+        
     
+     <select class="form-control" ng-model="Course" ng-options="courses as courses.courseName for courses in CourseResponse" >
+        </select></p> 
         
         <p>Type of game :
-        <button ng-click="gettype()" class="btn btn-primary">Get Types</button>
-        <select     class="form-control" ng-model="Type">
-            <option ng-repeat="types in response">{{types.typeName}}</option>
+              
+        <select class="form-control" ng-model="Type" ng-options="types as types.typeName for types in TypeResponse" ng-init="gettype()">
         </select></p> 
-        
-        
-        
-            <button type="submit" class="btn btn-primary">Submit</button>
+    
+        <p>Number of levels in the game: <input type="number" name="numOfLevels" class="form-control" ng-model="numOfLevels"/> </p>
+       <p>
+       	Description:
+       	</p>
+       <p> <textarea rows="7" cols="100" name="description" form="usrform" ng-model="description" >Enter description here...</textarea></p>
+            
+            <button type="submit" class="btn btn-primary">Add Game</button>
         </form>
         <p>{{postResultMessage}}</p>
     </div>
