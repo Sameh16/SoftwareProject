@@ -2,21 +2,21 @@
  
 <html>
 <head>
-      <title>Game</title>
+      <title>Matching Template</title>
       <meta charset="utf-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <script src="/angular/angular.min.js"></script>
-      <script src="/js/GameController.js"></script>
+      <script src="/js/TypeController.js"></script>
       <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" />
        
 </head>
 
 <body>
-<div class="container" >
-	<div >
-        <form name="GameForm" >
+<div class="container" ng-app="main">
+	<div ng-controller="TypeTemplateController">
+        <form name="GameForm" ng-init="getgame()">
             <label>Matching Template</label> <br></br>
-            
+            <button type="submit" class="btn btn-primary">Add Game</button>
         </form>
         <p>{{postResultMessage}}</p>
     </div>

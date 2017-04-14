@@ -12,7 +12,6 @@ public class TypeController {
 	public String GamePage(@PathVariable String type)
 	{
 		type+="TemplateIndex";
-		System.out.print(type);
 		return type;
 	}
 }

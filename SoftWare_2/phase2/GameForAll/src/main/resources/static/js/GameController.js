@@ -1,6 +1,7 @@
 var app = angular.module('Game', []);
 
 
+
 app.controller('GameController', function($scope, $http, $location) {
 	
 	$scope.getcategory = function(){
@@ -71,15 +72,12 @@ app.controller('GameController', function($scope, $http, $location) {
         };
          
         $http.post(url, data, config).then(function (GameResponse) {
+        	$scope.GameResponse = GameResponse.data
+        	id=$scope.GameResponse;
+        	localStorage.setItem('id',id);
+        	//alert(localStorage.getItem('id'));
         	var url2= $location.absUrl() + "/get-type-template/"+$scope.Type.typeName;
-            
-            $http.get(url2, config).then(function (TypeTempResponse) {
-                $scope.TypeTempResponse = TypeTempResponse.data
-                document.write($scope.TypeTempResponse);
-            }, function (TypeTempResponse) {
-                $scope.getResultMessage = "Fail!";
-            });
-            
+        	window.open(url2,"_self");
         }, function (GameResponse) {
             $scope.postResultMessage = "Fail!";
         });

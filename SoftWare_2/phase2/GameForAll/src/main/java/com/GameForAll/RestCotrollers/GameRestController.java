@@ -12,15 +12,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.GameForAll.Repository.CourseRepository;
 import com.GameForAll.Repository.GameRepository;
-<<<<<<< HEAD
+
 import com.GameForAll.Repository.TeacherRepository;
-=======
 import com.GameForAll.Repository.QuestionRepository;
->>>>>>> 7f66e69a5b40c0a856f7b8212bd6cfc28ccbad9c
 import com.GameForAll.Repository.TypeRepository;
 import com.GameForAll.models.Course;
 import com.GameForAll.models.Game;
 import com.GameForAll.models.Question;
+import com.GameForAll.models.Teacher;
 import com.GameForAll.models.Type;
 
 
@@ -40,7 +39,12 @@ public class GameRestController {
 	QuestionRepository questionRepository;
 	
 	
-	
+	@RequestMapping(value= "game/get-type-template/{type}/get-game/{gameID}" ,method=RequestMethod.GET)
+	Game  GetGame(@PathVariable String type,@PathVariable long gameID)
+	{
+		 return gameRepository.findOne(gameID); 
+		
+	}
 	
 	@RequestMapping(value= "/playgame/{gameID}" ,method=RequestMethod.GET)
 	Set<Question>  PlayGame(@PathVariable long gameID)
@@ -75,7 +79,7 @@ public class GameRestController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/game/create-game/{courseID}/{typeID}/{teacherID}")
-	public boolean CreateGame(@RequestBody Game game, @PathVariable long courseID, @PathVariable long typeID,@PathVariable long teacherID) 
+	public long CreateGame(@RequestBody Game game, @PathVariable long courseID, @PathVariable long typeID,@PathVariable long teacherID) 
 	{
 		Course course = courseRepository.findOne(courseID);
 		Type type = typeRepository.findOne(typeID);
@@ -88,9 +92,9 @@ public class GameRestController {
 			type.getGames().add(game);
 			teacher.getGames().add(game);
 			gameRepository.save(game);
-			return true;
 		}
-			return false;
+		return game.getGameId();
+			
 	}
 	
 	
