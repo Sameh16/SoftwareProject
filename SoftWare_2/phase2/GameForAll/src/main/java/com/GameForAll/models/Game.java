@@ -35,12 +35,7 @@ public class Game implements Serializable {
 	
 	@Column(name = "NumberOfLevels")
 	private  int NumOfLevels;
-	
-
-
-	@Column(name = "NumberOfLevel")
-	private int NumOfLevel;
-
+		
 
 	@Column(name = "Description")
 	private String Description;
@@ -54,7 +49,7 @@ public class Game implements Serializable {
 	private Course course;
 
 	@ManyToOne
-	@JoinColumn(name = "TeacherId")
+	@JoinColumn(name = "teacherId")
 	private Teacher teacher;
 
 	@OneToMany(mappedBy = "game", cascade = CascadeType.ALL)

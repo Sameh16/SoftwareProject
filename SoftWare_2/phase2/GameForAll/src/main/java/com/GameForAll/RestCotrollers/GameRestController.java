@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.GameForAll.Repository.CourseRepository;
 import com.GameForAll.Repository.GameRepository;
+import com.GameForAll.Repository.TeacherRepository;
 import com.GameForAll.Repository.TypeRepository;
 import com.GameForAll.models.Category;
 import com.GameForAll.models.Course;
@@ -27,6 +28,8 @@ public class GameRestController {
 	CourseRepository courseRepository;
 	@Autowired
 	TypeRepository typeRepository;
+	@Autowired
+	TeacherRepository teacherRepository;
 	
 	@RequestMapping("/palygame")
 	void PlayGame()
@@ -34,16 +37,19 @@ public class GameRestController {
 		
 	}
 	
-	@RequestMapping(method = RequestMethod.POST, value = "/game/create-game/{courseID}/{typeID}")
-	public boolean CreateGame(@RequestBody Game game, @PathVariable long courseID, @PathVariable long typeID) 
+	@RequestMapping(method = RequestMethod.POST, value = "/game/create-game/{courseID}/{typeID}/{teacherID}")
+	public boolean CreateGame(@RequestBody Game game, @PathVariable long courseID, @PathVariable long typeID,@PathVariable long teacherID) 
 	{
 		Course course = courseRepository.findOne(courseID);
 		Type type = typeRepository.findOne(typeID);
-		if (course != null && type != null) {
+		Teacher teacher = teacherRepository.findOne(teacherID);
+		if (course != null && type != null && teacher!=null) {
 			game.setCourse(course);
 			game.setType(type);
+			game.setTeacher(teacher);
 			course.getGames().add(game);
 			type.getGames().add(game);
+			teacher.getGames().add(game);
 			gameRepository.save(game);
 			return true;
 		}
