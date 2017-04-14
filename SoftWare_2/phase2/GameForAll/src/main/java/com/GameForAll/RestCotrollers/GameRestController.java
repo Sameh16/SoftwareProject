@@ -1,6 +1,8 @@
 package com.GameForAll.RestCotrollers;
 
 
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -10,11 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.GameForAll.Repository.CourseRepository;
 import com.GameForAll.Repository.GameRepository;
+import com.GameForAll.Repository.QuestionRepository;
 import com.GameForAll.Repository.TypeRepository;
-import com.GameForAll.models.Category;
 import com.GameForAll.models.Course;
 import com.GameForAll.models.Game;
-import com.GameForAll.models.Teacher;
+import com.GameForAll.models.Question;
 import com.GameForAll.models.Type;
 
 
@@ -28,10 +30,42 @@ public class GameRestController {
 	@Autowired
 	TypeRepository typeRepository;
 	
-	@RequestMapping("/palygame")
-	void PlayGame()
+	@Autowired
+	QuestionRepository questionRepository;
+	
+	
+	
+	
+	@RequestMapping(value= "/playgame/{gameID}" ,method=RequestMethod.GET)
+	Set<Question>  PlayGame(@PathVariable long gameID)
+	{
+		 Game game= gameRepository.findOne(gameID);
+		 if (game != null )
+		 {
+			 return  game.getQuestions();
+		 }
+	
+		 return null;
+		
+	}
+
+	@RequestMapping(value= "/playgame/{gameID}/{quesionIndex}" ,method=RequestMethod.GET)
+	Question  getQuestion(@PathVariable long gameID,@PathVariable long quesionIndex)
 	{
 		
+		 Game game= gameRepository.findOne(gameID);
+		 if (game != null )
+		 {
+			 
+			 Set<Question> q= game.getQuestions();
+			 Question question = null;
+			 while (quesionIndex--<0)
+				 {
+				 question=  q.iterator().next();
+				 }
+			 return question;
+		 }
+		 return null;
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/game/create-game/{courseID}/{typeID}")

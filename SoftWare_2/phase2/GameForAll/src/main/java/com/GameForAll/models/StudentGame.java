@@ -96,6 +96,20 @@ public class StudentGame implements Serializable {
 	public void setLevel(int level) {
 		this.level = level;
 	}
+
+	@Override
+	public int hashCode() {
+		// TODO Auto-generated method stub
+		return super.hashCode();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		// TODO Auto-generated method stub
+		return super.equals(obj);
+	}
+	
+	
 	
 	
 	

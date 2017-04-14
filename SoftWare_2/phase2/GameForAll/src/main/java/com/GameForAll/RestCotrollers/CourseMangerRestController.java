@@ -1,5 +1,6 @@
 package com.GameForAll.RestCotrollers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +23,11 @@ public class CourseMangerRestController {
 	CourseRepository courseRepository;
 	
 	@RequestMapping(value = "/course/get-student-courses/{username}")
-	public List<Course> getCourses(@PathVariable String username)
+	public ArrayList<Course> getCourses(@PathVariable String username)
 	{
 		
 		Student student = studentRepository.findByUsername(username);
-		List<Course> courses = (List<Course>) student.getCourses();
+		ArrayList<Course> courses = (ArrayList<Course>) student.getCourses();
 		return courses;
 		
 	}
