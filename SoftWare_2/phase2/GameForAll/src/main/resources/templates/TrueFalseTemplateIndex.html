@@ -15,14 +15,19 @@
 <div class="container" ng-app="Type">
 	<div ng-controller="TypeTemplateController">	
         <form name="GameForm" ng-submit="UpdateLevel()" ng-init="showme=false">
-            <label>True-False Template</label> <br></br>
+            <label>True-False Template</label> <br></br><br></br>
             <div ng-init="getgame()"> <label >Game name: {{GameResponse.gameName}} </label> <br></br> 
             <label>Number of levels: {{GameResponse.numOfLevels}} </label> <br></br> 
             </div>
              <label >Current Level: {{CurrentLevel}} </label> <br></br> 
              <label >Current Question in this level: {{CurrentQuestion}} </label> <br></br>
-             <label >Number of all question in the game: {{NumberOfAllQuestions}} </label> <br></br>
-            <button type="button" class="btn btn-primary" ng-click="UpdateQuestion();showme=true">Add Question</button> 
+             <label >Number of all question in the game: {{NumberOfAllQuestions}} </label> <br></br><br></br>
+             <label >Question : </label> <br></br>
+             <p> <textarea rows="7" cols="100" name="Question" form="usrform" ng-model="Question" >Enter Question here...</textarea></p>
+  		  	<p>Correct Answer :    <input type="radio" ng-model="ans" value="True"> True </input>
+           		   <input type="radio" ng-model="ans" value="False"> False </input><br></br></p>
+  		  		
+            <button type="button" class="btn btn-primary" ng-click="AddQuestion();UpdateQuestion();showme=true">Add Question</button> 
             <button type="submit" class="btn btn-primary" ng-show="showme" ng-click="showme=false">{{NameOfButtonLevel}}</button>
             
         </form>
