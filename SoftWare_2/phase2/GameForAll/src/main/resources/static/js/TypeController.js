@@ -1,7 +1,29 @@
-var app = angular.module('Type', []);
+ var app = angular.module('Type', []);
 
 
 app.controller('TypeTemplateController', function($scope, $http, $location) {
+	 $scope.CurrentLevel=1;
+	 $scope.CurrentQuestion=1;
+	 $scope.NumberOfAllQuestions=1;
+	 $scope.NameOfButtonLevel="Next level";
+	
+	$scope.UpdateQuestion = function(){
+		$scope.CurrentQuestion=$scope.CurrentQuestion+1;
+		$scope.NumberOfAllQuestions=$scope.NumberOfAllQuestions+1;
+		if($scope.CurrentLevel==$scope.GameResponse.numOfLevels){
+			$scope.NameOfButtonLevel="Finish Game";
+		}
+    }
+	
+	$scope.UpdateLevel = function(){
+		if($scope.CurrentLevel==$scope.GameResponse.numOfLevels){
+			document.write("bravo");
+		}
+		$scope.CurrentQuestion=1;
+		$scope.CurrentLevel=$scope.CurrentLevel+1;
+		
+    }
+	
 	
 	$scope.getgame = function(){
 		var id=localStorage.getItem('id');
@@ -23,36 +45,7 @@ app.controller('TypeTemplateController', function($scope, $http, $location) {
 	
     
     $scope.AddGame = function(){
-        var url = $location.absUrl() + "/create-game/"+$scope.Course.id+"/"+$scope.Type.typeId+"/1";
         
-        var config = {
-                headers : {
-                    'Content-Type': 'application/json;charset=utf-8;'
-                }
-        }
-        var data = {
-        	gameName: $scope.gameName,
-        	Course: $scope.Course.id,
-        	Type: $scope.Type.typeId,
-        	numOfLevels: $scope.numOfLevels,
-        	description: $scope.description,
-        	teacherId: 1
-      
-        };
-         
-        $http.post(url, data, config).then(function (GameResponse) {
-        	var url2= $location.absUrl() + "/get-type-template/"+$scope.Type.typeName;
-  
-            $http.get(url2, config).then(function (TypeTempResponse) {
-                $scope.TypeTempResponse = TypeTempResponse.data
-                document.write($scope.TypeTempResponse);
-            }, function (TypeTempResponse) {
-                $scope.getResultMessage = "Fail!";
-            });
-            
-        }, function (GameResponse) {
-            $scope.postResultMessage = "Fail!";
-        });
         
         
         

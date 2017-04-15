@@ -40,7 +40,7 @@ public class GameRestController {
 	
 	
 	@RequestMapping(value= "game/get-type-template/{type}/get-game/{gameID}" ,method=RequestMethod.GET)
-	Game  GetGame(@PathVariable String type,@PathVariable long gameID)
+	Game GetGame(@PathVariable String type,@PathVariable long gameID)
 	{
 		 return gameRepository.findOne(gameID); 
 		
