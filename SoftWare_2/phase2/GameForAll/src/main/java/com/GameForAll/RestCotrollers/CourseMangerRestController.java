@@ -28,7 +28,7 @@ public class CourseMangerRestController {
 	CourseRepository courseRepository;
 	
 	@RequestMapping(value = "/course/get-student-courses/{username}")
-	public Set<Course> getCourses(@PathVariable String username)
+	public Set<Course> getStudentCourses(@PathVariable String username)
 	{
 		
 		Student student = studentRepository.findByUsername(username);

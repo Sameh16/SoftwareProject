@@ -2,6 +2,7 @@ package com.GameForAll.RestCotrollers;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +16,7 @@ import com.GameForAll.Repository.CourseRepository;
 import com.GameForAll.Repository.TeacherRepository;
 import com.GameForAll.models.Category;
 import com.GameForAll.models.Course;
+import com.GameForAll.models.Game;
 import com.GameForAll.models.Teacher;
 
 
@@ -55,6 +57,18 @@ public class CourseRestController {
 			return true;
 		} else {
 			return false;
+		}
+	}
+	
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/GameInCourse/show-Course-games/{courseName}")
+	public Set<Game> GetGamesInCourse(@PathVariable String courseName) 
+	{
+		Course course = courseRepository.findByCourseName(courseName);
+		if (course!=null) {
+			return course.getGames();
+		} else {
+			return null;
 		}
 	}
 	

@@ -13,5 +13,12 @@ public class GameController {
 	 
 		return "GameIndex";
 	}
+	
+	@RequestMapping(value="/GameInCourse",method=RequestMethod.GET)
+	public String CourseGamesPage()
+	{
+	 
+		return "GameInCourse";
+	}
 
 }
