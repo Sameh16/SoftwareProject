@@ -108,7 +108,6 @@ public class Game implements Serializable {
 		this.course = course;
 	}
 
-	@JsonIgnore
 	public Set<Question> getQuestions() {
 		return questions;
 	}
