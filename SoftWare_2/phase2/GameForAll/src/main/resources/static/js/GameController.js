@@ -1,7 +1,9 @@
 var app = angular.module('Game', []);
 
 
+
 app.controller('GameController', function($scope, $http, $location) {
+	
 	$scope.getcategory = function(){
         var url = $location.absUrl()+"/get-category";
         var config = {
@@ -10,25 +12,25 @@ app.controller('GameController', function($scope, $http, $location) {
                 }
         }
         
-        $http.get(url, config).then(function (response) {
-            $scope.response = response.data
+        $http.get(url, config).then(function (CategoryResponse) {
+            $scope.CategoryResponse = CategoryResponse.data
             
-        }, function (response) {
+        }, function (CategoryResponse) {
             $scope.getResultMessage = "Fail!";
         });
     }
 	
 	$scope.getcourse = function(){
-        var url = $location.absUrl()+"/get-courses/"+$scope.Category+"/1";
+        var url = $location.absUrl()+"/get-courses/"+$scope.Category.categoryName+"/1";
         
         var config = {
                 headers : {
                     'Content-Type': 'application/json;charset=utf-8;'
                 }
         }
-        $http.get(url, config).then(function (response) {
-            $scope.response = response.data
-        }, function (response) {
+        $http.get(url, config).then(function (CourseResponse) {
+            $scope.CourseResponse = CourseResponse.data
+        }, function (CourseResponse) {
             $scope.getResultMessage = "Fail!";
         });
     }
@@ -42,15 +44,17 @@ app.controller('GameController', function($scope, $http, $location) {
 	                }
 	        }
 	        
-	        $http.get(url, config).then(function (response) {
-	            $scope.response = response.data
-	        }, function (response) {
+	        $http.get(url, config).then(function (TypeResponse) {
+	            $scope.TypeResponse = TypeResponse.data
+	        }, function (TypeResponse) {
 	            $scope.getResultMessage = "Fail!";
 	        });
 	    }
 	 
-    $scope.submitForm = function(){
-        var url = $location.absUrl() +"/create-game";
+   
+    
+    $scope.AddGame = function(){
+        var url = $location.absUrl() + "/create-game/"+$scope.Course.id+"/"+$scope.Type.typeId+"/1";
         
         var config = {
                 headers : {
@@ -58,57 +62,35 @@ app.controller('GameController', function($scope, $http, $location) {
                 }
         }
         var data = {
-        	GameName: $scope.GameName,
-        	Type: $scope.Type,
-        	Course: $scope.Course
-        	
+        	gameName: $scope.gameName,
+        	Course: $scope.Course.id,
+        	Type: $scope.Type.typeId,
+        	numOfLevels: $scope.numOfLevels,
+        	description: $scope.description,
+        	teacherId: 1
       
         };
-        
-        $http.post(url, data, config).then(function (response) {
-            $scope.postResultMessage = "Sucessful!";
-        }, function (response) {
+         
+        $http.post(url, data, config).then(function (GameResponse) {
+        	$scope.GameResponse = GameResponse.data
+        	id=$scope.GameResponse;
+        	localStorage.setItem('id',id);
+        	//alert(localStorage.getItem('id'));
+        	var url2= $location.absUrl() + "/get-type-template/"+$scope.Type.typeName;
+        	window.open(url2,"_self");
+        }, function (GameResponse) {
             $scope.postResultMessage = "Fail!";
         });
-         
-        $scope.CourseName="";
-    	$scope.CategoryId="";
-    	$scope.TeacherID="";
-    	$scope.MinimunAge="";
+        
+        
+        
+       
     }
+
+
 });
 
 
 
 
-
-app.controller('postcontroller', function($scope, $http, $location) {
-    $scope.submitForm = function(){
-        var url = $location.absUrl() + "addcourse/"+$scope.TeacherID+"/"+$scope.CategoryId;
-        
-        var config = {
-                headers : {
-                    'Content-Type': 'application/json;charset=utf-8;'
-                }
-        }
-        var data = {
-        	minimunAge: $scope.MinimunAge,
-        	teacherID: $scope.TeacherID,
-        	categoryId: $scope.CategoryId,
-        	courseName: $scope.CourseName
-      
-        };
-         document.write($scope.MinimunAge);
-        $http.post(url, data, config).then(function (response) {
-            $scope.postResultMessage = "Sucessful!";
-        }, function (response) {
-            $scope.postResultMessage = "Fail!";
-        });
-         
-        $scope.CourseName="";
-    	$scope.CategoryId="";
-    	$scope.TeacherID="";
-    	$scope.MinimunAge="";
-    }
-});
- 
+    

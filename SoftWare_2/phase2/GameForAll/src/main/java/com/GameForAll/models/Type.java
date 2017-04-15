@@ -25,7 +25,7 @@ public class Type implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long TypeId;
+	private long TypeId;	
 
 	@Column(name = "TypeName",  unique = true)
 	private String TypeName;

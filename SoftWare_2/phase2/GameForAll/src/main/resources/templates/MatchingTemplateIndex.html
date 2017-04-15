@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+ 
+<html>
+<head>
+      <title>Matching Template</title>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <script src="/angular/angular.min.js"></script>
+      <script src="/js/TypeController.js"></script>
+      <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" />
+       
+</head>
+
+<body>
+<div class="container" ng-app="Type">
+	<div ng-controller="TypeTemplateController">	
+        <form name="GameForm" ng-submit="UpdateLevel()" ng-init="showme=false">
+            <label>Matching Template</label> <br></br>
+            <div ng-init="getgame()"> <label >Game name: {{GameResponse.gameName}} </label> <br></br> 
+            <label>Number of levels: {{GameResponse.numOfLevels}} </label> <br></br> 
+            </div>
+             <label >Current Level: {{CurrentLevel}} </label> <br></br> 
+             <label >Current Question in this level: {{CurrentQuestion}} </label> <br></br>
+             <label >Number of all question in the game: {{NumberOfAllQuestions}} </label> <br></br>
+            <button type="button" class="btn btn-primary" ng-click="UpdateQuestion();showme=true">Add Question</button> 
+            <button type="submit" class="btn btn-primary" ng-show="showme" ng-click="showme=false">{{NameOfButtonLevel}}</button>
+            
+        </form>
+        <p>{{postResultMessage}}</p>
+    </div>
+	
+
+    
+     
+</div>
+</body>
+</html>
