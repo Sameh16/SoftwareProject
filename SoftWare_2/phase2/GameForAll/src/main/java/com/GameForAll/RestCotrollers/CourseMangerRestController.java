@@ -1,7 +1,6 @@
 package com.GameForAll.RestCotrollers;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,8 +9,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.GameForAll.Repository.CourseRepository;
 import com.GameForAll.Repository.StudentRepository;
+import com.GameForAll.Repository.TeacherRepository;
 import com.GameForAll.models.Course;
 import com.GameForAll.models.Student;
+import com.GameForAll.models.Teacher;
 
 @RestController
 public class CourseMangerRestController {
@@ -20,14 +21,28 @@ public class CourseMangerRestController {
 	StudentRepository studentRepository;
 	
 	@Autowired
+	TeacherRepository teacherRepository;
+	
+	
+	@Autowired
 	CourseRepository courseRepository;
 	
 	@RequestMapping(value = "/course/get-student-courses/{username}")
-	public ArrayList<Course> getCourses(@PathVariable String username)
+	public Set<Course> getCourses(@PathVariable String username)
 	{
 		
 		Student student = studentRepository.findByUsername(username);
-		ArrayList<Course> courses = (ArrayList<Course>) student.getCourses();
+		Set<Course> courses = student.getCourses();
+		return courses;
+		
+	}
+	
+	@RequestMapping(value = "/course/get-Teacher-courses/{username}")
+	public Set<Course> getTeacherCourses(@PathVariable String username)
+	{
+		
+		Teacher teacher = teacherRepository.findByUsername(username);
+		Set<Course> courses =  teacher.getCourses();
 		return courses;
 		
 	}

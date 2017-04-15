@@ -133,5 +133,7 @@ public class Game implements Serializable {
 	public void setStudentGames(Set<StudentGame> studentGames) {
 		this.studentGames = studentGames;
 	}
+	
+	
 
 }
