@@ -2,7 +2,7 @@ var app = angular.module('Course', []);
 
 app.controller('CourseController', function($scope, $http, $location) {
     $scope.submitForm = function(){
-        var url = $location.absUrl() +"/addcourse/"+$scope.CategoryId+"/"+$scope.TeacherID;
+        var url = $location.absUrl() +"/addcourse/"+$scope.Category.categoryName+"/"+$scope.TeacherID;
         
         var config = {
                 headers : {
@@ -26,25 +26,24 @@ app.controller('CourseController', function($scope, $http, $location) {
     	$scope.MinimunAge="";
     }
     
-    $scope.getcategory = function(){
-        var url = "game/get-category";
+	$scope.getcategory = function(){
+		var url = $location.absUrl()+"/get-category";
         var config = {
                 headers : {
                     'Content-Type': 'application/json;charset=utf-8;'
                 }
         }
         
-        $http.get(url, config).then(function (response) {
-            $scope.response = response.data
-            
-        }, function (response) {
+        $http.get(url, config).then(function (CategoryResponse) {
+            $scope.CategoryResponse = CategoryResponse.data
+        }, function (CategoryResponse) {
             $scope.getResultMessage = "Fail!";
         });
     }
     
     
 	$scope.getCourses = function(){
-        var url = $location.absUrl()+"/show-courses/"+$scope.Category;
+        var url = $location.absUrl()+"/show-courses/"+$scope.CategoryName.categoryName;
         var config = {
                 headers : {
                     'Content-Type': 'application/json;charset=utf-8;'
