@@ -4,21 +4,25 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-
 @Controller
 public class GameController {
-	@RequestMapping(value="/game",method=RequestMethod.GET)
-	public String GamePage()
-	{
-	 
+	
+	
+	@RequestMapping(value = "/game", method = RequestMethod.GET)
+	public String GamePage() {
+
 		return "GameIndex";
 	}
-	
-	@RequestMapping(value="/GameInCourse",method=RequestMethod.GET)
-	public String CourseGamesPage()
-	{
-	 
+
+	@RequestMapping(value = "/GameInCourse", method = RequestMethod.GET)
+	public String CourseGamesPage() {
 		return "GameInCourse";
+	}
+
+	@RequestMapping(value = "/playGameQ", method = RequestMethod.GET)
+	public String GamePage1() {
+
+		return "playGame";
 	}
 
 }

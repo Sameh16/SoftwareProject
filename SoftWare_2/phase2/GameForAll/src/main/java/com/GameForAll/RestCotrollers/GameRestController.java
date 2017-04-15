@@ -1,6 +1,11 @@
 package com.GameForAll.RestCotrollers;
 
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +43,9 @@ public class GameRestController {
 	@Autowired
 	QuestionRepository questionRepository;
 	
+	 Game game=null;
+	 ArrayList<Question> questions=null;
+	
 	
 	@RequestMapping(value= "game/get-type-template/{type}/get-game/{gameID}" ,method=RequestMethod.GET)
 	Game GetGame(@PathVariable String type,@PathVariable long gameID)
@@ -49,9 +57,21 @@ public class GameRestController {
 	@RequestMapping(value= "/playgame/{gameID}" ,method=RequestMethod.GET)
 	Set<Question>  PlayGame(@PathVariable long gameID)
 	{
+
 		 Game game= gameRepository.findOne(gameID);
 		 if (game != null )
 		 {
+			 this.game=game;
+			 this.questions= new ArrayList<Question>( game.getQuestions());
+			 this.questions.sort(new Comparator<Question>() {
+
+				@Override
+				public int compare(Question q1, Question q2) {
+					
+					return q1.getLevel()-q2.getLevel();
+				}
+				 
+			});
 			 return  game.getQuestions();
 		 }
 	
@@ -59,24 +79,50 @@ public class GameRestController {
 		
 	}
 
-	@RequestMapping(value= "/playgame/{gameID}/{quesionIndex}" ,method=RequestMethod.GET)
-	Question  getQuestion(@PathVariable long gameID,@PathVariable long quesionIndex)
+	@RequestMapping(value= "/playgame/{gameID}/{questionIndex}" ,method=RequestMethod.GET)
+	Question  getQuestion(@PathVariable long gameID,@PathVariable long questionIndex)
 	{
 		
-		 Game game= gameRepository.findOne(gameID);
-		 if (game != null )
+
+		if (game== null)
+		{
+			 game= gameRepository.findOne(gameID);
+			 this.questions= new ArrayList<Question>( game.getQuestions());
+			 this.questions.sort(new Comparator<Question>() {
+
+					@Override
+					public int compare(Question q1, Question q2) {
+						
+						return q1.getLevel()-q2.getLevel();
+					}
+					 
+				});
+		}
+		if (game != null )
 		 {
-			 
-			 Set<Question> q= game.getQuestions();
-			 Question question = null;
-			 while (quesionIndex--<0)
-				 {
-				 question=  q.iterator().next();
-				 }
-			 return question;
+	
+			// Question question = null;
+			 if (questionIndex>questions.size())
+			 {
+				 return null;
+			 }
+//			 Iterator< Question> it= questions.iterator();
+//			 int i=0;
+//			 while (i<questionIndex)
+//				 {
+//				 i++;
+//				 question=  it.next();
+//
+//				 }
+//			 System.out.print (question.getQuestionId()+"   "); 
+
+			// return question;
+			 return questions.get((int) questionIndex-1);
 		 }
 		 return null;
 	}
+	
+	
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/game/create-game/{courseID}/{typeID}/{teacherID}")
 	public long CreateGame(@RequestBody Game game, @PathVariable long courseID, @PathVariable long typeID,@PathVariable long teacherID) 

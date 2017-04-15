@@ -87,7 +87,6 @@ public class Question implements Serializable {
 		Level = level;
 	}
 
-	@JsonIgnore
 	public Set<Answer> getAnswers() {
 		return answers;
 	}
