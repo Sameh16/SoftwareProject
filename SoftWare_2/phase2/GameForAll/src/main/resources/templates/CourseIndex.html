@@ -7,7 +7,24 @@
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <script src="/angular/angular.min.js"></script>
       <script src="/js/CourseController.js"></script>
+      <script src="/Extend js/jquery-1.9.1.min.js"></script>
+      <script src="/Extend js/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+      <script src="/Extend js/scrolling-nav.js"></script>
+      <!-- Bootstrap Core CSS -->
+      
       <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" />
+      
+       
+    <!-- Custom CSS -->
+	<link rel="stylesheet" href="/Extend css/main.css"/>
+    <link href="/Extend css/custom.css" rel="stylesheet"/>
+	
+	<script src="//use.edgefonts.net/bebas-neue.js"></script>
+
+    <!-- Custom Fonts & Icons -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,600,800' rel='stylesheet' type='text/css'/>
+	<link rel="stylesheet" href="/Extend css/icomoon-social.css"/>
+	<link rel="stylesheet" href="/Extend css/font-awesome.min.css"/>
        
 </head>
 <body>
@@ -19,10 +36,9 @@
         <form name="CourseForm" ng-submit="submitForm()">
             <label>Course</label><br></br>
             Course Name : <input type="text" name="CourseName" class="form-control" ng-model="CourseName"/>
-            Category 
-           <select   ng-click="getcategory()" name="CategoryId" class="form-control" ng-model="CategoryId">
-            <option ng-repeat="categories in response">{{categories.categoryName }}</option>
-        </select> 
+            Category :
+          <select class="form-control" ng-model="Category" ng-options="categories as categories.categoryName for categories in CategoryResponse" ng-init="getcategory()" >
+        </select>
             Teacher Id :<input type="number" name="TeacherID" class="form-control" ng-model="TeacherID"/>
            	Min Age : <input type="number" name="MinimunAge" class="form-control" ng-model="MinimunAge"/>
             <button type="submit" class="btn btn-primary">Submit</button>
@@ -31,16 +47,24 @@
     
      
           <p>Category :  
-        <select   ng-click="getcategory()"   ng-model="Category">
-            <option ng-repeat="categories in response">{{categories.categoryName }}</option>
+        <select class="form-control" ng-model="CategoryName" ng-options="category as category.categoryName for category in CategoryResponse" ng-init="getcategory()" >
         </select></p> 
       
-     
         <button id="btn-id" ng-click="getCourses()">Get All Courses</button>
          
          
-        <ul>
-            <li ng-repeat="courses in Coursee">{{courses.courseName + " " + courses.category.categoryName + "  "+ courses.teacher.username }}</li>
+        <ul class="grid cs-style-3" >
+        
+        	  <div ng-repeat="courses in Coursee" class="col-md-4 col-sm-6">
+					<figure>
+						<img src="/img/portfolio/4.jpg" alt="img04"/>
+						<figcaption>
+							<h3>{{courses.courseName}}</h3>
+							<span>{{courses.courseName}}</span>
+							<a href="portfolio-item.html">Take a look</a>
+						</figcaption>
+					</figure>
+	        	</div>	
         </ul>
          
     </div>
