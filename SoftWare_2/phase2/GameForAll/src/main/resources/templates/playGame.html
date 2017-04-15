@@ -6,23 +6,64 @@
       <meta charset="utf-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <script src="/angular/angular.min.js"></script>
-      <script src="PlayGameController.js"></script>
+      <script src="/js/PlayGameController.js"></script>
       <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" />
        
 </head>
 
 <body>
-<div class="container" ng-app="play">
-	<div ng-controller="PlayGameController">
-        <form name="playForm" ng-submit="submitForm()">
-            <label>Game</label> <br></br>
-            <p>Game Name: <input type="text" name="GameName" class="form-control" ng-model="GameName"/> </p>
+<div class="container" ng-app="Play">
+	<div ng-controller="PlayGameController" ng-init="getQuestions()">
+	
+	
+	<div ng-controller="PlayGameController" ng-init="getQuestionAtIndex()">
+        <form name="playForm" >
+            <label>{{GameName}}</label> <br></br>
+             <label>number of correct answers {{number_of_correct_answers}}</label> <br></br>
+              <label>number of wrong answers {{number_of_wrong_answers}}</label> <br></br>
+               <label>currentQuestion {{currentQuestion}}</label> <br></br>
+              currentQuestion
+  
+            
+            <div  class = "Questions" > 
+            
+            
+            <label>QuestionID : </label> <br></br>
+            <label> {{Quest.questionId}} </label> <br></br>
+            
+            <label>QuestionLevel : </label> <br></br>
+            <label> {{Quest.level}} </label> <br></br>
+            
+            
+            <label>Question : </label> <br></br>
+            <label> {{Quest.question}} </label> <br></br>
+            
+             <label>Answers : </label> <br></br>
+	            <div class="arrofanswers" >
+	            
+	            
+	            <button type="submit" class="btn btn-primary" ng-repeat="ans in Quest.answers"   ng-click= "checkbutton(ans ,$index)">{{ans.answer}}</button>
+	            <label>    </label>
+	            </div>
+	            
+	            <br></br>
+	            <br></br>
+	            <br></br>
+            
+            </div>
+        
+           <!--  <button type="submit" class="btn btn-primary"  ng-model="emam" ng-value="{{GameName}}" name ="ans"  ng-click= "checkbutton()">{{GameName}}</button>-->
+         <!--    <button type="submit" class="btn btn-primary">{{answer2}}</button>
+            <button type="submit" class="btn btn-primary">{{answer3}}</button>
+            <button type="submit" class="btn btn-primary">{{answer4}}</button>
+          <p>Game Name: <input type="text" name="GameName" class="form-control" ng-model="GameName"/> </p> -->   
    		 
         
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <!-- <button type="submit" class="btn btn-primary">Submit</button>-->
         </form>
         <p>{{postResultMessage}}</p>
     </div>
+     </div>
 	
 
     
