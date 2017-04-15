@@ -6,7 +6,7 @@ app.controller('TypeTemplateController', function($scope, $http, $location) {
 	 $scope.CurrentQuestion=1;
 	 $scope.NumberOfAllQuestions=0;
 	 $scope.NameOfButtonLevel="Next level";
-	 var id;	
+	 $scope.QID;
 	 
 	$scope.UpdateQuestion = function(){
 		$scope.CurrentQuestion=$scope.CurrentQuestion+1;
@@ -62,13 +62,29 @@ app.controller('TypeTemplateController', function($scope, $http, $location) {
 	        
 	        $http.post(url, data, config).then(function (AddResponse) {
 	        	$scope.AddResponse = AddResponse.data
-	        	
+	        	$scope.AddAnswer();
 	        	$scope.Question="";
 	        }, function (AddResponse) {
 	            $scope.postResultMessage = "Fail!";
 	        });
 	        
+	        
+	        
 	    }
+
+	 $scope.AddAnswer = function(){
+	        var url ="/create-answer/"+$scope.AddResponse;
+	        var config = {
+	                headers : {
+	                    'Content-Type': 'application/json;charset=utf-8;'
+	                }
+	        }
+	        alert($scope.AddResponse);
+	        	
+	        
+	    }
+	 
+	
 
 });
 
