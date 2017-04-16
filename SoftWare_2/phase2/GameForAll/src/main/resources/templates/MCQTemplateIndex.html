@@ -14,16 +14,24 @@
 <body>
 <div class="container" ng-app="Type">
 	<div ng-controller="TypeTemplateController">	
-        <form name="GameForm" ng-submit="UpdateLevel()" ng-init="showme=false">
-            <label>MCQ Template</label> <br></br>
+        <form name="GameForm" ng-submit="UpdateLevel()" ng-init="gettemp('MCQ');showme=false;showbuttons=false;a2=false;a3=false;a4=false">
+            <label>MCQ Template</label> <br></br><br></br>
             <div ng-init="getgame()"> <label >Game name: {{GameResponse.gameName}} </label> <br></br> 
-            
             <label>Number of levels: {{GameResponse.numOfLevels}} </label> <br></br> 
             </div>
              <label >Current Level: {{CurrentLevel}} </label> <br></br> 
              <label >Current Question in this level: {{CurrentQuestion}} </label> <br></br>
-             <label >Number of all question in the game: {{NumberOfAllQuestions}} </label> <br></br>
-            <button type="button" class="btn btn-primary" ng-click="UpdateQuestion();showme=true">Add Question</button> 
+             <label >Number of all question in the game: {{NumberOfAllQuestions}} </label> <br></br><br></br>
+             <label >Question : </label> <br></br>
+             <p> <textarea rows="7" cols="100" name="Question" form="usrform" ng-model="Question" >Enter Question here...</textarea></p>
+  	   	   <div>
+  	   	   <p>Answer 1 : <input type="text" name="A1" ng-change="updatearray();a2=true" ng-model="ans1" />    </p>
+           <p ng-show="a2">Answer 2 : <input type="text" name="A2" ng-change="updatearray();a3=true" ng-model="ans2" />    </p>
+           <p ng-show="a3">Answer 3 : <input type="text" name="A3" ng-change="updatearray();a4=true" ng-model="ans3" 	/>    </p>
+           <p ng-show="a4">Answer 4 : <input type="text" name="A4" ng-change="updatearray();showbuttons=true"  ng-model="ans4" />    </p>		
+           </div>   
+			<p  ng-show="showbuttons">Correct Answer : <button type="button" class="btn btn-primary" ng-model="ans" ng-click="correct(answers)" ng-repeat="answers in array">{{answers}}</button> </p>
+            <button type="button" class="btn btn-primary" ng-click="AddQuestion();UpdateQuestion();showme=true;showbuttons=false;a2=false;a3=false;a4=false">Add Question</button> 
             <button type="submit" class="btn btn-primary" ng-show="showme" ng-click="showme=false">{{NameOfButtonLevel}}</button>
             
         </form>

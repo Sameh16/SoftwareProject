@@ -13,10 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.GameForAll.Repository.GameRepository;
 import com.GameForAll.Repository.QuestionRepository;
 import com.GameForAll.Repository.TypeRepository;
-import com.GameForAll.models.Course;
 import com.GameForAll.models.Game;
 import com.GameForAll.models.Question;
-import com.GameForAll.models.Teacher;
 import com.GameForAll.models.Type;
 
 
@@ -35,11 +33,10 @@ public class QuestionRestController {
 		return (List<Type>) typeRepository.findAll();
 	}
 	
-	@RequestMapping(method = RequestMethod.POST, value ="/create-question/{gameID}")
-	public long AddQuestion(@RequestBody Question question,@PathVariable long gameID) 
+	@RequestMapping(method = RequestMethod.POST, value ="/create-question/{GameID}")
+	public long AddQuestion(@RequestBody Question question,@PathVariable long GameID) 
 	{
-		
-		Game game= gameRepository.findOne(gameID);
+		Game game= gameRepository.findOne(GameID);
 		if (game!=null) {
 			question.setGame(game);
 			questionRepository.save(question);

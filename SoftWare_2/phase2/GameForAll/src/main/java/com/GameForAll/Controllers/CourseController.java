@@ -11,5 +11,17 @@ public class CourseController {
 	{
 		return "CourseIndex";
 	}
+	
+	@RequestMapping(value="/",method=RequestMethod.GET)
+	public String HomeP()
+	{
+		return "Register";
+	}
+	
+	@RequestMapping(value="/L",method=RequestMethod.GET)
+	public String Home()
+	{
+		return "Login";
+	}
 
 }

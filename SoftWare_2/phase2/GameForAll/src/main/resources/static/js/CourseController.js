@@ -59,5 +59,12 @@ app.controller('CourseController', function($scope, $http, $location) {
     }
 	
 	
+	$scope.GameInCourse = function(courses){
+        courseName=courses.courseName;
+    	localStorage.setItem('courseName',courseName);
+    	var url= "/GameInCourse";
+    	window.open(url,"_self");
+    }
+	
 });
  
