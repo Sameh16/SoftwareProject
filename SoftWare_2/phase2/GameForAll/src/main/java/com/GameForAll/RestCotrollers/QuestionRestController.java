@@ -13,10 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.GameForAll.Repository.GameRepository;
 import com.GameForAll.Repository.QuestionRepository;
 import com.GameForAll.Repository.TypeRepository;
-import com.GameForAll.models.Course;
 import com.GameForAll.models.Game;
 import com.GameForAll.models.Question;
-import com.GameForAll.models.Teacher;
 import com.GameForAll.models.Type;
 
 
