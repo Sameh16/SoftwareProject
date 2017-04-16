@@ -4,8 +4,8 @@ app.controller('GameInCourseController', function($scope, $http, $location) {
     
     
     
-	
-        var url = $location.absUrl()+"/show-Course-games/sameh";
+		var courseName = localStorage.getItem('courseName');
+        var url = $location.absUrl()+"/show-Course-games/"+courseName;
         var config = {
                 headers : {
                     'Content-Type': 'application/json;charset=utf-8;'

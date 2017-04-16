@@ -59,20 +59,11 @@ app.controller('CourseController', function($scope, $http, $location) {
     }
 	
 	
-	$scope.GameInCourse = function(){
-        var url = $location.absUrl()+"/show-courses/"+$scope.CategoryName.categoryName;
-        var config = {
-                headers : {
-                    'Content-Type': 'application/json;charset=utf-8;'
-                }
-        }
-        
-        $http.get(url, config).then(function (response) {
-            $scope.Coursee = response.data
-            
-        }, function (response) {
-            $scope.getResultMessage = "Fail!";
-        });
+	$scope.GameInCourse = function(courses){
+        courseName=courses.courseName;
+    	localStorage.setItem('courseName',courseName);
+    	var url= "/GameInCourse";
+    	window.open(url,"_self");
     }
 	
 });
