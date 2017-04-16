@@ -1,6 +1,6 @@
 package com.GameForAll.models;
 
-import java.io.Serializable;
+
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,14 +15,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "answer")
-public class Answer implements Serializable{
-
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -3369982894702787381L;
-
+public class Answer{
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long AnswerId;

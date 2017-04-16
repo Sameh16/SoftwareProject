@@ -6,8 +6,21 @@ app.controller('TypeTemplateController', function($scope, $http, $location) {
 	 $scope.CurrentQuestion=1;
 	 $scope.NumberOfAllQuestions=0;
 	 $scope.NameOfButtonLevel="Next level";
-	 $scope.QID;
+	 $scope.temp;
+	 $scope.array = [$scope.ans1,$scope.ans2,$scope.ans3,$scope.ans4];
 	 
+	 $scope.updatearray = function(){
+		 $scope.array = [$scope.ans1,$scope.ans2,$scope.ans3,$scope.ans4];
+	    }
+	 $scope.correct = function(ans){
+		 $scope.ans=ans;
+	    }
+	 
+	$scope.gettemp = function(temp){
+		$scope.temp=temp;
+		
+    }
+	
 	$scope.UpdateQuestion = function(){
 		$scope.CurrentQuestion=$scope.CurrentQuestion+1;
 		$scope.NumberOfAllQuestions=$scope.NumberOfAllQuestions+1;
@@ -62,8 +75,22 @@ app.controller('TypeTemplateController', function($scope, $http, $location) {
 	        
 	        $http.post(url, data, config).then(function (AddResponse) {
 	        	$scope.AddResponse = AddResponse.data
-	        	$scope.AddAnswer();
+	        	if($scope.temp=="TF"){
+	        	$scope.AddAnswer("True");
+	        	$scope.AddAnswer("False");
+	        	$scope.ans="";
+	        	}
+	        	else if($scope.temp=="MCQ"){
+	        		$scope.AddAnswer($scope.ans1);
+		        	$scope.AddAnswer($scope.ans2);
+		        	$scope.AddAnswer($scope.ans3);
+		        	$scope.AddAnswer($scope.ans4);
+	        	}
 	        	$scope.Question="";
+	        	$scope.ans1="";
+	        	$scope.ans2="";
+	        	$scope.ans3="";
+	        	$scope.ans4="";
 	        }, function (AddResponse) {
 	            $scope.postResultMessage = "Fail!";
 	        });
@@ -72,16 +99,29 @@ app.controller('TypeTemplateController', function($scope, $http, $location) {
 	        
 	    }
 
-	 $scope.AddAnswer = function(){
+	 $scope.AddAnswer = function(AnsName){
 	        var url ="/create-answer/"+$scope.AddResponse;
 	        var config = {
 	                headers : {
 	                    'Content-Type': 'application/json;charset=utf-8;'
 	                }
 	        }
-	        alert($scope.AddResponse);
-	        	
 	        
+	        var data = {
+	        		answer:AnsName,
+	        		questionId: $scope.AddResponse,
+	        		correctAnswer: 0
+		        };
+	        
+	        if(data.answer==$scope.ans){
+	        	data.correctAnswer=1;
+	        }
+	        $http.post(url, data, config).then(function (AddAns) {
+	        	$scope.AddAns = AddAns.data
+	        }, function (AddAns) {
+	            $scope.postResultMessage = "Fail!";
+	        });
+	        	
 	    }
 	 
 	

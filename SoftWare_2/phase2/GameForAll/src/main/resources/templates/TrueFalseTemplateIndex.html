@@ -14,7 +14,7 @@
 <body>
 <div class="container" ng-app="Type">
 	<div ng-controller="TypeTemplateController">	
-        <form name="GameForm" ng-submit="UpdateLevel()" ng-init="showme=false">
+        <form name="GameForm" ng-submit="UpdateLevel()" ng-init="gettemp('TF');showme=false">
             <label>True-False Template</label> <br></br><br></br>
             <div ng-init="getgame()"> <label >Game name: {{GameResponse.gameName}} </label> <br></br> 
             <label>Number of levels: {{GameResponse.numOfLevels}} </label> <br></br> 
