@@ -1,20 +1,20 @@
 package com.GameForAll.RestCotrollers;
 
-import org.testng.annotations.Test;
+//import org.testng.annotations.Test;
 
 public class CourseRestControllerTest {
 
-  @Test
+  //@Test
   public void AddCourse() {
     throw new RuntimeException("Test not implemented");
   }
 
-  @Test
+  //@Test
   public void GetCourses() {
     throw new RuntimeException("Test not implemented");
   }
 
-  @Test
+  //@Test
   public void ShowCourse() {
     throw new RuntimeException("Test not implemented");
   }

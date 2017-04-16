@@ -1,0 +1,90 @@
+* {
+ 
+padding:0;
+ 
+margin:0;
+ 
+list-style:none;
+ 
+}
+ul.rating{
+ 
+background:url(images/star.jpg) bottom;
+ 
+height:21px;
+ 
+width:115px;
+ 
+overflow:hidden;
+ 
+}
+ul.rating li{
+ 
+display:inline
+ 
+}
+.rating a {
+ 
+display:block;
+ 
+width:23px;
+ 
+height:21px;
+ 
+float:left;
+ 
+text-indent:-9999px;
+ 
+position:relative;
+ 
+}
+.rating a:hover {
+ 
+background:url(images/star.jpg) center;
+ 
+width:115px;
+ 
+margin-left:-92px;
+ 
+position:static;
+ 
+}
+ 
+.rating a:active {
+ 
+background-position:top;
+ 
+}
+
+
+.rating {
+    float:left;
+    width:300px;
+}
+.rating span { float:right; position:relative; }
+.rating span input {
+    position:absolute;
+    top:0px;
+    left:0px;
+    opacity:0;
+}
+.rating span label {
+    display:inline-block;
+    width:30px;
+    height:30px;
+    text-align:center;
+    color:#FFF;
+    background:#ccc;
+    font-size:30px;
+    margin-right:2px;
+    line-height:30px;
+    border-radius:50%;
+    -webkit-border-radius:50%;
+}
+.rating span:hover ~ span label,
+.rating span:hover label,
+.rating span.checked label,
+.rating span.checked ~ span label {
+    background:#F90;
+    color:#FFF;
+}

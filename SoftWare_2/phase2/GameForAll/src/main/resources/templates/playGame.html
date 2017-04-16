@@ -8,66 +8,99 @@
       <script src="/angular/angular.min.js"></script>
       <script src="/js/PlayGameController.js"></script>
       <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" />
-       
+       <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.radio.css" />
 </head>
 
 <body>
 <div class="container" ng-app="Play">
 	<div ng-controller="PlayGameController" ng-init="getQuestions()">
-	
-	
-	<div ng-controller="PlayGameController" ng-init="getQuestionAtIndex()">
-        <form name="playForm" >
-            <label>{{GameName}}</label> <br></br>
-             <label>number of correct answers {{number_of_correct_answers}}</label> <br></br>
-              <label>number of wrong answers {{number_of_wrong_answers}}</label> <br></br>
-               <label>currentQuestion {{currentQuestion}}</label> <br></br>
-              currentQuestion
-  
-            
-            <div  class = "Questions" > 
-            
-            
-            <label>QuestionID : </label> <br></br>
-            <label> {{Quest.questionId}} </label> <br></br>
-            
-            <label>QuestionLevel : </label> <br></br>
-            <label> {{Quest.level}} </label> <br></br>
-            
-            
-            <label>Question : </label> <br></br>
-            <label> {{Quest.question}} </label> <br></br>
-            
-             <label>Answers : </label> <br></br>
-	            <div class="arrofanswers" >
-	            
-	            
-	            <button type="submit" class="btn btn-primary" ng-repeat="ans in Quest.answers"   ng-click= "checkbutton(ans ,$index)">{{ans.answer}}</button>
-	            <label>    </label>
-	            </div>
-	            
-	            <br></br>
-	            <br></br>
-	            <br></br>
-            
-            </div>
-        
-           <!--  <button type="submit" class="btn btn-primary"  ng-model="emam" ng-value="{{GameName}}" name ="ans"  ng-click= "checkbutton()">{{GameName}}</button>-->
-         <!--    <button type="submit" class="btn btn-primary">{{answer2}}</button>
-            <button type="submit" class="btn btn-primary">{{answer3}}</button>
-            <button type="submit" class="btn btn-primary">{{answer4}}</button>
-          <p>Game Name: <input type="text" name="GameName" class="form-control" ng-model="GameName"/> </p> -->   
-   		 
-        
-            <!-- <button type="submit" class="btn btn-primary">Submit</button>-->
-        </form>
-        <p>{{postResultMessage}}</p>
-    </div>
-     </div>
-	
 
-    
-     
+	
+	
+		
+		<div  ng-init="getQuestionAtIndex()"  ng-show="show">
+	        <form name="playForm" >
+	            <label>Game  Name  {{GameName}}</label> <br></br>
+	             <label>number of correct answers {{number_of_correct_answers}}</label> <br></br>
+	              <label>number of wrong answers {{number_of_wrong_answers}}</label> <br></br>
+	               <label>currentQuestion {{currentQuestion}}</label> <br></br>
+	              currentQuestion
+	  
+	            
+	            <div  class = "Questions" > 
+	            
+	            
+	            <label>QuestionID : </label> <br></br>
+	            <label> {{Quest.questionId}} </label> <br></br>
+	            
+	            <label>QuestionLevel : </label> <br></br>
+	            <label> {{Quest.level}} </label> <br></br>
+	            
+	            
+	            <label>Question : </label> <br></br>
+	            <label> {{Quest.question}} </label> <br></br>
+	            
+	             <label>Answers : </label> <br></br>
+		            <div class="arrofanswers" >
+			            <button type="submit" class="btn btn-primary" ng-repeat="ans in Quest.answers"   ng-click= "checkbutton(ans ,$index)">{{ans.answer}}</button>
+			            <label>    </label>
+		            </div>
+		            <br></br>
+		            <br></br>
+		            <br></br>
+	            </div>
+	        </form>
+	        <p>{{postResultMessage}}</p>
+	    </div>
+	    
+	    
+	    
+	    
+	    <div class ="final" ng-controller="PlayGameController" ng-show="score"  >
+		
+		
+				<label> Game Name {{GameName}}</label> <br></br>
+		    <label>Student Name{{studentName}}</label> <br></br>
+		    <label>Achievements in this Game is  {{achievements}}</label> <br></br>
+		     <label>Ar  {{v}}</label> <br></br>
+		    
+		    
+		     <form name="hiii" >
+		     
+		     <label> Rate the game </label> <br></br>
+		    <div class="rating" >
+			    <span><input type="radio" name="rating" ng-model="v" id="str1" value="1" ></input><label for="str1"></label></span>
+			    <span><input type="radio" name="rating" ng-model="v" id="str2" value="2" ></input><label for="str2"></label></span>
+			    <span><input type="radio" name="rating" ng-model="v" id="str2" value="3" ></input><label for="str3"></label></span>
+			    <span><input type="radio" name="rating" ng-model="v" id="str4" value="4" ></input><label for="str4"></label></span>
+			    <span><input type="radio" name="rating" ng-model="v" id="str5" value="5" ></input><label for="str5"></label></span>
+			    <span><input type="radio" name="rating" ng-model="v" id="str6" value="6" ></input><label for="str6"></label></span>
+			    <span><input type="radio" name="rating" ng-model="v" id="str7" value="7" ></input><label for="str7"></label></span>
+			    <span><input type="radio" name="rating" ng-model="v" id="str8" value="8" ></input><label for="str8"></label></span>
+			    <span><input type="radio" name="rating" ng-model="v" id="str9" value="9" ></input><label for="str9"></label></span>
+			    <span><input type="radio" name="rating" ng-model="v" id="str10" value="10" ></input><label for="str10"></label></span>
+			    
+		<!--  	    <span><input type="radio" name="rating" ng-model="v"id="str3" value="3" ></input><label for="str3"></label></span>
+			    <span><input type="radio" name="rating" ng-model="v"id="str4" value="4" ></input><label for="str4"></label></span>
+			    <span><input type="radio" name="rating" ng-model="v"id="str5" value="5" ></input><label for="str5"></label></span>
+			    <span><input type="radio" name="rating" ng-model="v"id="str6" value="6" ></input><label for="str6"></label></span>
+			    <span><input type="radio" name="rating" ng-model="v"id="str7" value="7" ></input><label for="str7"></label></span>
+			    <span><input type="radio" name="rating" ng-model="v"id="str8" value="8" ></input><label for="str8"></label></span>
+			    <span><input type="radio" name="rating" ng-model="v"id="str9" value="9" ></input><label for="str9"></label></span>
+			  <span><input type="radio" name="rating"  ng-model="v" id="str10" value="10"></input><label for="str10"></label></span> -->
+			</div>
+						     
+				    <p> <textarea rows="7" cols="100" name="description" form="usrform" ng-model="comment" >Enter your Comment</textarea></p>
+				     <button type="submit" class="btn btn-primary"    ng-click= "SaveGameData()">goooo</button>
+			</form>
+			
+			
+			 
+		</div> 
+		
+		
+  </div>
+
 </div>
 </body>
 </html>
