@@ -1,10 +1,9 @@
 package com.GameForAll.RestCotrollers;
 
-//import org.testng.annotations.Test;
+import org.testng.annotations.Test;
 
 public class CourseRestControllerTest {
 
-<
 	@Test
 	public void AddCourse() {
 		try {

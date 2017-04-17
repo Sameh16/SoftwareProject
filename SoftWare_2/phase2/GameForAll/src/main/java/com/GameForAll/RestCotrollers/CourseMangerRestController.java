@@ -1,5 +1,6 @@
 package com.GameForAll.RestCotrollers;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,9 @@ public class CourseMangerRestController {
 	{
 		
 		Student student = studentRepository.findByUsername(username);
-		Set<Course> courses = student.getCourses();
+		Set<Course> courses=new HashSet<>();
+		if(student!=null)
+			courses = student.getCourses();
 		return courses;
 		
 	}
@@ -42,7 +45,9 @@ public class CourseMangerRestController {
 	{
 		
 		Teacher teacher = teacherRepository.findByUsername(username);
-		Set<Course> courses =  teacher.getCourses();
+		Set<Course> courses=new HashSet<>();
+		if(teacher!=null)
+				 courses =  teacher.getCourses();
 		return courses;
 		
 	}
