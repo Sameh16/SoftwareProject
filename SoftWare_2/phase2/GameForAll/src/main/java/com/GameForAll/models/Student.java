@@ -18,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "student")
-public class Student{
+public class Student implements User{
 
 
 	@Id

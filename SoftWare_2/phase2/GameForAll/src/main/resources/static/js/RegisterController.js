@@ -2,7 +2,15 @@ var app = angular.module('Login', []);
 
 app.controller('LoginController', function($scope, $http, $location) {
 	 $scope.submitForm = function(){
-		 var url = $location.absUrl()+"/login";
+		 if(type == "student")
+		 {
+			 var url = $location.absUrl()+"/login";
+		 }
+		 else
+		 {
+			 var url = $location.absUrl()+"/";
+		 }
+		 
 	        var config = {
 	                headers : {
 	                    'Content-Type': 'application/json;charset=utf-8;'
@@ -16,6 +24,8 @@ app.controller('LoginController', function($scope, $http, $location) {
 	            };
 	        $http.post(url, data, config).then(function (response) {
 	            $scope.postResultMessage = "Registration successful!";
+	            Username=$scope.username;
+	        	localStorage.setItem('Username',Username);
 	        }, function (response) {
 	            $scope.postResultMessage = "Username is already taken!";
 	        });

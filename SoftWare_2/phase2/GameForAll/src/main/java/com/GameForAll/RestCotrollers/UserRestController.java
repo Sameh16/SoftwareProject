@@ -10,44 +10,84 @@ import com.GameForAll.Repository.StudentRepository;
 import com.GameForAll.Repository.TeacherRepository;
 import com.GameForAll.models.Student;
 import com.GameForAll.models.Teacher;
-
+import com.GameForAll.models.User;
 
 @RestController
 public class UserRestController {
-	
+
 	@Autowired
-	StudentRepository StudentRepo;
-	
+	TeacherRepository teacherRepository;
+
 	@Autowired
-	TeacherRepository TeacherRepo;
+	StudentRepository studentRepository;
 
 	@RequestMapping(method = RequestMethod.POST, value = "/add-student")
-	public boolean verification(@RequestBody Student student) {
-		/*
-		 * if(t.teachers.contains(user)) { return false; } else { return true; }
-		 */
-		if(StudentRepo.save(student)!=null)
+	public boolean StudentSiginUp(@RequestBody Student student) {
+		if (verification(student)) {
+			studentRepository.save(student);
 			return true;
-		return false;
+
+		} else {
+			return false;
+		}
+
 	}
 
-	@RequestMapping(method = RequestMethod.POST, value = "/add-teacher")
-	public boolean SignUp(@RequestBody Teacher teacher) {
-		/*
-		 * if(t.teachers.contains(user)) { return false; } else { return true; }
-		 */
-		if(TeacherRepo.save(teacher)!=null)
+	@RequestMapping(method = RequestMethod.GET, value = "/add-teacher")
+	public boolean TeacherSignUp(@RequestBody Teacher teacher) {
+		if (verification(teacher) == true) {
+			teacherRepository.save(teacher);
 			return true;
-		return false;
+
+		} else {
+			return false;
+		}
+
 	}
 
-	@RequestMapping(method = RequestMethod.POST, value = "/signin")
-	public boolean SignIn(@RequestBody String userName,String Password) {
-		/*
-		 * if(t.SearchUser(user)==false) { return false; } else { return true; }
-		 */
-		
-		return true;
+	private boolean verification(User user) {
+
+		Class<? extends User> s = user.getClass();
+		User user1 = null;
+		User user2 = null;
+		User user3 = null;
+		User user4 = null;
+		if (s.getSimpleName().equals("Student")) {
+			Student student = (Student) user;
+			user1 = studentRepository.findByEmail(student.getEmail());
+			user2 = teacherRepository.findByAcadmicMail(student.getEmail());
+			user3 = teacherRepository.findByUsername(student.getUsername());
+			user4 = studentRepository.findByUsername(student.getUsername());
+
+		} else {
+			Teacher teacher = (Teacher) user;
+			user1 = studentRepository.findByEmail(teacher.getAcadmicMail());
+			user2 = teacherRepository.findByAcadmicMail(teacher.getAcadmicMail());
+			user3 = teacherRepository.findByUsername(teacher.getUsername());
+			user4 = studentRepository.findByUsername(teacher.getUsername());
+
+		}
+
+		if (user1 != null || user2 != null || user3 != null || user4 != null) {
+			return false;
+		} else {
+			return true;
+		}
+
 	}
 
+	@RequestMapping(method = RequestMethod.POST, value = "/login")
+	public boolean SignIn(@RequestBody Student s) {
+		Teacher teacher = teacherRepository.findByUsername(s.getUsername());
+		Teacher teacher2 = teacherRepository.findByPassword(s.getPassword());
+		Student student = studentRepository.findByUsername(s.getUsername());
+		Student student2 = studentRepository.findByPassword(s.getPassword());
+		if (teacher != null && teacher2 != null && teacher.equals(teacher2)) {
+			return true;
+		} else if (student != null && student2 != null && student.equals(student2)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }
