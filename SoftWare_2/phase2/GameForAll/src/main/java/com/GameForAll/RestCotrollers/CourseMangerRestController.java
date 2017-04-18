@@ -28,7 +28,7 @@ public class CourseMangerRestController {
 	@Autowired
 	CourseRepository courseRepository;
 	
-	@RequestMapping(value = "/course/get-student-courses/{username}")
+	@RequestMapping(value = "/get-Student-courses/{username}")
 	public Set<Course> getStudentCourses(@PathVariable String username)
 	{
 		
@@ -40,7 +40,7 @@ public class CourseMangerRestController {
 		
 	}
 	
-	@RequestMapping(value = "/course/get-Teacher-courses/{username}")
+	@RequestMapping(value = "/get-Teacher-courses/{username}")
 	public Set<Course> getTeacherCourses(@PathVariable String username)
 	{
 		

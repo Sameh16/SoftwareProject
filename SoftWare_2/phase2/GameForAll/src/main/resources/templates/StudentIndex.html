@@ -1,76 +1,108 @@
 <!DOCTYPE HTML>
- 
+
 <html>
 <head>
-      <title>Spring Boot - Angularjs Example</title>
-      <meta charset="utf-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <script src="/angular/angular.min.js"></script>
-      <script src="/js/CourseController.js"></script>
-      <script src="/Extend js/jquery-1.9.1.min.js"></script>
-      <script src="/Extend js/modernizr-2.6.2-respond-1.1.0.min.js"></script>
-      <script src="/Extend js/scrolling-nav.js"></script>
-      <!-- Bootstrap Core CSS -->
-      
-      <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" />
-      
-       
-    <!-- Custom CSS -->
-	<link rel="stylesheet" href="/Extend css/main.css"/>
-    <link href="/Extend css/custom.css" rel="stylesheet"/>
-	
-	<script src="//use.edgefonts.net/bebas-neue.js"></script>
+<title>Game For All</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<script src="/angular/angular.min.js"></script>
+<script src="/js/Teacher.js"></script>
+<script src="/Extend js/jquery-1.9.1.min.js"></script>
+<script src="/Extend js/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+<script src="/Extend js/scrolling-nav.js"></script>
+<!-- Bootstrap Core CSS -->
 
-    <!-- Custom Fonts & Icons -->
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,600,800' rel='stylesheet' type='text/css'/>
-	<link rel="stylesheet" href="/Extend css/icomoon-social.css"/>
-	<link rel="stylesheet" href="/Extend css/font-awesome.min.css"/>
-       
+<link rel="stylesheet"
+	href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" />
+
+
+<!-- Custom CSS -->
+<link rel="stylesheet" href="/Extend css/main.css" />
+<link href="/Extend css/custom.css" rel="stylesheet" />
+
+<script src="//use.edgefonts.net/bebas-neue.js"></script>
+
+<!-- Custom Fonts & Icons -->
+<link
+	href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,600,800'
+	rel='stylesheet' type='text/css' />
+<link rel="stylesheet" href="/Extend css/icomoon-social.css" />
+<link rel="stylesheet" href="/Extend css/font-awesome.min.css" />
+
 </head>
 <body>
- <header class="navbar navbar-inverse navbar-fixed-top" role="banner">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="index.html"><img src="img/logo.png" alt="Basica"></a>
-            </div>
-            <div class="collapse navbar-collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="active"><a href="index.html">Home</a></li>
-                    <li><a href="about-us.html">About Us</a></li>
-                    <li><a href="services.html">Services</a></li>
-                    <li><a href="portfolio.html">Profile</a></li>
-                    <!-- Category -->
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Pages <i class="icon-angle-down"></i></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Dropdown Menu 1</a></li>
-                            <li><a href="#">Dropdown Menu 2</a></li>
-                            <li><a href="#">Dropdown Menu 3</a></li>
-                            <li><a href="#">Dropdown Menu 4</a></li>
-                            <li><a href="#">Dropdown Menu 5</a></li>
-                            <li class="divider"></li>
-                            <li><a href="#">Privacy Policy</a></li>
-                            <li><a href="#">Terms of Use</a></li>
-                        </ul>
-                    </li>
-                   <!--   -->
-                    <li><a href="blog.html">Blog</a></li> 
-                    <li><a href="contact-us.html">Contact</a></li>
-                </ul>
-            </div>
-        </div>
-    </header>
-    
-    
-    
-    
-    
-    
+
+<div class="container" ng-app="Teacher">
+
+
+<div ng-controller="teacherController">
+
+		
+
+	<header class="navbar navbar-inverse navbar-fixed-top" role="banner">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target=".navbar-collapse">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="index.html"><img
+					src="img/logo.png" alt="Basica"></a>
+			</div>
+			<div class="collapse navbar-collapse">
+				<ul class="nav navbar-nav navbar-right">
+					<li class="active"><a href="index.html">Home</a></li>
+					<li><a href="about-us.html">About Us</a></li>
+					<li><a href="services.html">Services</a></li>
+					<li><a href="portfolio.html">Profile</a></li>
+					<!-- Category -->
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown">Pages <i class="icon-angle-down"></i></a>
+						<ul class="dropdown-menu">
+							<li ng-repeat="Category in categories" ng-init="getcategory()"
+								ng-click="CourseInCategory(Category)">{{
+								Category.categoryName }}</li>
+
+						</ul></li>
+				
+					<li><a href="blog.html">Blog</a></li>
+					<li><a href="contact-us.html">Contact</a></li>
+				</ul>
+			</div>
+		</div>
+	</header>
+	<div class="section section-white">
+		<div class="container">
+			<div class="row">
+
+				<div class="section-title">
+					<h1>My Courses</h1>
+				</div>
+
+				<ul class="grid cs-style-3">
+
+					<div ng-repeat="course in Courses" ng-init="getCourses()"
+						class="col-md-4 col-sm-6">
+						<figure>
+							<img src="/img/4.jpg" alt="img04" />
+							<figcaption>
+								<h3>{{course.courseName}}</h3>
+								<span>{{course.courseName}}</span> <a
+									ng-click="GameInCourse(course)">Take a look</a>
+							</figcaption>
+						</figure>
+					</div>
+
+				</ul>
+
+			</div>
+		</div>
+	</div>
+
+</div>
+</div>
+
 </body>
 </html>
