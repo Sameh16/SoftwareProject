@@ -6,7 +6,7 @@ app.controller('studentController', function($scope, $http, $location) {
 	$scope.username = localStorage.getItem("username");
 		
     
-	$scope.getcategory = function(){
+	//$scope.getcategory = function(){
 		var url = "/get-category";
         var config = {
                 headers : {
@@ -19,10 +19,10 @@ app.controller('studentController', function($scope, $http, $location) {
         }, function (CategoryResponse) {
             $scope.getResultMessage = "Fail!";
         });
-    }
+   // }
     
     
-	$scope.getCourses = function(){
+//	$scope.getCourses = function(){
        var url = "/get-Student-courses/"+$scope.username;
         var config = {
                 headers : {
@@ -38,10 +38,10 @@ app.controller('studentController', function($scope, $http, $location) {
         });
         
        
-    }
+   // }
         
         
-        $scope.getGames = function(){
+       // $scope.getGames = function(){
            
         	var url = "/get-student-games-score/"+$scope.username;
             var config = {
@@ -57,7 +57,7 @@ app.controller('studentController', function($scope, $http, $location) {
                 $scope.getResultMessage = "Fail!";
             });
             
-        }
+       // }
 	
 	
 	$scope.CourseInCategory = function(Category){

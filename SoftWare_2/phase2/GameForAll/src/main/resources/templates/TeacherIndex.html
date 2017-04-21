@@ -61,49 +61,64 @@
 							<li class="dropdown"><a href="#" class="dropdown-toggle"
 								data-toggle="dropdown">Pages <i class="icon-angle-down"></i></a>
 								<ul class="dropdown-menu">
-									<li ng-repeat="Category in categories" 
+									<li ng-repeat="Category in categories"
 										ng-click="CourseInCategory(Category)">{{
 										Category.categoryName }}</li>
 
 								</ul></li>
 
-							<li><a href="blog.html">Blog</a></li>
-							<li><a href="contact-us.html">Contact</a></li>
+
+							<li><a href="/login">Log Out( {{username}} )</a></li>
 						</ul>
 					</div>
 				</div>
 			</header>
+
+			<section id="main-slider" class="no-margin">
+
+
+
+				<div class="section section-white">
+					<div class="container">
+						<div class="row">
+
+							<div class="section-title">
+								<h1>My Courses</h1>
+							</div>
+
+							<ul class="grid cs-style-3">
+
+								<div ng-repeat="course in Courses" class="col-md-4 col-sm-6">
+									<figure>
+										<img src="/img/4.jpg" alt="img04" />
+										<figcaption>
+											<h3>{{course.courseName}}</h3>
+											<span>{{course.courseName}}</span> <a
+												ng-click="GameInCourse(course)">Take a look</a>
+										</figcaption>
+									</figure>
+								</div>
+
+							</ul>
+
+
+
+
+						</div>
+					</div>
+				</div>
+			</section>
+
+
+
 			<div class="section section-white">
 				<div class="container">
 					<div class="row">
 
 						<div class="section-title">
-							<h1>My Courses</h1>
+							<h1>Our Games </h1>
 						</div>
-
-						<ul class="grid cs-style-3">
-
-							<div ng-repeat="course in Courses" 
-								class="col-md-4 col-sm-6">
-								<figure>
-									<img src="/img/4.jpg" alt="img04" />
-									<figcaption>
-										<h3>{{course.courseName}}</h3>
-										<span>{{course.courseName}}</span> <a
-											ng-click="GameInCourse(course)">Take a look</a>
-									</figcaption>
-								</figure>
-							</div>
-
-						</ul>
-						<br></br>
-						<hr></hr>
-						<br></br>
-						<br></br>
-
-
-						<div  ng-repeat="Game in Games"
-							class="col-sm-4">
+						<div ng-repeat="Game in Games" class="col-sm-4">
 							<div class="blog-post blog-single-post">
 								<div class="single-post-title">
 									<h2>{{Game.gameName}}</h2>
@@ -117,7 +132,6 @@
 								</div>
 							</div>
 						</div>
-
 					</div>
 				</div>
 			</div>
