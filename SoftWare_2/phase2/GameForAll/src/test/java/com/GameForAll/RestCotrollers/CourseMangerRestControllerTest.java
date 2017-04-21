@@ -1,5 +1,7 @@
 package com.GameForAll.RestCotrollers;
 
+import static org.testng.Assert.assertEquals;
+
 import org.testng.annotations.Test;
 
 public class CourseMangerRestControllerTest {
@@ -9,8 +11,8 @@ public class CourseMangerRestControllerTest {
 	public void SetCourseToStudent() {
 
 		try {
-
 			
+			assertEquals(false, false);
 		} catch (Exception e) {
 			throw new RuntimeException("Test not implemented");
 		}

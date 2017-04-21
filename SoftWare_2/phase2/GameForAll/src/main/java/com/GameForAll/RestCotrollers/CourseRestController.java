@@ -24,7 +24,7 @@ import com.GameForAll.models.Teacher;
 public class CourseRestController {
 
 	@Autowired
-	private CourseRepository courseRepository;
+	private CourseRepository courseRepository ;
 
 	@Autowired
 	private CategoryRepository categoryRepository;
@@ -42,11 +42,11 @@ public class CourseRestController {
 		return courses;
 	}
 
-	@RequestMapping(method = RequestMethod.POST, value = "/course/addcourse/{categoryName}/{teacherId}")
-	public boolean AddCourse(@RequestBody Course course, @PathVariable String categoryName, @PathVariable long teacherId) 
+	@RequestMapping(method = RequestMethod.POST, value = "/course/addcourse/{categoryName}/{username}")
+	public Boolean AddCourse(@RequestBody Course course, @PathVariable String categoryName, @PathVariable String username) 
 	{
 		Category category = categoryRepository.findByCategoryName(categoryName);
-		Teacher teacher = teacherRepository.findOne(teacherId);
+		Teacher teacher = teacherRepository.findByUsername(username);
 
 		if (category != null && teacher != null) {
 			course.setTeacher(teacher);
