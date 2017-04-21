@@ -1,33 +1,34 @@
-var app = angular.module('Login', []);
+var app = angular.module('Register', []);
 
-app.controller('LoginController', function($scope, $http, $location) {
-	 $scope.submitForm = function(){
-		 if(type == "student")
-		 {
-			 var url = $location.absUrl()+"/login";
-		 }
-		 else
-		 {
-			 var url = $location.absUrl()+"/";
-		 }
-		 
+app.controller('RegisterController', function($scope, $http, $location) {
+	$scope.register= function(){
 	        var config = {
 	                headers : {
 	                    'Content-Type': 'application/json;charset=utf-8;'
 	                }
 	        }
 	        var data = {
-	        		FirstName: $scope.firstName,
-	            	LastName: $scope.lastName,
+	        		name: $scope.firstName+" "+$scope.lastName,
 	            	username: $scope.username,
-	            	password: $scope.password
+	            	password: $scope.password,
+	            	email: $scope.email,
+	            	gender: $scope.gender,
+	            	age: $scope.age
 	            };
+	        var url;
+	        if($scope.user=="Teacher"){
+	        	url="/add-teacher";
+	        }
+	        else{
+	        	url="/add-student";
+	        }
+	        alert(url);
 	        $http.post(url, data, config).then(function (response) {
 	            $scope.postResultMessage = "Registration successful!";
 	            Username=$scope.username;
 	        	localStorage.setItem('Username',Username);
 	        }, function (response) {
-	            $scope.postResultMessage = "Username is already taken!";
+	            $scope.postResultMessage = "Username or email is already taken!";
 	        });
 	        $scope.firstName="";
 	    	$scope.lastName="";

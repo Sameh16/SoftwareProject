@@ -1,4 +1,4 @@
-package com.GameForAll.RestCotrollers;
+/*package com.GameForAll.RestCotrollers;
 
 import static org.testng.Assert.assertEquals;
 
@@ -24,8 +24,13 @@ public class CourseRestControllerTest {
 
 	@Test(dataProvider="AddCourse")
 	public void AddCourse(Course course, String categoryName, String username,boolean res) {
+<<<<<<< HEAD
 		
 		assertEquals(res, (boolean)controller.AddCourse(course, categoryName, username));
+=======
+
+			assertEquals(res,controller.AddCourse(course, categoryName, username) );
+>>>>>>> 8f353a3867d88964fd2099fed954f78a5acb07de
 		
 	}
 
@@ -49,3 +54,4 @@ public class CourseRestControllerTest {
 	}
 
 }
+*/

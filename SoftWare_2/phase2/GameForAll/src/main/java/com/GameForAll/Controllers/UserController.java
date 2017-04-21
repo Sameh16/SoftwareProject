@@ -19,4 +19,17 @@ public class UserController {
 		return "TeacherIndex";
 	}
 	
+	@RequestMapping(value="/login",method=RequestMethod.GET)
+	public String Home()
+	{
+		return "Login";
+	}
+	
+
+	@RequestMapping(value="/signup",method=RequestMethod.GET)
+	public String HomeP()
+	{
+		return "Register";
+	}
+	
 }

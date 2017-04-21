@@ -24,6 +24,7 @@ public class UserRestController {
 	@RequestMapping(method = RequestMethod.POST, value = "/add-student")
 	public boolean StudentSiginUp(@RequestBody Student student) {
 		if (verification(student)) {
+			
 			studentRepository.save(student);
 			return true;
 
@@ -33,7 +34,7 @@ public class UserRestController {
 
 	}
 
-	@RequestMapping(method = RequestMethod.GET, value = "/add-teacher")
+	@RequestMapping(method = RequestMethod.POST, value = "/add-teacher")
 	public boolean TeacherSignUp(@RequestBody Teacher teacher) {
 		if (verification(teacher) == true) {
 			teacherRepository.save(teacher);
@@ -46,7 +47,7 @@ public class UserRestController {
 	}
 
 	private boolean verification(User user) {
-
+		
 		Class<? extends User> s = user.getClass();
 		User user1 = null;
 		User user2 = null;
@@ -90,4 +91,20 @@ public class UserRestController {
 			return false;
 		}
 	}
+	@RequestMapping(method = RequestMethod.POST, value = "/get-user-type")
+	public String type(@RequestBody User user)
+	{
+		Class<? extends User> s = user.getClass();
+		System.out.println(s.getSimpleName());
+		if(s.getSimpleName().equals("Student"))
+		{
+			return "Student";
+		}
+		else
+		{
+			return "Teacher";
+		}
+	}
+	
+	
 }

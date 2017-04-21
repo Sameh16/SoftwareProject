@@ -1,7 +1,7 @@
 var app = angular.module('Login', []);
 
 app.controller('LoginController', function($scope, $http, $location) {
-	 $scope.submitForm = function(){
+	 $scope.login=function(){
 		 var url ="/login";
 	        var config = {
 	                headers : {
@@ -13,10 +13,8 @@ app.controller('LoginController', function($scope, $http, $location) {
 	            	password: $scope.password
 	            };
 	        $http.post(url, data, config).then(function (response) {
-
-
 	        	
-	        	/* var typeurl = "/get-user-type";  // get user type to know if student or teacher
+	        	var typeurl = "/get-user-type";
 	             var config = {
 	                     headers : {
 	                         'Content-Type': 'application/json;charset=utf-8;'
@@ -24,16 +22,15 @@ app.controller('LoginController', function($scope, $http, $location) {
 	             }
 	             
 	             $http.get(url, config).then(function (response) {
-	                 $scope.type = response.data
-	                 
+	                 $scope.type = response.data;
 	             }, function (response) {
-	                 $scope.getResultMessage = "Fail!";
+	                 $scope.type= "Fail!";
 	             });
-	        	
-	        	*/
-	            $scope.postResultMessage = "Welcome back!";
+	             localStorage.username =$scope.username;
+	            $scope.postResultMessage ="Welcome Back!";
+	            
 	        }, function (response) {
-	            $scope.postResultMessage = "Username or Password is not correct!";
+	            $scope.postResultMessage = "Usename oor Password is not correct!!";
 	        });
 }
 });
