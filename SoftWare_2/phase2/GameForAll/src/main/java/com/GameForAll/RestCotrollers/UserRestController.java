@@ -25,7 +25,7 @@ public class UserRestController {
 	@RequestMapping(method = RequestMethod.POST, value = "/add-student")
 	public boolean StudentSiginUp(@RequestBody Student student) {
 		if (verification(student)) {
-			
+
 			studentRepository.save(student);
 			return true;
 
@@ -48,7 +48,7 @@ public class UserRestController {
 	}
 
 	private boolean verification(User user) {
-		
+
 		Class<? extends User> s = user.getClass();
 		User user1 = null;
 		User user2 = null;
@@ -78,33 +78,28 @@ public class UserRestController {
 
 	}
 
-	@RequestMapping(method = RequestMethod.POST, value = "/login")
-	public boolean SignIn(@RequestBody Student s) {
-		Teacher teacher = teacherRepository.findByUsername(s.getUsername());
-		Teacher teacher2 = teacherRepository.findByPassword(s.getPassword());
-		Student student = studentRepository.findByUsername(s.getUsername());
-		Student student2 = studentRepository.findByPassword(s.getPassword());
-		if (teacher != null && teacher2 != null && teacher.equals(teacher2)) {
-			return true;
-		} else if (student != null && student2 != null && student.equals(student2)) {
-			return true;
+	@RequestMapping(method = RequestMethod.POST, value = "/user-login")
+	public long SignIn(@RequestBody Student s) {
+		Teacher teacher = teacherRepository.findByUsernameAndPassword(s.getUsername(), s.getPassword());
+		Student student = studentRepository.findByUsernameAndPassword(s.getUsername(), s.getPassword());
+
+		if (teacher != null) {
+			return teacher.getId();
+		} else if (student != null) {
+			return student.getId();
 		} else {
-			return false;
+			return 0;
 		}
 	}
+
 	@RequestMapping(method = RequestMethod.GET, value = "/get-user-type/{username}")
-	public String type(@PathVariable String username)
-	{
+	public long type(@PathVariable String username) {
 		Student student = studentRepository.findByUsername(username);
-		if(student!=null)
-		{
-			return "student";
-		}
-		else
-		{
-			return "teacher";
+		if (student != null) {
+			return 1;
+		} else {
+			return 0;
 		}
 	}
-	
-	
+
 }

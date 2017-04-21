@@ -3,7 +3,7 @@ var app = angular.module('Teacher', []);
 app.controller('teacherController', function($scope, $http, $location) {
 	
 	
-	$scope.username = localStorage.getItem("Username");
+	$scope.username = localStorage.getItem("username");
 		
     
 	$scope.getcategory = function(){
