@@ -2,7 +2,7 @@ var app = angular.module('Login', []);
 
 app.controller('LoginController', function($scope, $http, $location) {
 	 $scope.login=function(){
-		 var url ="/login";
+		 	var url;
 	        var config = {
 	                headers : {
 	                    'Content-Type': 'application/json;charset=utf-8;'
@@ -10,26 +10,25 @@ app.controller('LoginController', function($scope, $http, $location) {
 	        }
 	        var data = {
 	            	username: $scope.username,
-	            	password: $scope.password
+	            	password: $scope.password,
+	            	name: "",
+	            	email: "",
+	            	gender: "",
+	            	age: 0
 	            };
-	        $http.post(url, data, config).then(function (response) {
-	        	
-	        	var typeurl = "/get-user-type";
-	             var config = {
-	                     headers : {
-	                         'Content-Type': 'application/json;charset=utf-8;'
-	                     }
+	        url ="/user-login";
+	        $http.post(url, data, config).then(function (LoginResponse) {
+	        	$scope.LoginResponse=LoginResponse.data;
+	             alert($scope.LoginResponse);
+	             localStorage.setItem('UserId',$scope.LoginResponse);
+	             if($scope.LoginResponse==0){
+	            	 $scope.postResultMessage = "User name or Password is not correct!!";
 	             }
-	             
-	             $http.get(url, config).then(function (response) {
-	                 $scope.type = response.data;
-	             }, function (response) {
-	                 $scope.type= "Fail!";
-	             });
-	             localStorage.username =$scope.username;
+	             else{
 	            $scope.postResultMessage ="Welcome Back!";
+	             }
 	            
-	        }, function (response) {
+	        }, function (LoginResponse) {
 	            $scope.postResultMessage = "Usename oor Password is not correct!!";
 	        });
 }

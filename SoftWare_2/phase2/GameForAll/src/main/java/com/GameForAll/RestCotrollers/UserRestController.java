@@ -77,20 +77,22 @@ public class UserRestController {
 
 	}
 
-	@RequestMapping(method = RequestMethod.POST, value = "/login")
-	public boolean SignIn(@RequestBody Student s) {
-		Teacher teacher = teacherRepository.findByUsername(s.getUsername());
-		Teacher teacher2 = teacherRepository.findByPassword(s.getPassword());
-		Student student = studentRepository.findByUsername(s.getUsername());
-		Student student2 = studentRepository.findByPassword(s.getPassword());
-		if (teacher != null && teacher2 != null && teacher.equals(teacher2)) {
-			return true;
-		} else if (student != null && student2 != null && student.equals(student2)) {
-			return true;
-		} else {
-			return false;
+	@RequestMapping(method = RequestMethod.POST, value = "/user-login")
+	public long SignIn(@RequestBody Student s) {
+		Teacher teacher = teacherRepository.findByUsernameAndPassword(s.getUsername(), s.getPassword());
+		Student student = studentRepository.findByUsernameAndPassword(s.getUsername(), s.getPassword());
+		
+		if (teacher != null) {
+			return teacher.getId();
+		} 
+		else if (student != null ) {
+			return student.getId();
+		} 
+		else{
+			return 0;
 		}
 	}
+	
 	@RequestMapping(method = RequestMethod.POST, value = "/get-user-type")
 	public String type(@RequestBody User user)
 	{
