@@ -27,7 +27,7 @@ public class CategoryRestController {
 		return categories; 
 	}
 	
-	@RequestMapping(value = "/course/get-category", method = RequestMethod.GET)
+	@RequestMapping(value = "/get-category", method = RequestMethod.GET)
 	public List<Category> GetAlCategories() {
 		List<Category> categories = new ArrayList<>();
 		categories = (List<Category>) categoryRepository.findAll();

@@ -28,7 +28,7 @@ app.controller('CourseController', function($scope, $http, $location) {
 	}
 
 	$scope.getcategory = function() {
-		var url = $location.absUrl() + "/get-category";
+		var url = = "/get-category";
 		var config = {
 			headers : {
 				'Content-Type' : 'application/json;charset=utf-8;'
