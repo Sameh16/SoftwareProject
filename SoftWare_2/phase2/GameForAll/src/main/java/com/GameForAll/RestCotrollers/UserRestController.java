@@ -1,6 +1,7 @@
 package com.GameForAll.RestCotrollers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -91,18 +92,17 @@ public class UserRestController {
 			return false;
 		}
 	}
-	@RequestMapping(method = RequestMethod.POST, value = "/get-user-type")
-	public String type(@RequestBody User user)
+	@RequestMapping(method = RequestMethod.GET, value = "/get-user-type/{username}")
+	public String type(@PathVariable String username)
 	{
-		Class<? extends User> s = user.getClass();
-		System.out.println(s.getSimpleName());
-		if(s.getSimpleName().equals("Student"))
+		Student student = studentRepository.findByUsername(username);
+		if(student!=null)
 		{
-			return "Student";
+			return "student";
 		}
 		else
 		{
-			return "Teacher";
+			return "teacher";
 		}
 	}
 	
