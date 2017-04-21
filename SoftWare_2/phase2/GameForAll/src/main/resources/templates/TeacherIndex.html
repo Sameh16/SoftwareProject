@@ -96,6 +96,25 @@
 					</div>
 
 				</ul>
+				
+				
+					
+				<div ng-init="getGames()"  ng-repeat="Game in Games"  class="col-sm-4">
+						<div class="blog-post blog-single-post">
+							<div class="single-post-title">
+								<h2>{{Game.gameName}}</h2>
+							</div>
+
+							
+							
+							<div class="single-post-content">
+								<p>
+									{{Game.description}}
+								</p>
+							<a ng-click = "playGame(Game)" class="btn">Play Now</a>
+							</div>
+						</div>
+					</div>
 
 			</div>
 		</div>

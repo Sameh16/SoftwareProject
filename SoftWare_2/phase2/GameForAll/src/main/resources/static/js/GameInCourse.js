@@ -18,7 +18,16 @@ app.controller('GameInCourseController', function($scope, $http, $location) {
         }, function (response) {
             $scope.getResultMessage = "Fail!";
         });
-    
+        
+        
+        $scope.playGame=function (Game)
+        {
+        	
+        	gameName=Game.gameName;
+        	localStorage.setItem('gameName',gameName);
+        	var url= "/playGameQ";
+        	window.open(url,"_self");
+        }
 	
 });
  

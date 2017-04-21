@@ -65,11 +65,6 @@ public class Teacher implements User {
 		return Id;
 	}
 
-
-	public void setId(int id) {
-		Id = id;
-	}
-
 	
 
 	public String getName() {

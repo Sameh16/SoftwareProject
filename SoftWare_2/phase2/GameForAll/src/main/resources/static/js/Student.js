@@ -67,6 +67,17 @@ app.controller('studentController', function($scope, $http, $location) {
     	window.open(url,"_self");
     }
 	
+	
+
+    $scope.playGame=function (Game)
+    {
+    	
+    	gameName=Game.gameName;
+    	localStorage.setItem('gameName',gameName);
+    	var url= "/playGameQ";
+    	window.open(url,"_self");
+    }
+	
 	$scope.GameInCourse = function(course){
         courseName=course.courseName;
     	localStorage.setItem('courseName',courseName);

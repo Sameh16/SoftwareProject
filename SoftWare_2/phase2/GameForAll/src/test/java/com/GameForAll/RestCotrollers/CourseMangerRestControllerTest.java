@@ -1,22 +1,24 @@
-package com.GameForAll.RestCotrollers;
+/*package com.GameForAll.RestCotrollers;
+
+import static org.testng.Assert.assertEquals;
 
 import org.testng.annotations.Test;
 
 public class CourseMangerRestControllerTest {
 
 
-	@Test
+	//@Test
 	public void SetCourseToStudent() {
 
 		try {
-
 			
+			//assertEquals(false, false);
 		} catch (Exception e) {
 			throw new RuntimeException("Test not implemented");
 		}
 	}
 
-	@Test
+	//@Test
 	public void getStudentCourses() {
 		try {
 
@@ -25,7 +27,7 @@ public class CourseMangerRestControllerTest {
 		}
 	}
 
-	@Test
+	//@Test
 	public void getTeacherCourses() {
 		try {
 
@@ -34,3 +36,4 @@ public class CourseMangerRestControllerTest {
 		}
 	}
 }
+*/
