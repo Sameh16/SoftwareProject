@@ -17,10 +17,15 @@ import com.GameForAll.Repository.GameRepository;
 
 import com.GameForAll.Repository.TeacherRepository;
 import com.GameForAll.Repository.QuestionRepository;
+import com.GameForAll.Repository.StudentGameRepository;
+import com.GameForAll.Repository.StudentRepository;
 import com.GameForAll.Repository.TypeRepository;
 import com.GameForAll.models.Course;
 import com.GameForAll.models.Game;
 import com.GameForAll.models.Question;
+import com.GameForAll.models.Student;
+import com.GameForAll.models.StudentGame;
+import com.GameForAll.models.StudentGameID;
 import com.GameForAll.models.Teacher;
 import com.GameForAll.models.Type;
 
@@ -39,6 +44,14 @@ public class GameRestController {
 	
 	@Autowired
 	QuestionRepository questionRepository;
+	
+	@Autowired
+	StudentRepository studentRepository;
+	
+	@Autowired
+	StudentGameRepository studentGameRepository;
+	
+	
 	
 	 Game game=null;
 	 ArrayList<Question> questions=null;
@@ -118,6 +131,32 @@ public class GameRestController {
 		 }
 		 return null;
 	}
+	
+	
+	
+	@RequestMapping(method = RequestMethod.POST, value = "/SaveStudentGame/{GameID}/{StudentID}")
+	public boolean SaveGame(@RequestBody StudentGame  studentGame, @PathVariable long GameID, @PathVariable long StudentID) 
+	{
+		
+		System.out.println("Iam hhhhhhhhhhhhhhheeeeeeeeeeeeeeeerrrrrrrrrrrrrreeeeeee");
+
+		Student student = studentRepository.findOne(StudentID);
+		Game game= gameRepository.findOne(GameID);
+//		StudentGameID studentGameID= new StudentGameID(student.getId(),game.getGameId());
+		if (game != null && student != null ) {
+			studentGame.setStudent(student);
+			studentGame.setGame(game);
+		System.out.println("3456789078676543");
+
+			studentGameRepository.save(studentGame);
+			System.out.println("saaaaaaaaaaaaaaaaave");
+
+			return true;
+		}
+		return false;
+			
+	}
+	
 	
 	
 	

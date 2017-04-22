@@ -12,6 +12,10 @@ app.controller('PlayGameController', function($scope, $http, $location) {
 	 $scope.number_of_wrong_answers=0;
 	 $scope.currentQuestion=1;
 	 $scope.studentName="emam";
+	 $scope.studentId=1;
+	 $scope.gameId=1;
+	 
+	 
 	 $scope.radio=1;
 	 
 	 //$scope.achievements=0;
@@ -19,11 +23,47 @@ app.controller('PlayGameController', function($scope, $http, $location) {
 	 
 	 
 	 
-	 $scope.SaveGameData= function(id)
+	 $scope.SaveGameData= function()
 		{
 			
 			alert($scope.v + "   "+ 	 $scope.studentName+"   "+$scope.achievements +"    "+$scope.comment); 
+			
+			
+			
+			var url ="/SaveStudentGame/"+$scope.gameId+"/"+$scope.studentId;  
+		        
+			alert(url);
+		        var config = {
+		                headers : {
+		                    'Content-Type': 'application/json;charset=utf-8;'
+		                }
+		        }
+		        var data = {
+		        		
+		        	student: $scope.studentId,
+		        	game: $scope.game,
+		        	achievement: $scope.achievements,
+		        	comment: $scope.comment,
+		        	rate: $scope.v,
+		        	level: 1
+		      
+		        };
+		         
+		        $http.post(url, data, config).then(function (saveStudentGame) {
+		        	$scope.result = saveStudentGame.data
+		        	$scope.postResultMessage = "done";
+		        }, function (saveStudentGame) {
+		            $scope.postResultMessage = "Fail!";
+		        });
+			
+			
+			
+			
 		} 
+	 
+	 
+	 
+	 
 	$scope.getQuestionAtIndex= function()
 	{
 		
