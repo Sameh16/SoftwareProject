@@ -4,6 +4,12 @@ app.controller('teacherController', function($scope, $http, $location) {
 	
 	
 	$scope.username = localStorage.getItem("username");
+	
+	if($scope.username=="")
+	{
+		var url = "/login";
+		windows.open(url,"_self");
+	}
 		
     
 	//$scope.getcategory = function(){
@@ -82,6 +88,12 @@ app.controller('teacherController', function($scope, $http, $location) {
     	var url= "/GameInCourse";
     	window.open(url,"_self");
     }
+	
+	$scope.logout = function(){
+		localStorage.setItem("username","");
+		var url = "/login";
+		windows.open(url,"_self");
+	}
 	
 });
  
