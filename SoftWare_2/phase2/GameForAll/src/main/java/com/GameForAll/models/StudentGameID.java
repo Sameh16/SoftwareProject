@@ -13,6 +13,7 @@ public class StudentGameID implements Serializable {
 	
 	private long game;
 
+
 	
 	
 	
@@ -25,6 +26,7 @@ public class StudentGameID implements Serializable {
 		this.student = student;
 		this.game = game;
 	}
+
 
 	public long getStudent() {
 		return student;

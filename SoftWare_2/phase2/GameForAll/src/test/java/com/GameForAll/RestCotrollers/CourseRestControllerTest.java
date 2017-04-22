@@ -1,23 +1,51 @@
-package com.GameForAll.RestCotrollers;
+/*package com.GameForAll.RestCotrollers;
 
-//import org.testng.annotations.Test;
+import static org.testng.Assert.assertEquals;
+
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
+import com.GameForAll.models.Course;
 
 public class CourseRestControllerTest {
 
+<<<<<<< HEAD
 
 //	@Test
 	public void AddCourse() {
 		try {
+=======
+>>>>>>> bcae39e3abb268a2eb21931182ac7a6043e685b7
 
-		} catch (Exception e) {
-			throw new RuntimeException("Test not implemented");
-		}
+	CourseRestController controller = new CourseRestController();
+	
+	@DataProvider(name = "AddCourse")
+	public Object[][] AddCourseTest() {
+
+		return new Object[][] { { new Course("Math1", 4), "Mathmatic", "sameh", true },
+				{ new Course("Math1", 8), "Mathmatic", "sameh", false },
+				{ new Course("Math2", 8), "Mathmatic", "tester", false },
+				{ new Course("Math1", 8) ,"Math", "sameh", false },
+				{ null ,"Mathmatic", "sameh", false }
+		};
+	}
+
+	@Test(dataProvider="AddCourse")
+	public void AddCourse(Course course, String categoryName, String username,boolean res) {
+<<<<<<< HEAD
+		
+		assertEquals(res, (boolean)controller.AddCourse(course, categoryName, username));
+=======
+
+			assertEquals(res,controller.AddCourse(course, categoryName, username) );
+>>>>>>> 8f353a3867d88964fd2099fed954f78a5acb07de
+		
 	}
 
 	//@Test
 	public void GetCourses() {
 		try {
 
+			assertEquals(true, false);
 		} catch (Exception e) {
 			throw new RuntimeException("Test not implemented");
 		}
@@ -33,3 +61,4 @@ public class CourseRestControllerTest {
 	}
 
 }
+*/

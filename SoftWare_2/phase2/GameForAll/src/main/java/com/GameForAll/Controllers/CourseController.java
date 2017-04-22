@@ -18,10 +18,6 @@ public class CourseController {
 		return "Register";
 	}
 	
-	@RequestMapping(value="/L",method=RequestMethod.GET)
-	public String Home()
-	{
-		return "Login";
-	}
+	
 
 }

@@ -48,12 +48,11 @@ public class Course{
 	@ManyToMany(mappedBy = "courses")
     private Set<Student> students;
 	
-	public Course(String courseName, int minimunAge, Teacher teacher, Category category) 
+	public Course(String courseName, int minimunAge) 
 	{
 		this.courseName = courseName;
 		MinimunAge = minimunAge;
-	    this.category =  category;
-	    this.teacher=teacher;
+	    
 	}
 
 

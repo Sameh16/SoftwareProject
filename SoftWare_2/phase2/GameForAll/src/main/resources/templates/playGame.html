@@ -12,6 +12,20 @@
 </head>
 
 <body>
+
+
+
+
+
+
+<div class ="doo" ng-app="Play" >
+<div ng-controller="PlayGameController" ng-init="getQuestions()">
+</div>
+
+</div>
+
+
+
 <div class="container" ng-app="Play">
 	<div ng-controller="PlayGameController" ng-init="getQuestions()">
 
@@ -79,15 +93,7 @@
 			    <span><input type="radio" name="rating" ng-model="v" id="str8" value="8" ></input><label for="str8"></label></span>
 			    <span><input type="radio" name="rating" ng-model="v" id="str9" value="9" ></input><label for="str9"></label></span>
 			    <span><input type="radio" name="rating" ng-model="v" id="str10" value="10" ></input><label for="str10"></label></span>
-			    
-		<!--  	    <span><input type="radio" name="rating" ng-model="v"id="str3" value="3" ></input><label for="str3"></label></span>
-			    <span><input type="radio" name="rating" ng-model="v"id="str4" value="4" ></input><label for="str4"></label></span>
-			    <span><input type="radio" name="rating" ng-model="v"id="str5" value="5" ></input><label for="str5"></label></span>
-			    <span><input type="radio" name="rating" ng-model="v"id="str6" value="6" ></input><label for="str6"></label></span>
-			    <span><input type="radio" name="rating" ng-model="v"id="str7" value="7" ></input><label for="str7"></label></span>
-			    <span><input type="radio" name="rating" ng-model="v"id="str8" value="8" ></input><label for="str8"></label></span>
-			    <span><input type="radio" name="rating" ng-model="v"id="str9" value="9" ></input><label for="str9"></label></span>
-			  <span><input type="radio" name="rating"  ng-model="v" id="str10" value="10"></input><label for="str10"></label></span> -->
+		
 			</div>
 						     
 				    <p> <textarea rows="7" cols="100" name="description" form="usrform" ng-model="comment" >Enter your Comment</textarea></p>

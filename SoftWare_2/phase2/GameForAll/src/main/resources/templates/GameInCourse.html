@@ -34,7 +34,7 @@
  
     <div ng-controller="GameInCourseController">
       
-        	 		<div ng-repeat="Game in Games"  class="col-sm-6">
+        	 		<div ng-repeat="Game in Games"  class="col-sm-4">
 						<div class="blog-post blog-single-post">
 							<div class="single-post-title">
 								<h2>{{Game.gameName}}</h2>
@@ -46,7 +46,7 @@
 								<p>
 									{{Game.description}}
 								</p>
-							<a href="blog-post.html" class="btn">Play Now</a>
+							<a ng-click = "playGame(Game)" class="btn">Play Now</a>
 							</div>
 						</div>
 					</div>

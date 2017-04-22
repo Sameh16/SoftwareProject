@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "teacher")
-public class Teacher {
+public class Teacher implements User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long Id;
@@ -63,11 +63,6 @@ public class Teacher {
 
 	public long getId() {
 		return Id;
-	}
-
-
-	public void setId(int id) {
-		Id = id;
 	}
 
 	
