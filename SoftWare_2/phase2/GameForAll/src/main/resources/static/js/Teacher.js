@@ -95,5 +95,12 @@ app.controller('teacherController', function($scope, $http, $location) {
 		windows.open(url,"_self");
 	}
 	
+	$scope.createCourse = function()
+	{
+		
+    	var url= "/course";
+    	window.open(url,"_self");
+	}
+	
 });
  

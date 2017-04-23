@@ -25,7 +25,6 @@ import com.GameForAll.models.Game;
 import com.GameForAll.models.Question;
 import com.GameForAll.models.Student;
 import com.GameForAll.models.StudentGame;
-import com.GameForAll.models.StudentGameID;
 import com.GameForAll.models.Teacher;
 import com.GameForAll.models.Type;
 
@@ -111,22 +110,12 @@ public class GameRestController {
 		if (game != null )
 		 {
 	
-			// Question question = null;
+			
 			 if (questionIndex>questions.size())
 			 {
 				 return null;
 			 }
-//			 Iterator< Question> it= questions.iterator();
-//			 int i=0;
-//			 while (i<questionIndex)
-//				 {
-//				 i++;
-//				 question=  it.next();
-//
-//				 }
-//			 System.out.print (question.getQuestionId()+"   "); 
 
-			// return question;
 			 return questions.get((int) questionIndex-1);
 		 }
 		 return null;
@@ -138,11 +127,9 @@ public class GameRestController {
 	public boolean SaveGame(@RequestBody StudentGame  studentGame, @PathVariable long GameID, @PathVariable long StudentID) 
 	{
 		
-		System.out.println("Iam hhhhhhhhhhhhhhheeeeeeeeeeeeeeeerrrrrrrrrrrrrreeeeeee");
-
+		
 		Student student = studentRepository.findOne(StudentID);
 		Game game= gameRepository.findOne(GameID);
-//		StudentGameID studentGameID= new StudentGameID(student.getId(),game.getGameId());
 		if (game != null && student != null ) {
 			studentGame.setStudent(student);
 			studentGame.setGame(game);

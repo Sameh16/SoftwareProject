@@ -36,46 +36,72 @@
 
 		<div ng-controller="CourseController">
 
-			<form name="CourseForm" ng-submit="submitForm()">
-				<label>Course</label><br></br> Course Name : <input type="text"
-					name="CourseName" class="form-control" ng-model="CourseName" />
-				Category : <select class="form-control" ng-model="Category"
-					ng-options="categories as categories.categoryName for categories in CategoryResponse"
-					ng-init="getcategory()">
-				</select> Teacher Id :<input type="number" name="TeacherID"
-					class="form-control" ng-model="TeacherID" /> Min Age : <input
-					type="number" name="MinimunAge" class="form-control"
-					ng-model="MinimunAge" />
-				<button type="submit" class="btn btn-primary">Submit</button>
-			</form>
-			<p>{{postResultMessage}}</p>
+
+			<header class="navbar navbar-inverse navbar-fixed-top" role="banner">
+				<div class="container">
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle" data-toggle="collapse"
+							data-target=".navbar-collapse">
+							<span class="sr-only">Toggle navigation</span> <span
+								class="icon-bar"></span> <span class="icon-bar"></span> <span
+								class="icon-bar"></span>
+						</button>
+						<a class="navbar-brand" href="/teacher"><img
+							src="img/logo.png" alt="Basica" /></a>
+					</div>
+					<div class="collapse navbar-collapse">
+						<ul class="nav navbar-nav navbar-right">
+							<li class="active"><a href="/teacher">Home</a></li>
+							<li><a ng-click="createCourse()" href="/course">Create
+									Course</a></li>
+							<li><a href="services.html">Services</a></li>
+							<li><a href="portfolio.html">Profile</a></li>
+							<!-- Category -->
+							<li ng-init="getcategory()" class="dropdown"><a href="#"
+								class="dropdown-toggle" data-toggle="dropdown">Pages <i
+									class="icon-angle-down"></i></a>
+								<ul class="dropdown-menu">
+									<li ng-repeat="Category in CategoryResponse"
+										ng-click="CourseInCategory(Category)">{{
+										Category.categoryName }}</li>
+
+								</ul></li>
 
 
-			<p>
-				Category : <select class="form-control" ng-model="CategoryName"
-					ng-options="category as category.categoryName for category in CategoryResponse"
-					ng-init="getcategory()">
-				</select>
-			</p>
-
-			<button id="btn-id" ng-click="getCourses()">Get All Courses</button>
-
-
-			<ul class="grid cs-style-3">
-
-				<div ng-repeat="courses in Coursee" class="col-md-4 col-sm-6">
-					<figure>
-						<img src="/img/4.jpg" alt="img04" />
-						<figcaption>
-							<h3>{{courses.courseName}}</h3>
-							<span>{{courses.courseName}}</span> <a
-								ng-click="GameInCourse(courses)">Take a look</a>
-						</figcaption>
-					</figure>
+							<li><a ng-click="logout()" href="/login">Log Out(
+									{{username}} )</a></li>
+						</ul>
+					</div>
 				</div>
-			</ul>
+			</header>
+
+			<section id="main-slider" class="no-margin">
 
 
+
+				<div class="section section-white">
+					<div class="container">
+						<div class="row">
+
+							<div class="section-title">
+								<h1>Course</h1>
+							</div>
+
+							<form name="CourseForm" ng-submit="submitForm()">
+								<br></br> Course Name : <input type="text" name="CourseName"
+									class="form-control" ng-model="CourseName" /> Category : <select
+									class="form-control" ng-model="Category"
+									ng-options="categories as categories.categoryName for categories in CategoryResponse"
+									ng-init="getcategory()">
+								</select> Min Age : <input type="number" name="MinimunAge"
+									class="form-control" ng-model="MinimunAge" /><br></br>
+								<button type="submit" class="btn btn-primary">Create</button>
+							</form>
+							<p>{{postResultMessage}}</p>
+						</div>
+					</div>
+				</div>
+			</section>
 
 		</div>
 

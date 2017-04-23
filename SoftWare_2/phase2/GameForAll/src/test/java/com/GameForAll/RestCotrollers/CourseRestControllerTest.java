@@ -1,4 +1,4 @@
-/*package com.GameForAll.RestCotrollers;
+package com.GameForAll.RestCotrollers;
 
 import static org.testng.Assert.assertEquals;
 
@@ -8,40 +8,25 @@ import com.GameForAll.models.Course;
 
 public class CourseRestControllerTest {
 
-<<<<<<< HEAD
-
-//	@Test
-	public void AddCourse() {
-		try {
-=======
->>>>>>> bcae39e3abb268a2eb21931182ac7a6043e685b7
-
 	CourseRestController controller = new CourseRestController();
-	
+
 	@DataProvider(name = "AddCourse")
 	public Object[][] AddCourseTest() {
 
 		return new Object[][] { { new Course("Math1", 4), "Mathmatic", "sameh", true },
 				{ new Course("Math1", 8), "Mathmatic", "sameh", false },
 				{ new Course("Math2", 8), "Mathmatic", "tester", false },
-				{ new Course("Math1", 8) ,"Math", "sameh", false },
-				{ null ,"Mathmatic", "sameh", false }
-		};
+				{ new Course("Math1", 8), "Math", "sameh", false }, { null, "Mathmatic", "sameh", false } };
 	}
 
-	@Test(dataProvider="AddCourse")
-	public void AddCourse(Course course, String categoryName, String username,boolean res) {
-<<<<<<< HEAD
-		
-		assertEquals(res, (boolean)controller.AddCourse(course, categoryName, username));
-=======
+	@Test(dataProvider = "AddCourse")
+	public void AddCourse(Course course, String categoryName, String username, boolean res) {
 
-			assertEquals(res,controller.AddCourse(course, categoryName, username) );
->>>>>>> 8f353a3867d88964fd2099fed954f78a5acb07de
-		
+		assertEquals(res, (boolean) controller.AddCourse(course, categoryName, username));
+
 	}
 
-	//@Test
+	@Test
 	public void GetCourses() {
 		try {
 
@@ -51,7 +36,7 @@ public class CourseRestControllerTest {
 		}
 	}
 
-//	@Test
+	@Test
 	public void ShowCourse() {
 		try {
 
@@ -61,4 +46,3 @@ public class CourseRestControllerTest {
 	}
 
 }
-*/

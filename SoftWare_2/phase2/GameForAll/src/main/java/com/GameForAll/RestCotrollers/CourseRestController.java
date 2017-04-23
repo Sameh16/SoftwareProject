@@ -32,7 +32,7 @@ public class CourseRestController {
 	@Autowired
 	private TeacherRepository teacherRepository;
 
-	@RequestMapping(value = "/course/show-courses/{CategoryName}", method = RequestMethod.GET)
+	@RequestMapping(value = "/show-courses/{CategoryName}", method = RequestMethod.GET)
 	public List<Course> ShowCourse(@PathVariable String CategoryName) {
 		Category category = categoryRepository.findByCategoryName(CategoryName);
 		List<Course> courses = new ArrayList<>();
@@ -42,13 +42,17 @@ public class CourseRestController {
 		return courses;
 	}
 
-	@RequestMapping(method = RequestMethod.POST, value = "/course/addcourse/{categoryName}/{username}")
+	@RequestMapping(method = RequestMethod.POST, value = "/addcourse/{categoryName}/{username}")
 	public Boolean AddCourse(@RequestBody Course course, @PathVariable String categoryName, @PathVariable String username) 
 	{
+		if(course.getCourseName().equals(""))
+		{
+			return false;
+		}
 		Category category = categoryRepository.findByCategoryName(categoryName);
 		Teacher teacher = teacherRepository.findByUsername(username);
-
-		if (category != null && teacher != null) {
+		Course course2 = courseRepository.findByCourseName(course.getCourseName());
+		if (category != null && teacher != null && course2 ==null) {
 			course.setTeacher(teacher);
 			course.setCategory(category);
 			teacher.getCourses().add(course);

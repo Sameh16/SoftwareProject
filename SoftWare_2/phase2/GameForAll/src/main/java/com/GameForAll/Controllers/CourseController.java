@@ -18,6 +18,12 @@ public class CourseController {
 		return "Register";
 	}
 	
+	@RequestMapping(value="/CourseInCategory",method=RequestMethod.GET)
+	public String CourseInCategory()
+	{
+		return "CourseInCategory";
+	}
+	
 	
 
 }

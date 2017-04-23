@@ -3,14 +3,36 @@ var app = angular.module('GameInCourse', []);
 app.controller('GameInCourseController', function($scope, $http, $location) {
     
     
-    
+
+		$scope.username =  localStorage.getItem('username');
 		var courseName = localStorage.getItem('courseName');
-        var url = $location.absUrl()+"/show-Course-games/"+courseName;
-        var config = {
-                headers : {
-                    'Content-Type': 'application/json;charset=utf-8;'
-                }
-        }
+		
+		  url = "/get-user-type/"+$scope.username; 
+		   var config = {
+	                headers : {
+	                    'Content-Type': 'application/json;charset=utf-8;'
+	                }
+	        }
+		  
+		  $http.get(url, config).then(function (response2) { 
+			 
+			 $scope.type = response2.data; 
+			 if(response2.data==0)
+			 {
+				  $scope.teacher = true;
+			 }
+			 else
+			 {
+				 $scope.teacher = false;
+			 }
+				  
+			  },function (response2) {
+				  $scope.type= response2.data; 
+			});
+		
+		
+		
+		url = $location.absUrl()+"/show-Course-games/"+courseName;
         
         $http.get(url, config).then(function (response) {
             $scope.Games = response.data
@@ -18,6 +40,16 @@ app.controller('GameInCourseController', function($scope, $http, $location) {
         }, function (response) {
             $scope.getResultMessage = "Fail!";
         });
+        
+        
+    	url = "/get-category";
+        
+        $http.get(url, config).then(function (CategoryResponse) {
+            $scope.categories = CategoryResponse.data
+        }, function (CategoryResponse) {
+            $scope.getResultMessage = "Fail!";
+        });
+		
         
         
         $scope.playGame=function (Game)

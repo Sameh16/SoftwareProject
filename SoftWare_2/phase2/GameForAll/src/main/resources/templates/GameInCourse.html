@@ -1,58 +1,101 @@
 <!DOCTYPE HTML>
- 
+
 <html>
 <head>
-      <title>Games</title>
-      <meta charset="utf-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <script src="/angular/angular.min.js"></script>
-      <script src="/js/GameInCourse.js"></script>
-      <script src="/Extend js/jquery-1.9.1.min.js"></script>
-      <script src="/Extend js/modernizr-2.6.2-respond-1.1.0.min.js"></script>
-      <script src="/Extend js/scrolling-nav.js"></script>
-      <!-- Bootstrap Core CSS -->
-      
-      <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" />
-      
-       
-    <!-- Custom CSS -->
-	<link rel="stylesheet" href="/Extend css/main.css"/>
-    <link href="/Extend css/custom.css" rel="stylesheet"/>
-	
-	<script src="//use.edgefonts.net/bebas-neue.js"></script>
+<title>Games</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<script src="/angular/angular.min.js"></script>
+<script src="/js/GameInCourse.js"></script>
+<script src="/Extend js/jquery-1.9.1.min.js"></script>
+<script src="/Extend js/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+<script src="/Extend js/scrolling-nav.js"></script>
+<!-- Bootstrap Core CSS -->
 
-    <!-- Custom Fonts & Icons -->
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,600,800' rel='stylesheet' type='text/css'/>
-	<link rel="stylesheet" href="/Extend css/icomoon-social.css"/>
-	<link rel="stylesheet" href="/Extend css/font-awesome.min.css"/>
-	
- 
+<link rel="stylesheet"
+	href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" />
+
+
+<!-- Custom CSS -->
+<link rel="stylesheet" href="/Extend css/main.css" />
+<link href="/Extend css/custom.css" rel="stylesheet" />
+
+<script src="//use.edgefonts.net/bebas-neue.js"></script>
+
+<!-- Custom Fonts & Icons -->
+<link
+	href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,600,800'
+	rel='stylesheet' type='text/css' />
+<link rel="stylesheet" href="/Extend css/icomoon-social.css" />
+<link rel="stylesheet" href="/Extend css/font-awesome.min.css" />
+
+
 </head>
 <body>
- 
-<div class="container" ng-app="GameInCourse">
- 
-    <div ng-controller="GameInCourseController">
-      
-        	 		<div ng-repeat="Game in Games"  class="col-sm-4">
-						<div class="blog-post blog-single-post">
-							<div class="single-post-title">
-								<h2>{{Game.gameName}}</h2>
+
+	<div class="container" ng-app="GameInCourse">
+
+		<div ng-controller="GameInCourseController">
+
+			<header class="navbar navbar-inverse navbar-fixed-top" role="banner">
+				<div class="container">
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle" data-toggle="collapse"
+							data-target=".navbar-collapse">
+							<span class="sr-only">Toggle navigation</span> <span
+								class="icon-bar"></span> <span class="icon-bar"></span> <span
+								class="icon-bar"></span>
+						</button>
+						<a class="navbar-brand" href="/teacher"><img
+							src="img/logo.png" alt="Basica" /></a>
+					</div>
+					<div class="collapse navbar-collapse">
+						<ul class="nav navbar-nav navbar-right">
+							<li class="active"><a href="/teacher">Home</a></li>
+							<li><a ng-show="teacher" ng-click="createCourse()" href="/course">Create
+									Course</a></li>
+							<!-- Category -->
+							<li ng-repeat="Category in categories"><a
+								ng-click="CourseInCategory(Category)">{{Category.categoryName
+									}}</a></li>
+
+							<li><a ng-click="logout()" href="/login">Log Out(
+									{{username}} )</a></li>
+
+						</ul>
+					</div>
+				</div>
+			</header>
+			<section id="main-slider" class="no-margin">
+
+				<div class="section section-white">
+					<div class="container">
+						<div class="row">
+
+							<div class="section-title">
+								<h1>My Courses</h1>
 							</div>
 
-							
-							
-							<div class="single-post-content">
-								<p>
-									{{Game.description}}
-								</p>
-							<a ng-click = "playGame(Game)" class="btn">Play Now</a>
+							<div ng-repeat="Game in Games" class="col-sm-4">
+								<div class="blog-post blog-single-post">
+									<div class="single-post-title">
+										<h2>{{Game.gameName}}</h2>
+									</div>
+
+
+
+									<div class="single-post-content">
+										<p>{{Game.description}}</p>
+										<a ng-click="playGame(Game)" class="btn">Play Now</a>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
-         
-    </div>
-     
-</div>
+				</div>
+				</section>
+		</div>
+
+	</div>
 </body>
 </html>
