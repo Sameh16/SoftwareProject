@@ -6,9 +6,23 @@ app.controller('CourseController', function($scope, $http, $location) {
 
 	if (localStorage.getItem("username") == "") {
 
-		var url = "/login";
-		$window.open(url, '_self');
+		var url = "/";
+		window.open(url, '_self');
 	}
+
+	/* get Category */
+	url = "/get-category";
+	var config = {
+		headers : {
+			'Content-Type' : 'application/json;charset=utf-8;'
+		}
+	}
+	$http.get(url, config).then(function(CategoryResponse) {
+		$scope.categories = CategoryResponse.data
+	}, function(CategoryResponse) {
+		$scope.getResultMessage = "Fail!";
+	});
+	/**/
 
 	$scope.submitForm = function() {
 		var url = "/addcourse/" + $scope.Category.categoryName + "/"
@@ -20,26 +34,25 @@ app.controller('CourseController', function($scope, $http, $location) {
 			}
 		}
 		var data = {
-			minimunAge : $scope.MinimunAge,
-			courseName : $scope.CourseName
-
-		};
+				"minimunAge" : $scope.MinimunAge,
+				"courseName" : $scope.CourseName,
+				"description": $scope.description
+			};
 		$http.post(url, data, config).then(function(response) {
 			if (response.data == true) {
-				url="/teacher";
-				$window.open(url,'_self');
-				$scope.postResultMessage = "Sucessful!";
+				url = "/teacher";
+				window.open(url, '_self');
 			} else {
-				alert("Course Name In use!!");
-				$scope.postResultMessage = "Fail!";
+				$scope.postResultMessage = "Course Name In use!!!";
+				$scope.CourseName = "";
+				$scope.MinimunAge = "";
 			}
-			
+
 		}, function(response) {
 			$scope.postResultMessage = "Fail!";
 		});
 
-		$scope.CourseName = "";
-		$scope.MinimunAge = "";
+		
 	}
 
 	$scope.getcategory = function() {
@@ -59,8 +72,15 @@ app.controller('CourseController', function($scope, $http, $location) {
 
 	$scope.logout = function() {
 		localStorage.setItem("username", "");
-		var url = "/login";
+		var url = "/";
 		windows.open(url, "_self");
 	}
+	
+	$scope.CourseInCategory = function(Category){
+		categoryName=Category.categoryName;
+    	localStorage.setItem('categoryName',categoryName);
+    	var url= "/CourseInCategory";
+    	window.open(url,"_self");
+    }
 
 });

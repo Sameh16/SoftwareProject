@@ -7,6 +7,12 @@ app.controller('GameInCourseController', function($scope, $http, $location) {
 		$scope.username =  localStorage.getItem('username');
 		var courseName = localStorage.getItem('courseName');
 		
+		if (localStorage.getItem("username") == "") {
+
+			var url = "/";
+			window.open(url, '_self');
+		}
+		
 		  url = "/get-user-type/"+$scope.username; 
 		   var config = {
 	                headers : {
@@ -55,8 +61,8 @@ app.controller('GameInCourseController', function($scope, $http, $location) {
         $scope.playGame=function (Game)
         {
         	
-        	gameName=Game.gameName;
-        	localStorage.setItem('gameName',gameName);
+        	gameId=Game.gameId;
+        	localStorage.setItem('gameId',gameId);
         	var url= "/playGameQ";
         	window.open(url,"_self");
         }

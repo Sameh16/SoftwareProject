@@ -9,36 +9,25 @@
       <script src="/js/PlayGameController.js"></script>
       <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" />
        <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.radio.css" />
+       <link href="/Extend css/bootstrap.css" rel="stylesheet" />
+       
 </head>
 
 <body>
 
-
-
-
-
-
-<div class ="doo" ng-app="Play" >
-<div ng-controller="PlayGameController" ng-init="getQuestions()">
-</div>
-
-</div>
-
-
-
 <div class="container" ng-app="Play">
-	<div ng-controller="PlayGameController" ng-init="getQuestions()">
+	<div ng-controller="PlayGameController" >
 
 	
 	
 		
 		<div  ng-init="getQuestionAtIndex()"  ng-show="show">
 	        <form name="playForm" >
-	            <label>Game  Name  {{GameName}}</label> <br></br>
-	             <label>number of correct answers {{number_of_correct_answers}}</label> <br></br>
-	              <label>number of wrong answers {{number_of_wrong_answers}}</label> <br></br>
-	               <label>currentQuestion {{currentQuestion}}</label> <br></br>
-	              currentQuestion
+	            <label>Game  Name  {{"  "+GameName}}</label> <br></br>
+	             <label>number of correct answers {{"  "+number_of_correct_answers}}</label> <br></br>
+	              <label>number of wrong answers {{"  "+number_of_wrong_answers}}</label> <br></br>
+	               <label>currentQuestion {{"  "+currentQuestion}}</label> <br></br>
+	              
 	  
 	            
 	            <div  class = "Questions" > 
@@ -51,7 +40,7 @@
 	            <label> {{Quest.level}} </label> <br></br>
 	            
 	            
-	            <label>Question : </label> <br></br>
+	            <label>Question : </label> 
 	            <label> {{Quest.question}} </label> <br></br>
 	            
 	             <label>Answers : </label> <br></br>

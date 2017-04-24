@@ -19,7 +19,7 @@ public class UserController {
 		return "TeacherIndex";
 	}
 	
-	@RequestMapping(value="/login",method=RequestMethod.GET)
+	@RequestMapping(value="/",method=RequestMethod.GET)
 	public String Home()
 	{
 		return "Login";

@@ -5,6 +5,12 @@ app.controller('CourseInCategoryController',function($scope, $http, $location) {
 			var categoryName = localStorage.getItem('categoryName');
 			$scope.username =  localStorage.getItem('username');
 			
+			if (localStorage.getItem("username") == "") {
+
+				var url = "/";
+				window.open(url, '_self');
+			}
+			
 			  url = "/get-user-type/"+$scope.username; 
 			   var config = {
 		                headers : {
@@ -50,6 +56,11 @@ app.controller('CourseInCategoryController',function($scope, $http, $location) {
 		        courseName=course.courseName;
 		    	localStorage.setItem('courseName',courseName);
 		    	url= "/GameInCourse";
+		    	/*if($scope.teacher==false)
+		    	{
+		    		student register
+		    	}*/
+		    	
 		    	window.open(url,"_self");
 		    }
 			

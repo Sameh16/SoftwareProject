@@ -31,6 +31,9 @@ public class Course{
 	@Column(name = "Age")
 	private int MinimunAge;
 	
+	@Column(name = "description")
+	private String description;
+	
 	@ManyToOne
 	@JoinColumn(name = "CategoryId")
 	private Category category;
@@ -137,13 +140,30 @@ public class Course{
 		this.students = students;
 	}
 
+	
+
+
+	public String getDescription() {
+		return description;
+	}
+
+
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 
 
 	@Override
 	public String toString() {
-		return "Course [Id=" + Id + ", CourseName=" + courseName + ", MinimunAge=" + MinimunAge + ", category="
-				+ category + ", teacher=" + teacher + "]";
+		return "Course [Id=" + Id + ", courseName=" + courseName + ", MinimunAge=" + MinimunAge + ", description="
+				+ description + ", category=" + category + ", teacher=" + teacher + ", games=" + games + ", students="
+				+ students + "]";
 	}
-	
+
+
+
+
 	
 }

@@ -1,9 +1,6 @@
 var app = angular.module('Play', []);
-var id=52;
 var number_of_correct_answers=0;
 var number_of_wrong_answers=0;
-//var studentName="emam";
-//var achievements=0;
 
 app.controller('PlayGameController', function($scope, $http, $location) {
 	
@@ -11,14 +8,24 @@ app.controller('PlayGameController', function($scope, $http, $location) {
 	 $scope.number_of_correct_answers=0;
 	 $scope.number_of_wrong_answers=0;
 	 $scope.currentQuestion=1;
-	 $scope.studentName="emam";
-	 $scope.studentId=1;
-	 $scope.gameId=1;
+	 $scope.studentName=localStorage.getItem("username");
+	 $scope.gameId=localStorage.getItem("gameId");
+	 
+	 
+	 var url ="/playgame/"+$scope.gameId;    
+	    var config = {
+	            headers : {
+	                'Content-Type': 'application/json;charset=utf-8;'
+	            }
+	    }
+		  $http.get(url, config).then(function (Questions1) {
+		 	 $scope.questions = Questions1.data
+		  }, function (Questions) {
+			         $scope.getResultMessage = "Fail!";
+	     });
 	 
 	 
 	 $scope.radio=1;
-	 
-	 //$scope.achievements=0;
 
 	 
 	 
@@ -30,7 +37,7 @@ app.controller('PlayGameController', function($scope, $http, $location) {
 			
 			
 			
-			var url ="/SaveStudentGame/"+$scope.gameId+"/"+$scope.studentId;  
+			var url ="/SaveStudentGame/"+$scope.gameId+"/"+$scope.studentName;  
 		        
 			alert(url);
 		        var config = {
@@ -40,7 +47,7 @@ app.controller('PlayGameController', function($scope, $http, $location) {
 		        }
 		        var data = {
 		        		
-		        	student: $scope.studentId,
+		        	student: $scope.studentName,
 		        	game: $scope.game,
 		        	achievement: $scope.achievements,
 		        	comment: $scope.comment,
@@ -67,7 +74,7 @@ app.controller('PlayGameController', function($scope, $http, $location) {
 	$scope.getQuestionAtIndex= function()
 	{
 		
-		var url ="/playgame/"+id+"/"+$scope.currentQuestion;  
+		var url ="/playgame/"+$scope.gameId+"/"+$scope.currentQuestion;  
 	    var config = {
 	            headers : {
 	                'Content-Type': 'application/json;charset=utf-8;'
@@ -98,10 +105,7 @@ app.controller('PlayGameController', function($scope, $http, $location) {
 	
 	
 	
-	$scope.GameName='staaaart';
-	//$scope.Quest=$scope.questions.getValue(currentQuestion);
-	//alert($scope.Quest.question);
-	
+
 	$scope.checkbutton= function (ans,index)
 	{
 		$scope.currentQuestion++;
@@ -132,35 +136,7 @@ app.controller('PlayGameController', function($scope, $http, $location) {
 	}
 	
      
-     
-//	$scope.answer2=;
-//	$scope.answer3=;
-//	$scope.answer4=;
-	
-	 
-//    $scope.submitForm = function(){
-//        var url = $location.absUrl() +"/create-game";
-//        
-//        var config = {
-//                headers : {
-//                    'Content-Type': 'application/json;charset=utf-8;'
-//                }
-//        }
-//        var data = {
-//        	GameName: $scope.GameName,
-//        	Type: $scope.Type,
-//        	Course: $scope.Course
-//        	
-//      
-//        };
-//        
-//        $http.post(url, data, config).then(function (response) {
-//            $scope.postResultMessage = "Sucessful!";
-//        }, function (response) {
-//            $scope.postResultMessage = "Fail!";
-//        }); }
-//         
-       
+
     
 });
 

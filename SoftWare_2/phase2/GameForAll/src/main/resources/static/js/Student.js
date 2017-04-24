@@ -5,7 +5,12 @@ app.controller('studentController', function($scope, $http, $location) {
 	
 	$scope.username = localStorage.getItem("username");
 		
-    
+	if (localStorage.getItem("username") == "") {
+
+		var url = "/";
+		window.open(url, '_self');
+	}
+	
 	//$scope.getcategory = function(){
 		var url = "/get-category";
         var config = {

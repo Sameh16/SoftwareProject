@@ -1,53 +1,72 @@
 <!DOCTYPE HTML>
- 
+
 <html>
 <head>
-      <title>Game</title>
-      <meta charset="utf-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <script src="/angular/angular.min.js"></script>
-      <script src="/js/GameController.js"></script>
-      <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" />
-       
+<title>Game</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<script src="/angular/angular.min.js"></script>
+<script src="/js/GameController.js"></script>
+<link rel="stylesheet"
+	href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" />
+
+<link href="/Extend css/bootstrap.css" rel="stylesheet" />
+
 </head>
 
 <body>
-<div class="container" ng-app="Game">
-	<div ng-controller="GameController">
-        <form name="GameForm" ng-submit="AddGame()">
-            <label>Game</label> <br></br>
-            <p>Game Name: <input type="text" name="gameName" class="form-control" ng-model="gameName"/> </p>
-   			
-         <p>Category :
-             
-        <select class="form-control" ng-model="Category" ng-options="categories as categories.categoryName for categories in CategoryResponse" ng-init="getcategory()" ng-change="getcourse()">
-        </select></p> 
-        
-         <p>Course : 
-        
-    
-     <select class="form-control" ng-model="Course" ng-options="courses as courses.courseName for courses in CourseResponse" >
-        </select></p> 
-        
-        <p>Type of game :
-              
-        <select class="form-control" ng-model="Type" ng-options="types as types.typeName for types in TypeResponse" ng-init="gettype()">
-        </select></p> 
-    
-        <p>Number of levels in the game: <input type="number" name="numOfLevels" class="form-control" ng-model="numOfLevels"/> </p>
-       <p>
-       	Description:
-       	</p>
-       <p> <textarea rows="7" cols="100" name="description" form="usrform" ng-model="description" >Enter description here...</textarea></p>
-            
-            <button type="submit" class="btn btn-primary" onclick="self.close()">Add Game</button>
-        </form>
-        <p>{{postResultMessage}}</p>
-    </div>
-	
+	<div class="container" ng-app="Game">
+		<div ng-controller="GameController">
 
-    
-     
-</div>
+
+
+			
+
+	<section id="main-slider" class="no-margin">
+			<form name="GameForm" ng-submit="AddGame()">
+				<label>Game</label> <br></br>
+				<p>
+					Game Name: <input type="text" name="gameName" class="form-control"
+						ng-model="gameName" />
+				</p>
+
+				<p>
+					Category : <select class="form-control" ng-model="Category"
+						ng-options="categories as categories.categoryName for categories in CategoryResponse"
+						ng-init="getcategory()" ng-change="getcourse()">
+					</select>
+				</p>
+
+				<p>
+					Course : <select class="form-control" ng-model="Course"
+						ng-options="courses as courses.courseName for courses in CourseResponse">
+					</select>
+				</p>
+
+				<p>
+					Type of game : <select class="form-control" ng-model="Type"
+						ng-options="types as types.typeName for types in TypeResponse"
+						ng-init="gettype()">
+					</select>
+				</p>
+
+				<p>
+					Number of levels in the game: <input type="number"
+						name="numOfLevels" class="form-control" ng-model="numOfLevels" />
+				</p>
+				<p>Description:</p>
+				<p>
+					<textarea rows="7" cols="100" name="description" form="usrform"
+						ng-model="description">Enter description here...</textarea>
+				</p>
+
+				<button type="submit" class="btn btn-primary" onclick="self.close()">Add
+					Game</button>
+			</form>
+			<p>{{postResultMessage}}</p>
+		</section>
+		</div>
+
+	</div>
 </body>
 </html>

@@ -4,6 +4,8 @@ var app = angular.module('Game', []);
 
 app.controller('GameController', function($scope, $http, $location) {
 	
+	
+	
 	$scope.getcategory = function(){
         var url = $location.absUrl()+"/get-category";
         var config = {

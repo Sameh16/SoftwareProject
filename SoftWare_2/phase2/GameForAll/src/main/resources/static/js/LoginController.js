@@ -26,35 +26,24 @@ app.controller('LoginController', function($scope, $http, $location) {
 			else
 			{
 				localStorage.setItem("username",$scope.username) ;
-				$scope.postResultMessage = "Welcome Back!";
 				  url = "/get-user-type/"+$scope.username; 
-				   var config = {
-			                headers : {
-			                    'Content-Type': 'application/json;charset=utf-8;'
-			                }
-			        }
-				  
-				  $http.get(url, config).then(function (response2) { 
-					 
-					 $scope.type = response2.data; 
+		
+				  $http.get(url, config).then(function (response2) {
 					 if(response2.data==0)
 					 {
-						  url = "/teacher";
-						window.open(url, "_self");
+						 var url = "/teacher";
+						 window.open(url, "_self");
 					 }
 					 else
 					 {
 						 var url = "/student";
-						window.open(url, "_self");
+						 window.open(url, "_self");
 					 }
 						  
 					  },function (response2) {
-						  $scope.type= response2.data; 
 					});
 				  
 			}
-			
-			alert($scope.postResultMessage + "  "+$scope.username );
 
 		}, function(response) {
 			$scope.postResultMessage = "Usename or Password is not correct!!";

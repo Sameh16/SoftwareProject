@@ -7,6 +7,9 @@
 <script src="/js/RegisterController.js"></script>
 <link rel="stylesheet"
 	href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" />
+	
+<link href="/Extend css/bootstrap.css" rel="stylesheet" />
+	
 <title>Sign-Up</title>
 </head>
 <body>
@@ -17,7 +20,7 @@
     <form name="form" ng-submit="register()">
         <div class="form-group" >
             <label for="username">First name</label>
-            <input type="text" name="firstName" id="firstName" class="form-control" ng-model="firstName"  />
+            <input type="text" name="firstName" id="firstName" class="form-control" ng-model="firstName" pattern="[a-zA-Z0-9]{2,20}"  required="true" />
         </div>
         <div class="form-group" >
             <label for="username">Last name</label>
@@ -25,35 +28,35 @@
         </div>
         <div class="form-group" >
             <label for="username">User name</label>
-            <input type="text" name="username" id="username" class="form-control" ng-model="username" />
+            <input type="text" name="username" id="username" class="form-control" pattern="[a-zA-Z0-9]{2,20}" ng-model="username" required="true" />
         </div>
         <div class="form-group" >
             <label for="password">Password</label>
-            <input type="password" name="password" id="password" class="form-control" ng-model="password" />
+            <input type="password" name="password" id="password" class="form-control" ng-model="password" pattern="[a-zA-Z0-9]{6,20}" required="true" />
         </div>
         
         <div class="form-group" >
             <label for="email">Email</label>
-            <input type="text" name="email" id="email" class="form-control" ng-model="email" />
+            <input type="email" name="email" id="email" class="form-control" ng-model="email" required="true" />
         </div>
         
         <div class="form-group" >
         <label for="gender">Gender:   </label>
-            <input type="radio" name="gender" ng-model="gender" value="M"> Male  </input> 
+            <input type="radio" name="gender" ng-model="gender" value="M" required="true"> Male  </input> 
             <input type="radio" name="gender" ng-model="gender" value="F"/> Female <br></br>
         </div>
         <div class="form-group" >
         <label for="age">Age</label>
-        <input type="number" name="age" class="form-control" ng-model="age" min="3"/>
+        <input type="number" name="age"  class="form-control" ng-model="age" min="4"/>
         </div>
         <div class="form-group" >
-            <input type="radio" name="user" ng-model="user" value="Student"/> Student <br></br>
+            <input type="radio" name="user" ng-model="user" value="Student" required="true"/> Student <br></br>
             <input type="radio" name="user" ng-model="user" value="Teacher"/> Teacher <br></br>
         </div>
         
         <div class="form-actions">
             <button type="submit" class="btn btn-primary">Register</button>
-            <a href="/login" class="btn btn-link">Cancel</a>
+            <a href="/" class="btn btn-link">Cancel</a>
         </div>
     </form>
     <p>{{postResultMessage}}</p>

@@ -2,7 +2,7 @@
 
 <html>
 <head>
-<title>Spring Boot - Angularjs Example</title>
+<title>Create Course</title>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <script src="/angular/angular.min.js"></script>
@@ -14,7 +14,7 @@
 
 <link rel="stylesheet"
 	href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" />
-
+<link href="/Extend css/bootstrap.css" rel="stylesheet" />
 
 <!-- Custom CSS -->
 <link rel="stylesheet" href="/Extend css/main.css" />
@@ -51,25 +51,17 @@
 					</div>
 					<div class="collapse navbar-collapse">
 						<ul class="nav navbar-nav navbar-right">
-							<li class="active"><a href="/teacher">Home</a></li>
-							<li><a ng-click="createCourse()" href="/course">Create
-									Course</a></li>
-							<li><a href="services.html">Services</a></li>
-							<li><a href="portfolio.html">Profile</a></li>
+							<li><a href="/teacher">Home</a></li>
+							<li class="active"><a href="/course">Create Course</a></li>
+							<li><a href="/game">Create Game</a></li>
 							<!-- Category -->
-							<li ng-init="getcategory()" class="dropdown"><a href="#"
-								class="dropdown-toggle" data-toggle="dropdown">Pages <i
-									class="icon-angle-down"></i></a>
-								<ul class="dropdown-menu">
-									<li ng-repeat="Category in CategoryResponse"
-										ng-click="CourseInCategory(Category)">{{
-										Category.categoryName }}</li>
+							<li ng-repeat="Category in categories"><a
+								ng-click="CourseInCategory(Category)">{{Category.categoryName
+									}}</a></li>
 
-								</ul></li>
-
-
-							<li><a ng-click="logout()" href="/login">Log Out(
+							<li><a ng-click="logout()" href="/">Log Out(
 									{{username}} )</a></li>
+
 						</ul>
 					</div>
 				</div>
@@ -87,16 +79,23 @@
 								<h1>Course</h1>
 							</div>
 
-							<form name="CourseForm" ng-submit="submitForm()">
-								<br></br> Course Name : <input type="text" name="CourseName"
-									class="form-control" ng-model="CourseName" /> Category : <select
-									class="form-control" ng-model="Category"
-									ng-options="categories as categories.categoryName for categories in CategoryResponse"
-									ng-init="getcategory()">
-								</select> Min Age : <input type="number" name="MinimunAge"
-									class="form-control" ng-model="MinimunAge" /><br></br>
-								<button type="submit" class="btn btn-primary">Create</button>
-							</form>
+							<br></br> Course Name : <input type="text" name="CourseName"
+								class="form-control" ng-model="CourseName" required="true" />
+							Category : <select required="true" class="form-control"
+								ng-model="Category"
+								ng-options="categories as categories.categoryName for categories in CategoryResponse"
+								ng-init="getcategory()">
+							</select> Min Age : <input type="number" name="MinimunAge"
+								class="form-control" ng-model="MinimunAge" /><br></br>
+
+							<p>Description:</p>
+							<p>
+								<textarea rows="7" cols="100" name="description" form="usrform"
+									ng-model="description">Enter description here...</textarea>
+							</p>
+
+							<button ng-click="submitForm()" class="btn btn-primary">Create</button>
+
 							<p>{{postResultMessage}}</p>
 						</div>
 					</div>

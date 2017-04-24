@@ -123,25 +123,18 @@ public class GameRestController {
 	
 	
 	
-	@RequestMapping(method = RequestMethod.POST, value = "/SaveStudentGame/{GameID}/{StudentID}")
-	public boolean SaveGame(@RequestBody StudentGame  studentGame, @PathVariable long GameID, @PathVariable long StudentID) 
+	@RequestMapping(method = RequestMethod.POST, value = "/SaveStudentGame/{GameID}/{Username}")
+	public boolean SaveGame(@RequestBody StudentGame  studentGame, @PathVariable long GameID, @PathVariable String Username) 
 	{
-		
-		
-		Student student = studentRepository.findOne(StudentID);
+		Student student = studentRepository.findByUsername(Username);
 		Game game= gameRepository.findOne(GameID);
 		if (game != null && student != null ) {
 			studentGame.setStudent(student);
 			studentGame.setGame(game);
-		System.out.println("3456789078676543");
-
 			studentGameRepository.save(studentGame);
-			System.out.println("saaaaaaaaaaaaaaaaave");
-
 			return true;
 		}
-		return false;
-			
+		return false;	
 	}
 	
 	

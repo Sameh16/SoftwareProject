@@ -12,11 +12,6 @@ public class CourseController {
 		return "CourseIndex";
 	}
 	
-	@RequestMapping(value="/",method=RequestMethod.GET)
-	public String HomeP()
-	{
-		return "Register";
-	}
 	
 	@RequestMapping(value="/CourseInCategory",method=RequestMethod.GET)
 	public String CourseInCategory()

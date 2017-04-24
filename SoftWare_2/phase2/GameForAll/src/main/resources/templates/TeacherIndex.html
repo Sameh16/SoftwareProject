@@ -15,6 +15,7 @@
 <link rel="stylesheet"
 	href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" />
 
+<link href="/Extend css/bootstrap.css" rel="stylesheet" />
 
 <!-- Custom CSS -->
 <link rel="stylesheet" href="/Extend css/main.css" />
@@ -54,14 +55,16 @@
 					<div class="collapse navbar-collapse">
 						<ul class="nav navbar-nav navbar-right">
 							<li class="active"><a href="/teacher">Home</a></li>
-							<li><a ng-click="createCourse()" href="/course">Create
+							<li><a   href="/course">Create
 									Course</a></li>
+							<li><a   href="/game">Create
+									Game</a></li>
 							<!-- Category -->
 							<li ng-repeat="Category in categories"><a
 								ng-click="CourseInCategory(Category)">{{Category.categoryName
 									}}</a></li>
 
-							<li><a ng-click="logout()" href="/login">Log Out(
+							<li><a ng-click="logout()" href="/">Log Out(
 									{{username}} )</a></li>
 						
 						</ul>
@@ -69,36 +72,25 @@
 				</div>
 			</header>
 
-			<section id="main-slider" class="no-margin">
-
-
-
+		<section id="main-slider" class="no-margin">
 				<div class="section section-white">
 					<div class="container">
 						<div class="row">
-
 							<div class="section-title">
 								<h1>My Courses</h1>
 							</div>
-
 							<ul class="grid cs-style-3">
-
 								<div ng-repeat="course in Courses" class="col-md-4 col-sm-6">
 									<figure>
 										<img src="/img/4.jpg" alt="img04" />
 										<figcaption>
 											<h3>{{course.courseName}}</h3>
-											<span>{{course.courseName}}</span> <a
+											<span>{{course.description}}</span> <a
 												ng-click="GameInCourse(course)">Take a look</a>
 										</figcaption>
 									</figure>
 								</div>
-
 							</ul>
-
-
-
-
 						</div>
 					</div>
 				</div>
@@ -109,7 +101,6 @@
 			<div class="section section-white">
 				<div class="container">
 					<div class="row">
-
 						<div class="section-title">
 							<h1>Our Games</h1>
 						</div>
@@ -118,9 +109,6 @@
 								<div class="single-post-title">
 									<h2>{{Game.gameName}}</h2>
 								</div>
-
-
-
 								<div class="single-post-content">
 									<p>{{Game.description}}</p>
 									<a ng-click="playGame(Game)" class="btn">Play Now</a>
