@@ -20,6 +20,8 @@ import com.GameForAll.models.Type;
 
 @RestController
 public class QuestionRestController {
+	
+	
 	@Autowired
 	private TypeRepository typeRepository;
 	@Autowired

@@ -4,7 +4,7 @@ var app = angular.module('Game', []);
 
 app.controller('GameController', function($scope, $http, $location) {
 	
-	
+	$scope.username= localStorage.getItem('username');
 	
 	$scope.getcategory = function(){
         var url = $location.absUrl()+"/get-category";
@@ -23,7 +23,7 @@ app.controller('GameController', function($scope, $http, $location) {
     }
 	
 	$scope.getcourse = function(){
-        var url = $location.absUrl()+"/get-courses/"+$scope.Category.categoryName+"/1";
+        var url = "/get-courses/"+$scope.Category.categoryName+"/"+$scope.username;
         
         var config = {
                 headers : {
@@ -56,7 +56,7 @@ app.controller('GameController', function($scope, $http, $location) {
    
     
     $scope.AddGame = function(){
-        var url = $location.absUrl() + "/create-game/"+$scope.Course.id+"/"+$scope.Type.typeId+"/1";
+        var url = $location.absUrl() + "/create-game/"+$scope.Course.id+"/"+$scope.Type.typeId+"/"+$scope.username;
         
         var config = {
                 headers : {
@@ -77,7 +77,6 @@ app.controller('GameController', function($scope, $http, $location) {
         	$scope.GameResponse = GameResponse.data
         	id=$scope.GameResponse;
         	localStorage.setItem('id',id);
-        	//alert(localStorage.getItem('id'));
         	var url2= $location.absUrl() + "/get-type-template/"+$scope.Type.typeName;
         	window.open(url2,"_self");
         }, function (GameResponse) {

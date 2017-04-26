@@ -140,12 +140,12 @@ public class GameRestController {
 	
 	
 	
-	@RequestMapping(method = RequestMethod.POST, value = "/game/create-game/{courseID}/{typeID}/{teacherID}")
-	public long CreateGame(@RequestBody Game game, @PathVariable long courseID, @PathVariable long typeID,@PathVariable long teacherID) 
+	@RequestMapping(method = RequestMethod.POST, value = "/game/create-game/{courseID}/{typeID}/{username}")
+	public long CreateGame(@RequestBody Game game, @PathVariable long courseID, @PathVariable long typeID,@PathVariable String username) 
 	{
 		Course course = courseRepository.findOne(courseID);
 		Type type = typeRepository.findOne(typeID);
-		Teacher teacher = teacherRepository.findOne(teacherID);
+		Teacher teacher = teacherRepository.findByUsername(username);
 		if (course != null && type != null && teacher!=null) {
 			game.setCourse(course);
 			game.setType(type);

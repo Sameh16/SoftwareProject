@@ -76,10 +76,10 @@ public class CourseRestController {
 		}
 	}
 	
-	@RequestMapping(value = "/game/get-courses/{CategoryName}/{TeacherId}", method = RequestMethod.GET)
-	public List<Course> GetCourses(@PathVariable String CategoryName,@PathVariable long TeacherId) {
+	@RequestMapping(value = "/get-courses/{CategoryName}/{username}", method = RequestMethod.GET)
+	public List<Course> GetTeacherCourses(@PathVariable String CategoryName,@PathVariable String username) {
 		Category category = categoryRepository.findByCategoryName(CategoryName);
-		Teacher teacher=teacherRepository.findOne(TeacherId);
+		Teacher teacher=teacherRepository.findByUsername(username);
 		List<Course> courses = new ArrayList<>();
 		if (category != null && teacher !=null) {
 			courses = courseRepository.findByCategoryAndTeacher(category,teacher);

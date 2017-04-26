@@ -11,7 +11,6 @@ app.controller('PlayGameController', function($scope, $http, $location) {
 	 $scope.studentName=localStorage.getItem("username");
 	 $scope.gameId=localStorage.getItem("gameId");
 	 
-	 
 	 var url ="/playgame/"+$scope.gameId;    
 	    var config = {
 	            headers : {
@@ -33,13 +32,11 @@ app.controller('PlayGameController', function($scope, $http, $location) {
 	 $scope.SaveGameData= function()
 		{
 			
-			alert($scope.v + "   "+ 	 $scope.studentName+"   "+$scope.achievements +"    "+$scope.comment); 
 			
 			
 			
 			var url ="/SaveStudentGame/"+$scope.gameId+"/"+$scope.studentName;  
 		        
-			alert(url);
 		        var config = {
 		                headers : {
 		                    'Content-Type': 'application/json;charset=utf-8;'
@@ -59,6 +56,12 @@ app.controller('PlayGameController', function($scope, $http, $location) {
 		        $http.post(url, data, config).then(function (saveStudentGame) {
 		        	$scope.result = saveStudentGame.data
 		        	$scope.postResultMessage = "done";
+		        	if ($scope.result)
+		        		url="/student"
+		        	else 	url="/teacher";
+		        	window.open(url,"_self");
+		        	
+		        	
 		        }, function (saveStudentGame) {
 		            $scope.postResultMessage = "Fail!";
 		        });
@@ -84,7 +87,7 @@ app.controller('PlayGameController', function($scope, $http, $location) {
     	 $scope.Quest = Question.data;
     	 if(typeof($scope.Quest.questionId) == "undefined")
     		 {
-    		 $scope.achievements=($scope.number_of_correct_answers*10)-($scope.number_of_wrong_answers*10);
+    		 $scope.achievements=($scope.number_of_correct_answers*10);
     		 	$scope.show=false;
     		 	$scope.score=true;
 

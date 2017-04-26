@@ -55,8 +55,8 @@ app.controller('teacherController', function($scope, $http, $location) {
 	}
 
 	$scope.playGame = function(Game) {
-		gameName = Game.gameName;
-		localStorage.setItem('gameName', gameName);
+		gameId = Game.gameId;
+		localStorage.setItem('gameId', gameId);
 		var url = "/playGameQ";
 		window.open(url, "_self");
 	}
@@ -72,7 +72,7 @@ app.controller('teacherController', function($scope, $http, $location) {
 		localStorage.setItem("username", "");
 		var url = "/";
 		windows.open(url, "_self");
-	}
+	} 
 
 	
 

@@ -67,8 +67,8 @@ app.controller('CourseInCategoryController',function($scope, $http, $location) {
 			$scope.CourseInCategory = function(Category){
 				categoryName=Category.categoryName;
 		    	localStorage.setItem('categoryName',categoryName);
-		    	var url= "/CourseInCategory";
-		    	window.open(url,"_self");
+		    	$scope.path= "/CourseInCategory";
+		    	window.open($scope.path,"_self");
 		    }
 
 		});
