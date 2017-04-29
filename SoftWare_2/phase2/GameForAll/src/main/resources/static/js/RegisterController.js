@@ -1,6 +1,43 @@
+	
+
+
 var app = angular.module('Register', []);
 
 app.controller('RegisterController', function($scope, $http, $location) {
+	$scope.gender='M';
+	$scope.user='Student';
+
+	$scope.SetUser = function($res) {
+		$scope.user=$res;
+	}
+		$scope.SetGender = function($res) {
+			$scope.gender=$res;
+	}
+		
+		$scope.GenderClass= function($res){
+			if($res=="male"){
+				document.getElementById("female").className = "tab";
+			}
+			else{
+				document.getElementById("male").className = "tab";
+			}
+			document.getElementById($res).className = "tab active";
+	}
+		
+		$scope.UserClass= function($res){
+			if($res=="teacher"){
+				document.getElementById("student").className = "tab";
+			}
+			else{
+				document.getElementById("teacher").className = "tab";
+			}
+			document.getElementById($res).className = "tab active";
+	}
+
+	
+	
+	
+	
 	$scope.register= function(){
 	        var config = {
 	                headers : {
@@ -10,6 +47,11 @@ app.controller('RegisterController', function($scope, $http, $location) {
 	       
 	        
 	        var url;
+	        if($scope.lastName==null){
+	        	$scope.lastName="";
+	        }
+	        
+	        
 	        if($scope.user=="Teacher"){
 	        	url="/add-teacher";
 	        	 var data = {
@@ -36,6 +78,7 @@ app.controller('RegisterController', function($scope, $http, $location) {
 	        	if(response.data)
 	        	{
 	        		$scope.postResultMessage = "Registration successful!";
+	 	        	localStorage.setItem('username',$scope.username);
 	        		if($scope.user=="Teacher")
 	        		 {
 						  url = "/teacher";
@@ -43,21 +86,19 @@ app.controller('RegisterController', function($scope, $http, $location) {
 					 }
 					 else
 					 {
+						 alert("hi");
 						 var url = "/student";
 						window.open(url, "_self");
 					 }
 	        	}else
 	        	{
 	        		$scope.postResultMessage = "Username or email is already taken!";
-	        		alert($scope.postResultMessage);
 	        	}
 	           
-	            Username=$scope.username;
-	        	localStorage.setItem('Username',Username);
+	           
 	        }, function (response) {
 	            $scope.postResultMessage = "Username or email is already taken!";
 	        });
-	    	$scope.username="";
-	    	$scope.password="";
+	    	
 }
 });
