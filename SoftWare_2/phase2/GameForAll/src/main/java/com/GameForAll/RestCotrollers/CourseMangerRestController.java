@@ -28,6 +28,10 @@ public class CourseMangerRestController {
 	@Autowired
 	CourseRepository courseRepository;
 	
+	/**
+	 * @param username
+	 * @return
+	 */
 	@RequestMapping(value = "/get-Student-courses/{username}")
 	public Set<Course> getStudentCourses(@PathVariable String username)
 	{
@@ -40,6 +44,11 @@ public class CourseMangerRestController {
 		
 	}
 	
+	
+	/**
+	 * @param username
+	 * @return
+	 */
 	@RequestMapping(value = "/get-Teacher-courses/{username}")
 	public Set<Course> getTeacherCourses(@PathVariable String username)
 	{
@@ -52,6 +61,11 @@ public class CourseMangerRestController {
 		
 	}
 	
+	/**
+	 * @param courseName
+	 * @param username
+	 * @return
+	 */
 	@RequestMapping(value = "/student/add-course/{username}/{courseName}")
 	public boolean SetCourseToStudent(@PathVariable String courseName,@PathVariable String username)
 	{

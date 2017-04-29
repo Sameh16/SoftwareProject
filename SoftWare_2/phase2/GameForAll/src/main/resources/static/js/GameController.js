@@ -6,6 +6,11 @@ app.controller('GameController', function($scope, $http, $location) {
 	
 	$scope.username= localStorage.getItem('username');
 	
+	if (localStorage.getItem("username") == "") {
+
+		var url = "/";
+		window.open(url, '_self');
+	}
 	$scope.getcategory = function(){
         var url = $location.absUrl()+"/get-category";
         var config = {

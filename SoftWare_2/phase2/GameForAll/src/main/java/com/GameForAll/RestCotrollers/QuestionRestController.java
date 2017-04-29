@@ -30,14 +30,24 @@ public class QuestionRestController {
 	private QuestionRepository questionRepository;
 	
 	
+	/**
+	 * @return
+	 */
 	@RequestMapping(value = "/game/get-question", method = RequestMethod.GET)
 	public List<Type> GetAllTypes() {
+		
 		return (List<Type>) typeRepository.findAll();
 	}
 	
+	/**
+	 * @param question
+	 * @param GameID
+	 * @return
+	 */
 	@RequestMapping(method = RequestMethod.POST, value ="/create-question/{GameID}")
 	public long AddQuestion(@RequestBody Question question,@PathVariable long GameID) 
 	{
+		
 		Game game= gameRepository.findOne(GameID);
 		if (game!=null) {
 			question.setGame(game);

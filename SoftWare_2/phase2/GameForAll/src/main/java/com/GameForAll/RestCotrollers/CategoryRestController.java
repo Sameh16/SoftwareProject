@@ -20,15 +20,23 @@ public class CategoryRestController {
 	@Autowired
 	private CategoryRepository categoryRepository;
 	
+	/**
+	 * @return
+	 */
 	@RequestMapping(value = "/game/get-category", method = RequestMethod.GET)
 	public List<Category> GetAllCategories() {
+		
 		List<Category> categories = new ArrayList<>();
 		categories = (List<Category>) categoryRepository.findAll();
 		return categories; 
 	}
 	
+	/**
+	 * @return
+	 */
 	@RequestMapping(value = "/get-category", method = RequestMethod.GET)
 	public List<Category> GetAlCategories() {
+		
 		List<Category> categories = new ArrayList<>();
 		categories = (List<Category>) categoryRepository.findAll();
 		return categories; 

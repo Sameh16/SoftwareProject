@@ -27,6 +27,10 @@ public class AnswerRestController {
 	@Autowired
 	private QuestionRepository questionRepository;
 	
+	/**
+	 * @param answer
+	 * @param QID
+	 */
 	@RequestMapping(method = RequestMethod.POST, value ="/create-answer/{QID}")
 	public void AddQuestion(@RequestBody Answer answer,@PathVariable long QID) 
 	{

@@ -27,6 +27,10 @@ public class GameMangerRestController {
 	@Autowired
 	TeacherRepository teacherRepository;
 	
+	/**
+	 * @param username
+	 * @return
+	 */
 	@RequestMapping(value="/get-student-games-score/{username}")
 	public Set<StudentGame> getStudentGamesScore(@PathVariable String username)
 	{
@@ -40,6 +44,10 @@ public class GameMangerRestController {
 		
 	}
 	
+	/**
+	 * @param username
+	 * @return
+	 */
 	@RequestMapping(value="/get-teacher-games/{username}")
 	public Set<Game> getTeacherGames(@PathVariable String username)
 	{

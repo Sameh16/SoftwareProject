@@ -67,6 +67,11 @@ public class GameRestController {
 			
 		}
 	
+	/**
+	 * @param type
+	 * @param gameID
+	 * @return
+	 */
 	@RequestMapping(value= "game/get-type-template/{type}/get-game/{gameID}" ,method=RequestMethod.GET)
 	Game GetGame(@PathVariable String type,@PathVariable long gameID)
 	{
@@ -74,6 +79,10 @@ public class GameRestController {
 		
 	}
 	
+	/**
+	 * @param gameID
+	 * @return
+	 */
 	@RequestMapping(value= "/playgame/{gameID}" ,method=RequestMethod.GET)
 	Set<Question>  PlayGame(@PathVariable long gameID)
 	{
@@ -99,6 +108,11 @@ public class GameRestController {
 		
 	}
 
+	/**
+	 * @param gameID
+	 * @param questionIndex
+	 * @return
+	 */
 	@RequestMapping(value= "/playgame/{gameID}/{questionIndex}" ,method=RequestMethod.GET)
 	Question  getQuestion(@PathVariable long gameID,@PathVariable long questionIndex)
 	{
@@ -134,9 +148,16 @@ public class GameRestController {
 	
 	
 	
+	/**
+	 * @param studentGame
+	 * @param GameID
+	 * @param Username
+	 * @return
+	 */
 	@RequestMapping(method = RequestMethod.POST, value = "/SaveStudentGame/{GameID}/{Username}")
 	public boolean SaveGame(@RequestBody StudentGame  studentGame, @PathVariable long GameID, @PathVariable String Username) 
 	{
+		
 		Student student = studentRepository.findByUsername(Username);
 		Game game= gameRepository.findOne(GameID);
 		if (game != null && student != null ) {
@@ -151,9 +172,17 @@ public class GameRestController {
 	
 	
 	
+	/**
+	 * @param game
+	 * @param courseID
+	 * @param typeID
+	 * @param username
+	 * @return
+	 */
 	@RequestMapping(method = RequestMethod.POST, value = "/game/create-game/{courseID}/{typeID}/{username}")
 	public long CreateGame(@RequestBody Game game, @PathVariable long courseID, @PathVariable long typeID,@PathVariable String username) 
 	{
+		
 		Course course = courseRepository.findOne(courseID);
 		Type type = typeRepository.findOne(typeID);
 		Teacher teacher = teacherRepository.findByUsername(username);

@@ -19,12 +19,11 @@ import com.GameForAll.models.Course;
 import com.GameForAll.models.Game;
 import com.GameForAll.models.Teacher;
 
-
 @RestController
 public class CourseRestController {
 
 	@Autowired
-	private CourseRepository courseRepository ;
+	private CourseRepository courseRepository;
 
 	@Autowired
 	private CategoryRepository categoryRepository;
@@ -32,6 +31,11 @@ public class CourseRestController {
 	@Autowired
 	private TeacherRepository teacherRepository;
 
+
+	/**
+	 * @param CategoryName
+	 * @return
+	 */
 	@RequestMapping(value = "/show-courses/{CategoryName}", method = RequestMethod.GET)
 	public List<Course> ShowCourse(@PathVariable String CategoryName) {
 		Category category = categoryRepository.findByCategoryName(CategoryName);
@@ -42,17 +46,23 @@ public class CourseRestController {
 		return courses;
 	}
 
+	/**
+	 * @param course
+	 * @param categoryName
+	 * @param username
+	 * @return
+	 */
 	@RequestMapping(method = RequestMethod.POST, value = "/addcourse/{categoryName}/{username}")
-	public Boolean AddCourse(@RequestBody Course course, @PathVariable String categoryName, @PathVariable String username) 
-	{
-		if(course.getCourseName().equals(""))
-		{
+	public Boolean AddCourse(@RequestBody Course course, @PathVariable String categoryName,
+			@PathVariable String username) {
+		
+		if (course.getCourseName().equals("")) {
 			return false;
 		}
 		Category category = categoryRepository.findByCategoryName(categoryName);
 		Teacher teacher = teacherRepository.findByUsername(username);
 		Course course2 = courseRepository.findByCourseName(course.getCourseName());
-		if (category != null && teacher != null && course2 ==null) {
+		if (category != null && teacher != null && course2 == null) {
 			course.setTeacher(teacher);
 			course.setCategory(category);
 			teacher.getCourses().add(course);
@@ -63,29 +73,35 @@ public class CourseRestController {
 			return false;
 		}
 	}
-	
-	
+
+	/**
+	 * @param courseName
+	 * @return
+	 */
 	@RequestMapping(method = RequestMethod.GET, value = "/GameInCourse/show-Course-games/{courseName}")
-	public Set<Game> GetGamesInCourse(@PathVariable String courseName) 
-	{
+	public Set<Game> GetGamesInCourse(@PathVariable String courseName) {
 		Course course = courseRepository.findByCourseName(courseName);
-		if (course!=null) {
+		if (course != null) {
 			return course.getGames();
 		} else {
 			return null;
 		}
 	}
-	
+
+	/**
+	 * @param CategoryName
+	 * @param username
+	 * @return Courses
+	 */
 	@RequestMapping(value = "/get-courses/{CategoryName}/{username}", method = RequestMethod.GET)
-	public List<Course> GetTeacherCourses(@PathVariable String CategoryName,@PathVariable String username) {
+	public List<Course> GetTeacherCourses(@PathVariable String CategoryName, @PathVariable String username) {
 		Category category = categoryRepository.findByCategoryName(CategoryName);
-		Teacher teacher=teacherRepository.findByUsername(username);
+		Teacher teacher = teacherRepository.findByUsername(username);
 		List<Course> courses = new ArrayList<>();
-		if (category != null && teacher !=null) {
-			courses = courseRepository.findByCategoryAndTeacher(category,teacher);
+		if (category != null && teacher != null) {
+			courses = courseRepository.findByCategoryAndTeacher(category, teacher);
 		}
 		return courses;
-	}	
-
+	}
 
 }
