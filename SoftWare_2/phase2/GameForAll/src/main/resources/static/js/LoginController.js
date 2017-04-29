@@ -2,6 +2,30 @@ var app = angular.module('Login', []);
 
 app.controller('LoginController', function($scope, $http, $location) {
 	
+	$scope.Interface = function($res) {
+		
+		if($res=="UserName"){
+			
+		if($scope.username=="" || $scope.username==null){
+			$scope.UserNameLabel="User Name";
+			$scope.UserNameLabelA="*";
+		}
+		else{
+		$scope.UserNameLabel="";
+		$scope.UserNameLabelA="";
+		}
+		}
+		else if($res=="Password"){
+			if($scope.password=="" || $scope.password==null){
+				$scope.PassNameLabel="Password";
+				$scope.PassNameLabelA="*";
+			}
+			else{
+			$scope.PassNameLabel="";
+			$scope.PassNameLabelA="";
+			}
+		}
+	}
 	
 	$scope.Login = function() {
 		
@@ -21,7 +45,7 @@ app.controller('LoginController', function($scope, $http, $location) {
 			
 			if(response.data==0)
 			{
-				$scope.postResultMessage = "Usename or Password is not correct!!";
+				$scope.postResultMessage = "User Name or Password is not correct!!";
 			}
 			else
 			{
@@ -46,7 +70,7 @@ app.controller('LoginController', function($scope, $http, $location) {
 			}
 
 		}, function(response) {
-			$scope.postResultMessage = "Usename or Password is not correct!!";
+			$scope.postResultMessage = "User Name or Password is not correct!!";
 		});
 	}
 });
