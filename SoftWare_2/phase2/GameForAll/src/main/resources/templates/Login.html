@@ -1,7 +1,8 @@
-<!DOCTYPE HTML>
 
-<html>
+<!DOCTYPE html>
+<html >
 <head>
+
 <title>Game For All</title>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -10,31 +11,22 @@
 <script src="/Extend js/jquery-1.9.1.min.js"></script>
 <script src="/Extend js/modernizr-2.6.2-respond-1.1.0.min.js"></script>
 <script src="/Extend js/scrolling-nav.js"></script>
-
 <!-- Bootstrap Core CSS -->
 
 <link rel="stylesheet"
 	href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" />
-
 <link href="/Extend css/bootstrap.css" rel="stylesheet" />
 
-<!-- Custom CSS -->
-<link rel="stylesheet" href="/Extend css/login.css" />
-<link href="/Extend css/custom.css" rel="stylesheet" />
-
-<script src="//use.edgefonts.net/bebas-neue.js"></script>
-
-<!-- Custom Fonts & Icons -->
-<link
-	href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,600,800'
-	rel='stylesheet' type='text/css' />
-<link rel="stylesheet" href="/Extend css/icomoon-social.css" />
-<link rel="stylesheet" href="/Extend css/font-awesome.min.css" />
-
+<link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css' />
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css" />
+  <link rel="stylesheet" href="/Extend css/login.css"/>
 
 </head>
+
 <body>
-<header class="navbar navbar-inverse navbar-fixed-top" role="banner">
+	<div class="container" ng-app="Login">
+		<div ng-controller="LoginController">
+	<header class="navbar navbar-inverse navbar-fixed-top" role="banner">
 				<div class="container">
 					<div class="navbar-header">
 						<button type="button" class="navbar-toggle" data-toggle="collapse"
@@ -47,49 +39,42 @@
 							src="img/logo.png" alt="Basica" /></a>
 					</div>
 				</div>
+				
 			</header>
+<br/><br/>
+  <div class="form">
+      <ul class="tab-group">
+        <li class="tab active"><a href="/">Log In</a></li>
+        <li class="tab "><a href="/signup">Sign Up</a></li>
+      </ul>
+        <div id="login">   
+          <h1>Welcome Back!</h1>
+          
+          <form ng-submit="Login()">
+            <div class="field-wrap" ng-init="Interface('UserName')">
+            <label>
+              {{UserNameLabel}}<span class="req">{{UserNameLabelA}}</span>
+            </label>
+            <input type="text"  required="true" ng-model="username" ng-change="Interface('UserName')"  autocomplete="off"/>
+          </div>
+          
+          <div class="field-wrap" ng-init="Interface('Password')">
+            <label>
+              {{PassNameLabel}}<span class="req">{{PassNameLabelA}}</span>
+            </label>
+            <input type="password" required="true" ng-model="password" ng-change="Interface('Password')" autocomplete="off"/>
+          </div>
+          
+          <p class="forgot">{{postResultMessage}}</p>
+          
+          <button class="button button-block">Log In</button>
+          
+          </form>
 
-<div class="container" ng-app="Login">
-			<div ng-controller="LoginController">
-			<section id="main-slider" class="no-margin">
-				<div class="login">
-				<h2>Login</h2>
-				<form name="form" ng-submit="Login()">
-					<div class="form-group">
-						<input type="text" class="user active" value="User name"  onfocus="this.value = '';" 
-							onblur="if (this.value == '') {this.value = 'User name';}"
-							name="username" id="username" 
-							ng-model="username" 
-							/>	
-					</div>
-					
-					<div class="form-group">
-						 <input type="password" class="lock active" value="Password"  
-							onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}"
-							name="password" id="password"
-							ng-model="password" />
-					</div>
-					<div class="login-bwn">
-						<button type="submit" value="Log in">Login</button>
-					</div>
-					<div class="login-bottom">
-				<h4>Don,t have an Account? </h4>
-				<div class="reg-bwn"><a href="/signup">REGISTER</a></div>
-  				</div>
-  				</form>
-  				</div>
-  				<div style="text-align:center; margin-top:10px;">
-				<ins class="adsbygoogle"
-				style="display:block"
-				data-ad-client="ca-pub-8011246932591811"
-				data-ad-slot="9844648019"
-				data-ad-format="auto"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-				</div>
-
-				<p>{{postResultMessage}}</p>
-				</section>
-			</div>
-	</div>
-
+        </div>
+        
+      	</div>
+      </div>
+</div> 
 </body>
 </html>

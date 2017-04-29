@@ -1,67 +1,120 @@
 <!DOCTYPE html>
-<html>
+<html >
 <head>
-<meta charset="windows-1256"/>
+
+<title>Game For All</title>
+<meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <script src="/angular/angular.min.js"></script>
 <script src="/js/RegisterController.js"></script>
+<script src="/Extend js/jquery-1.9.1.min.js"></script>
+<script src="/Extend js/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+<script src="/Extend js/scrolling-nav.js"></script>
+
+<!-- Bootstrap Core CSS -->
+
 <link rel="stylesheet"
 	href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" />
-	
 <link href="/Extend css/bootstrap.css" rel="stylesheet" />
-	
-<title>Sign-Up</title>
+
+<link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css' />
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css" />
+  <link rel="stylesheet" href="/Extend css/login.css"/>
+
 </head>
+
 <body>
- <div class="container" ng-app="Register">
-<div class="col-md-6 col-md-offset-3">
+	<header class="navbar navbar-inverse navbar-fixed-top" role="banner">
+				<div class="container">
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle" data-toggle="collapse"
+							data-target=".navbar-collapse">
+							<span class="sr-only">Toggle navigation</span> <span
+								class="icon-bar"></span> <span class="icon-bar"></span> <span
+								class="icon-bar"></span>
+						</button>
+						<a class="navbar-brand" href="/"><img
+							src="img/logo.png" alt="Basica" /></a>
+					</div>
+				</div>
+				
+			</header>
+<br/><br/>
+<div class="container" ng-app="Register">
 <div ng-controller="RegisterController">
-    <h2>Register</h2>
-    <form name="form" ng-submit="register()">
-        <div class="form-group" >
-            <label for="username">First name</label>
-            <input type="text" name="firstName" id="firstName" class="form-control" ng-model="firstName" pattern="[a-zA-Z0-9]{2,20}"  required="true" />
-        </div>
-        <div class="form-group" >
-            <label for="username">Last name</label>
-            <input type="text" name="lastName" id="Text1" class="form-control" ng-model="lastName"/>
-        </div>
-        <div class="form-group" >
-            <label for="username">User name</label>
-            <input type="text" name="username" id="username" class="form-control" pattern="[a-zA-Z0-9]{2,20}" ng-model="username" required="true" />
-        </div>
-        <div class="form-group" >
-            <label for="password">Password</label>
-            <input type="password" name="password" id="password" class="form-control" ng-model="password" pattern="[a-zA-Z0-9]{6,20}" required="true" />
-        </div>
+  <div class="form">
+      
+      <ul class="tab-group">
+      <li class="tab"><a href="/">Log In</a></li>
+        <li class="tab active"><a href="/signup">Sign Up</a></li>
+      </ul>
+      
+        <div id="signup">   
+          <h1>Sign Up for Free</h1>
+          
+          <form action="/signup" method="post">
+       		
+          <div class="top-row">
+            <div class="field-wrap">
+              <label>
+                {{FirstNameLabel}}<span class="req">{{FirstNameLabelA}}</span>
+              </label>
+              <input type="text" required="true" autocomplete="off" />
+            </div>
         
-        <div class="form-group" >
-            <label for="email">Email</label>
-            <input type="email" name="email" id="email" class="form-control" ng-model="email" required="true" />
-        </div>
-        
-        <div class="form-group" >
-        <label for="gender">Gender:   </label>
-            <input type="radio" name="gender" ng-model="gender" value="M" required="true"> Male  </input> 
-            <input type="radio" name="gender" ng-model="gender" value="F"/> Female <br></br>
-        </div>
-        <div class="form-group" >
+            <div class="field-wrap">
+              <label>
+                {{LastNameLabel}}
+              </label>
+              <input type="text"  autocomplete="off"/>
+            </div>
+          </div>
+
+			<div class="field-wrap">
+            <label>
+              {{UserNameLabel}}<span class="req">{{UserNameLabelA}}</span>
+            </label>
+            <input type="email" required="true" autocomplete="off"/>
+          </div>
+          
+          <div class="field-wrap">
+            <label>
+              {{PasswordLabel}}<span class="req">{{PasswordLabelA}}</span>
+            </label>
+            <input type="password" required="true" autocomplete="off"/>
+          </div>
+          
+          <div class="field-wrap">
+            <label>
+              {{EmailLabel}}<span class="req">{{EmailLabel}}</span>
+            </label>
+            <input type="email" required="true" autocomplete="off"/>
+          </div>
+          
+               <ul class="tab-group">
+      <li class="tab active"><a ng-model="gender" value="M" >Male</a></li>
+        <li class="tab "><a ng-model="gender" value="F">Female</a></li>
+      </ul>
+      
+      
+      
+      
+          
+          <div class="field-wrap" >
         <label for="age">Age</label>
-        <input type="number" name="age"  class="form-control" ng-model="age" min="4"/>
+        <input type="number" name="age"  ng-model="age" min="4"/>
         </div>
-        <div class="form-group" >
-            <input type="radio" name="user" ng-model="user" value="Student" required="true"/> Student <br></br>
-            <input type="radio" name="user" ng-model="user" value="Teacher"/> Teacher <br></br>
+          
+          <button type="submit" class="button button-block">Get Started</button>
+          
+          </form>
+
         </div>
         
-        <div class="form-actions">
-            <button type="submit" class="btn btn-primary">Register</button>
-            <a href="/" class="btn btn-link">Cancel</a>
-        </div>
-    </form>
-    <p>{{postResultMessage}}</p>
-    </div>
-    </div>
-</div>
+        
+      
+     </div> 
+     </div>  
+</div> 
 </body>
 </html>

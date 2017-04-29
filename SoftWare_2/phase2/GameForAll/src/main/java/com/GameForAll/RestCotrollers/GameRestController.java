@@ -55,6 +55,17 @@ public class GameRestController {
 	 Game game=null;
 	 ArrayList<Question> questions=null;
 	
+	 @RequestMapping(value= "/course/show-games-specific-course/{CourseId}",method=RequestMethod.GET)
+		Set<Game> ShowGamesSpecificCourse(@PathVariable long CourseId)
+		{
+			Course course=courseRepository.findOne(CourseId);
+			Set<Game> games = null;
+			if (course!= null){
+				games= (Set<Game>) course.getGames();
+			}
+			return games;
+			
+		}
 	
 	/**
 	 * @param type
