@@ -51,18 +51,12 @@
           <h1>Welcome Back!</h1>
           
           <form ng-submit="Login()">
-            <div class="field-wrap" ng-init="Interface('UserName')">
-            <label>
-              {{UserNameLabel}}<span class="req">{{UserNameLabelA}}</span>
-            </label>
-            <input type="text"  required="true" ng-model="username" ng-change="Interface('UserName')"  autocomplete="off"/>
+            <div class="field-wrap" >
+            <input type="text"  required="true" ng-model="username" placeholder="User Name*"  autocomplete="off"/>
           </div>
           
-          <div class="field-wrap" ng-init="Interface('Password')">
-            <label>
-              {{PassNameLabel}}<span class="req">{{PassNameLabelA}}</span>
-            </label>
-            <input type="password" required="true" ng-model="password" ng-change="Interface('Password')" autocomplete="off"/>
+          <div class="field-wrap">
+            <input type="password" required="true" ng-model="password" placeholder="Password*" autocomplete="off"/>
           </div>
           
           <p class="forgot">{{postResultMessage}}</p>

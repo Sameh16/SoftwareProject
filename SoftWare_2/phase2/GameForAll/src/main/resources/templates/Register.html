@@ -42,70 +42,67 @@
 <br/><br/>
 <div class="container" ng-app="Register">
 <div ng-controller="RegisterController">
-  <div class="form">
+  <div class="form" ng-submit="register()">
       
       <ul class="tab-group">
       <li class="tab"><a href="/">Log In</a></li>
         <li class="tab active"><a href="/signup">Sign Up</a></li>
       </ul>
       
-        <div id="signup">   
+        <div >   
           <h1>Sign Up for Free</h1>
           
-          <form action="/signup" method="post">
+          <form >
        		
           <div class="top-row">
-            <div class="field-wrap">
-              <label>
-                {{FirstNameLabel}}<span class="req">{{FirstNameLabelA}}</span>
-              </label>
-              <input type="text" required="true" autocomplete="off" />
+            <div class="field-wrap" >
+              <input type="text" ng-model="firstName" placeholder="First Name*" pattern="[a-zA-Z0-9]{3,20}"  required="true" autocomplete="off" />
             </div>
         
-            <div class="field-wrap">
-              <label>
-                {{LastNameLabel}}
-              </label>
-              <input type="text"  autocomplete="off"/>
+            <div class="field-wrap" >
+              <input type="text" ng-model="lastName" placeholder="Last Name" autocomplete="off"/>
             </div>
           </div>
 
-			<div class="field-wrap">
-            <label>
-              {{UserNameLabel}}<span class="req">{{UserNameLabelA}}</span>
-            </label>
-            <input type="email" required="true" autocomplete="off"/>
+			<div class="field-wrap" >
+            <input type="text" pattern="[a-zA-Z0-9]{3,20}" ng-model="username" placeholder="User Name*" required="true" autocomplete="off"/>
           </div>
           
-          <div class="field-wrap">
+          <div class="field-wrap" >
             <label>
               {{PasswordLabel}}<span class="req">{{PasswordLabelA}}</span>
             </label>
-            <input type="password" required="true" autocomplete="off"/>
+            <input type="password" ng-model="password" pattern="[a-zA-Z0-9]{6,20}" placeholder="Password*" required="true" autocomplete="off"/>
           </div>
-          
-          <div class="field-wrap">
-            <label>
-              {{EmailLabel}}<span class="req">{{EmailLabel}}</span>
-            </label>
-            <input type="email" required="true" autocomplete="off"/>
-          </div>
-          
-               <ul class="tab-group">
-      <li class="tab active"><a ng-model="gender" value="M" >Male</a></li>
-        <li class="tab "><a ng-model="gender" value="F">Female</a></li>
-      </ul>
-      
-      
-      
-      
           
           <div class="field-wrap" >
-        <label for="age">Age</label>
-        <input type="number" name="age"  ng-model="age" min="4"/>
-        </div>
+            <label>
+              {{EmailLabel}}<span class="req">{{EmailLabelA}}</span>
+            </label>
+            <input type="email" ng-model="email" placeholder="Email*" required="true" autocomplete="off"/>
+          </div>
           
-          <button type="submit" class="button button-block">Get Started</button>
+         <ul class="tab-group">
+      <li class="tab active" id="male"><a ng-model="gender" ng-click="GenderClass('male');SetGender('M')" >Male</a></li>
+        <li class="tab" id="female"><a ng-model="gender" value="F" ng-click="GenderClass('female');SetGender('F')" >Female</a></li>
+      </ul>
+      
+     
+    
+          <div class="field-wrap" >
+          <label>
+              {{AgeLabel}}<span class="req">{{AgeLabelA}}</span>
+            </label>
+        <input type="number" name="age"  required="true" placeholder="Age*" ng-model="age" min="5"/>
+        </div>
+        
+          <ul class="tab-group" required="true">
+      <li class="tab active" id="student" ><a ng-model="user"  ng-click="UserClass('student');SetUser('Student')" >Student</a></li>
+        <li class="tab" id="teacher"><a ng-model="user"  ng-click="UserClass('teacher');SetUser('Teacher')">Teacher</a></li>
+      </ul>
+          	<p class="forgot">{{postResultMessage}}</p>
+            <button type="submit" class="button button-block">Get Started</button>
+          
           
           </form>
 
