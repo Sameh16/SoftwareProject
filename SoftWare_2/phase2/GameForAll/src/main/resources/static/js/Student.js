@@ -36,7 +36,7 @@ app.controller('studentController', function($scope, $http, $location) {
         }
         
         $http.get(url, config).then(function (response) {
-            $scope.Courses = response.data
+            $scope.Courses = response;
             
         }, function (response) {
             $scope.getResultMessage = "Fail!";

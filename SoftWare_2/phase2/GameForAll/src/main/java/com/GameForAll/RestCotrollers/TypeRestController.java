@@ -16,8 +16,12 @@ public class TypeRestController {
 	@Autowired
 	private TypeRepository typeRepository;
 	
+	/**
+	 * @return
+	 */
 	@RequestMapping(value = "/game/get-type", method = RequestMethod.GET)
 	public List<Type> GetAllTypes() {
+		
 		return (List<Type>) typeRepository.findAll();
 	}
 	

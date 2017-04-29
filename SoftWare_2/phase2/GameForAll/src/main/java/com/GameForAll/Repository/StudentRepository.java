@@ -3,7 +3,6 @@ package com.GameForAll.Repository;
 import org.springframework.data.repository.CrudRepository;
 
 import com.GameForAll.models.Student;
-import com.GameForAll.models.Teacher;
 
 public interface StudentRepository extends CrudRepository<Student, Long>{
 	

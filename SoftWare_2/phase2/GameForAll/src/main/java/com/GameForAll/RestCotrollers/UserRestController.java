@@ -22,21 +22,28 @@ public class UserRestController {
 	@Autowired
 	StudentRepository studentRepository;
 
+	/**
+	 * @param student
+	 * @return
+	 */
 	@RequestMapping(method = RequestMethod.POST, value = "/add-student")
 	public boolean StudentSiginUp(@RequestBody Student student) {
 		if (verification(student)) {
-
 			studentRepository.save(student);
 			return true;
-
 		} else {
 			return false;
 		}
 
 	}
 
+	/**
+	 * @param teacher
+	 * @return
+	 */
 	@RequestMapping(method = RequestMethod.POST, value = "/add-teacher")
 	public boolean TeacherSignUp(@RequestBody Teacher teacher) {
+
 		if (verification(teacher) == true) {
 			teacherRepository.save(teacher);
 			return true;
@@ -47,6 +54,10 @@ public class UserRestController {
 
 	}
 
+	/**
+	 * @param user
+	 * @return
+	 */
 	private boolean verification(User user) {
 
 		Class<? extends User> s = user.getClass();
@@ -78,27 +89,36 @@ public class UserRestController {
 
 	}
 
+	/**
+	 * @param student
+	 * @return
+	 */
 	@RequestMapping(method = RequestMethod.POST, value = "/user-login")
-	public long SignIn(@RequestBody Student s) {
-		Teacher teacher = teacherRepository.findByUsernameAndPassword(s.getUsername(), s.getPassword());
-		
+	public long SignIn(@RequestBody Student student) {
+
+		Teacher teacher = teacherRepository.findByUsernameAndPassword(student.getUsername(), student.getPassword());
 
 		if (teacher != null) {
 			return teacher.getId();
-		} 
-		
-		Student student = studentRepository.findByUsernameAndPassword(s.getUsername(), s.getPassword());
-		 if (student != null) {
-			return student.getId();
-		} 
-		 
-		 else {
+		}
+
+		Student student2 = studentRepository.findByUsernameAndPassword(student.getUsername(), student.getPassword());
+		if (student2 != null) {
+			return student2.getId();
+		}
+
+		else {
 			return 0;
 		}
 	}
 
+	/**
+	 * @param username
+	 * @return
+	 */
 	@RequestMapping(method = RequestMethod.GET, value = "/get-user-type/{username}")
 	public long type(@PathVariable String username) {
+
 		Student student = studentRepository.findByUsername(username);
 		if (student != null) {
 			return 1;

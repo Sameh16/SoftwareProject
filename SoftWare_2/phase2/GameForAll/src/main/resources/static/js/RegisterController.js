@@ -35,9 +35,11 @@ app.controller('RegisterController', function($scope, $http, $location) {
 	        $http.post(url, data, config).then(function (response) {
 	        	if(response.data)
 	        	{
-	        		$scope.postResultMessage = "Registration successful!";
+	        		localStorage.setItem("username",$scope.username) ;
+	        	
 	        		if($scope.user=="Teacher")
 	        		 {
+	        			
 						  url = "/teacher";
 						window.open(url, "_self");
 					 }
@@ -49,15 +51,18 @@ app.controller('RegisterController', function($scope, $http, $location) {
 	        	}else
 	        	{
 	        		$scope.postResultMessage = "Username or email is already taken!";
-	        		alert($scope.postResultMessage);
+	        		$scope.username="";
+	    	    	$scope.password="";
+	        		
 	        	}
 	           
 	            Username=$scope.username;
 	        	localStorage.setItem('Username',Username);
 	        }, function (response) {
 	            $scope.postResultMessage = "Username or email is already taken!";
+	            $scope.username="";
+		    	$scope.password="";
 	        });
-	    	$scope.username="";
-	    	$scope.password="";
+	    	
 }
 });

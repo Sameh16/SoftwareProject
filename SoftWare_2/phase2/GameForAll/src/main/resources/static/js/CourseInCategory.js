@@ -70,5 +70,11 @@ app.controller('CourseInCategoryController',function($scope, $http, $location) {
 		    	$scope.path= "/CourseInCategory";
 		    	window.open($scope.path,"_self");
 		    }
+			
+			$scope.logout = function() {
+				localStorage.setItem("username", "");
+				var url = "/";
+				windows.open(url, "_self");
+			}
 
 		});

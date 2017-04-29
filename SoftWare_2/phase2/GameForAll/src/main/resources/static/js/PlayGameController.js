@@ -11,6 +11,11 @@ app.controller('PlayGameController', function($scope, $http, $location) {
 	 $scope.studentName=localStorage.getItem("username");
 	 $scope.gameId=localStorage.getItem("gameId");
 	 
+	 if (localStorage.getItem("username") == "") {
+
+			var url = "/";
+			window.open(url, '_self');
+		}
 	 var url ="/playgame/"+$scope.gameId;    
 	    var config = {
 	            headers : {
