@@ -58,7 +58,7 @@ public class StudentGame implements Serializable {
 		this.student = student;
 	}
 
-	@JsonIgnore
+	
 	public Game getGame() {
 		return game;
 	}

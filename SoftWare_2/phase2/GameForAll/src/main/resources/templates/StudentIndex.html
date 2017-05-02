@@ -6,7 +6,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <script src="/angular/angular.min.js"></script>
-<script src="/js/Teacher.js"></script>
+<script src="/js/Student.js"></script>
 <script src="/Extend js/jquery-1.9.1.min.js"></script>
 <script src="/Extend js/modernizr-2.6.2-respond-1.1.0.min.js"></script>
 <script src="/Extend js/scrolling-nav.js"></script>
@@ -33,10 +33,10 @@
 </head>
 <body>
 
-	<div class="container" ng-app="Teacher">
+	<div class="container" ng-app="Student">
 
 
-		<div ng-controller="teacherController">
+		<div ng-controller="studentController">
 
 
 
@@ -57,12 +57,12 @@
 							<li class="active"><a href="/student">Home</a></li>
 							<!-- Category -->
 							<li ng-repeat="Category in categories"><a
-								ng-click="CourseInCategory(Category)">{{Category.categoryName
+								ng-click="CourseInCategory(Category)" href="CourseInCategory">{{Category.categoryName
 									}}</a></li>
 
 							<li><a ng-click="logout()" href="/">Log Out(
 									{{username}} )</a></li>
-						
+
 						</ul>
 					</div>
 				</div>
@@ -86,33 +86,42 @@
 										<figcaption>
 											<h3>{{course.courseName}}</h3>
 											<span>{{course.description}}</span> <a
-												ng-click="GameInCourse(course)">Take a look</a>
+												ng-click="GameInCourse(course)" href="/GameInCourse">Take
+												a look</a>
 										</figcaption>
 									</figure>
 								</div>
 
 							</ul>
-
-
-							<div ng-repeat="Game in Games" class="col-sm-4">
-								<div class="blog-post blog-single-post">
-									<div class="single-post-title">
-										<h2>{{Game.gameName}}</h2>
-									</div>
-
-
-
-									<div class="single-post-content">
-										<p>{{Game.description}}</p>
-										<a ng-click="playGame(Game)" class="btn">Play Now</a>
-									</div>
-								</div>
-							</div>
-
 						</div>
 					</div>
 				</div>
-				</section>
+			</section>
+
+			<div class="section section-white">
+				<div class="container">
+					<div class="row">
+						<div class="section-title">
+							<h1>Our Games</h1>
+						</div>
+
+						<div ng-repeat="Game in Games" class="col-sm-4">
+							<div class="blog-post blog-single-post">
+								<div class="single-post-title">
+									<h2>{{Game.game.gameName}}</h2>
+								</div>
+
+								<div class="single-post-content">
+									<p>Your Achievement {{Game.achievement}}</p>
+									<a ng-click="playGame(Game)" class="btn" href="/playGameQ">Play
+										Now</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
 		</div>
 	</div>
 

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.GameForAll.Repository.ContributorRepository;
 import com.GameForAll.Repository.CourseRepository;
 import com.GameForAll.Repository.GameRepository;
 
@@ -20,6 +21,7 @@ import com.GameForAll.Repository.QuestionRepository;
 import com.GameForAll.Repository.StudentGameRepository;
 import com.GameForAll.Repository.StudentRepository;
 import com.GameForAll.Repository.TypeRepository;
+import com.GameForAll.models.Contributor;
 import com.GameForAll.models.Course;
 import com.GameForAll.models.Game;
 import com.GameForAll.models.Question;
@@ -49,6 +51,9 @@ public class GameRestController {
 	
 	@Autowired
 	StudentGameRepository studentGameRepository;
+	
+	@Autowired
+	ContributorRepository contributorRepository; // add
 	
 	
 	
@@ -157,7 +162,6 @@ public class GameRestController {
 	@RequestMapping(method = RequestMethod.POST, value = "/SaveStudentGame/{GameID}/{Username}")
 	public boolean SaveGame(@RequestBody StudentGame  studentGame, @PathVariable long GameID, @PathVariable String Username) 
 	{
-		
 		Student student = studentRepository.findByUsername(Username);
 		Game game= gameRepository.findOne(GameID);
 		if (game != null && student != null ) {
@@ -168,8 +172,6 @@ public class GameRestController {
 		}
 		return false;	
 	}
-	
-	
 	
 	
 	/**
@@ -189,11 +191,15 @@ public class GameRestController {
 		if (course != null && type != null && teacher!=null) {
 			game.setCourse(course);
 			game.setType(type);
-			game.setTeacher(teacher);
+			Contributor contributor = new Contributor();// add
+			contributor.setGame(game);// add
+			contributor.setTeacher(teacher);// add
+			//game.setTeacher(teacher);
 			course.getGames().add(game);
 			type.getGames().add(game);
-			teacher.getGames().add(game);
+			//teacher.getGames().add(game);
 			gameRepository.save(game);
+			contributorRepository.save(contributor);// add
 		}
 		return game.getGameId();
 			

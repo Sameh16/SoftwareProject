@@ -28,16 +28,10 @@ app.controller('studentController', function($scope, $http, $location) {
     
     
 //	$scope.getCourses = function(){
-       var url = "/get-Student-courses/"+$scope.username;
-        var config = {
-                headers : {
-                    'Content-Type': 'application/json;charset=utf-8;'
-                }
-        }
+        url = "/get-Student-courses/"+$scope.username;
         
         $http.get(url, config).then(function (response) {
-            $scope.Courses = response;
-            
+            $scope.Courses = response.data;
         }, function (response) {
             $scope.getResultMessage = "Fail!";
         });
@@ -48,13 +42,7 @@ app.controller('studentController', function($scope, $http, $location) {
         
        // $scope.getGames = function(){
            
-        	var url = "/get-student-games-score/"+$scope.username;
-            var config = {
-                    headers : {
-                        'Content-Type': 'application/json;charset=utf-8;'
-                    }
-            }
-            
+        	url = "/get-student-games-score/"+$scope.username;   
             $http.get(url, config).then(function (response) {
                 $scope.Games = response.data
                 

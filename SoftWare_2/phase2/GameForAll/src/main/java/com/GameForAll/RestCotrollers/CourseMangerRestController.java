@@ -6,6 +6,7 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.GameForAll.Repository.CourseRepository;
@@ -32,7 +33,7 @@ public class CourseMangerRestController {
 	 * @param username
 	 * @return
 	 */
-	@RequestMapping(value = "/get-Student-courses/{username}")
+	@RequestMapping(value = "/get-Student-courses/{username}", method=RequestMethod.GET)
 	public Set<Course> getStudentCourses(@PathVariable String username)
 	{
 		
@@ -49,7 +50,7 @@ public class CourseMangerRestController {
 	 * @param username
 	 * @return
 	 */
-	@RequestMapping(value = "/get-Teacher-courses/{username}")
+	@RequestMapping(value = "/get-Teacher-courses/{username}"  , method=RequestMethod.GET)
 	public Set<Course> getTeacherCourses(@PathVariable String username)
 	{
 		
@@ -57,6 +58,7 @@ public class CourseMangerRestController {
 		Set<Course> courses=new HashSet<>();
 		if(teacher!=null)
 				 courses =  teacher.getCourses();
+		
 		return courses;
 		
 	}
@@ -66,17 +68,34 @@ public class CourseMangerRestController {
 	 * @param username
 	 * @return
 	 */
-	@RequestMapping(value = "/student/add-course/{username}/{courseName}")
+	@RequestMapping(value = "/student/add-course/{username}/{courseName}" , method=RequestMethod.GET)
 	public boolean SetCourseToStudent(@PathVariable String courseName,@PathVariable String username)
 	{
 		Course course = courseRepository.findByCourseName(courseName);
 		Student student = studentRepository.findByUsername(username);
 		if(course!=null && student!=null)
 		{
-			student.getCourses().add(course);
-			course.getStudents().add(student);
 			
+			Set<Course> courses =student.getCourses();
+			courses.add(course);
+			Set<Student> students= course.getStudents();
+			students.add(student);
+			studentRepository.save(student);
+			courseRepository.save(course);
 			return true;
+		}
+		return false;
+	}
+	
+	@RequestMapping(value = "/student/isregister/{username}/{courseName}" , method=RequestMethod.GET)
+	public boolean StudentIsRegister(@PathVariable String courseName,@PathVariable String username)
+	{
+		Course course = courseRepository.findByCourseName(courseName);
+		Student student = studentRepository.findByUsername(username);
+		if(course!=null && student!=null)
+		{
+			if(student.getCourses().contains(course))
+				return true;
 		}
 		return false;
 	}

@@ -41,8 +41,9 @@ public class Teacher implements User {
 	@OneToMany(mappedBy = "teacher" , cascade = CascadeType.ALL)
 	private Set<Course> courses;
 	
-	@OneToMany(mappedBy = "teacher" , cascade = CascadeType.ALL)
-	private Set<Game> games;
+	@OneToMany (mappedBy = "teacher" , cascade = CascadeType.ALL)
+	private Set<Contributor> contributors;
+	
 	
 
 	public Teacher()
@@ -105,6 +106,18 @@ public class Teacher implements User {
 	public void setGender(String gender) {
 		Gender = gender;
 	}
+	
+	
+
+
+	public Set<Contributor> getContributors() {
+		return contributors;
+	}
+
+
+	public void setContributors(Set<Contributor> contributors) {
+		this.contributors = contributors;
+	}
 
 
 	public String getUsername() {
@@ -137,15 +150,6 @@ public class Teacher implements User {
 	}
 
 	
-	@JsonIgnore
-	public Set<Game> getGames() {
-		return games;
-	}
-
-
-	public void setGames(Set<Game> games) {
-		this.games = games;
-	}
 
 
 	public void setId(long id) {

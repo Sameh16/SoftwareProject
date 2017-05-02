@@ -61,7 +61,7 @@
 									Game</a></li>
 							<!-- Category -->
 							<li ng-repeat="Category in categories"><a
-								ng-click="CourseInCategory(Category)" href="{{path}}" >{{Category.categoryName
+								ng-click="CourseInCategory(Category)" href="/CourseInCategory" >{{Category.categoryName
 									}}</a></li>
 
 							<li><a ng-click="logout()" href="/">Log Out(
@@ -85,8 +85,8 @@
 										<img src="/img/4.jpg" alt="img04" />
 										<figcaption>
 											<h3>{{course.courseName}}</h3>
-											<span>{{course.description}}</span> <button
-												class="btn btn-primary" ng-click="GameInCourse(course)">Take a look</button>
+											<span>{{course.description}}</span> <a
+												class="btn btn-primary" ng-click="GameInCourse(course)" href="/GameInCourse">Take a look</a>
 										</figcaption>
 									</figure>
 								</div>

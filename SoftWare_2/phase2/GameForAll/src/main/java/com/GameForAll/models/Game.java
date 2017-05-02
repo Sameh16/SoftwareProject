@@ -31,6 +31,9 @@ public class Game implements Serializable {
 
 	@Column(name = "GameName", unique = true)
 	private String GameName;
+	
+	@Column(name = "Cancled")
+	private boolean cancled;
 
 	
 	@Column(name = "NumberOfLevels")
@@ -48,15 +51,15 @@ public class Game implements Serializable {
 	@JoinColumn(name = "CourseId")
 	private Course course;
 
-	@ManyToOne
-	@JoinColumn(name = "teacherId")
-	private Teacher teacher;
 
 	@OneToMany(mappedBy = "game", cascade = CascadeType.ALL)
 	private Set<Question> questions;
 
 	@OneToMany(mappedBy = "game", cascade = CascadeType.ALL)
 	private Set<StudentGame> studentGames;
+	
+	@OneToMany(mappedBy = "game", cascade = CascadeType.ALL)
+	private Set<Contributor> contributors;
 
 	public long getGameId() {
 		return GameId;
@@ -116,13 +119,21 @@ public class Game implements Serializable {
 		this.questions = questions;
 	}
 	
-	@JsonIgnore
-	public Teacher getTeacher() {
-		return teacher;
+
+	public boolean isCancled() {
+		return cancled;
 	}
 
-	public void setTeacher(Teacher teacher) {
-		this.teacher = teacher;
+	public void setCancled(boolean cancled) {
+		this.cancled = cancled;
+	}
+
+	public Set<Contributor> getContributors() {
+		return contributors;
+	}
+
+	public void setContributors(Set<Contributor> contributors) {
+		this.contributors = contributors;
 	}
 
 	@JsonIgnore

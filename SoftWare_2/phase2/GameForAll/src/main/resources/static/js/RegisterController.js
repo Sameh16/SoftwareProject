@@ -78,9 +78,7 @@ app.controller('RegisterController', function($scope, $http, $location) {
 	        	if(response.data)
 	        	{
 
-	        		$scope.postResultMessage = "Registration successful!";
 	 	        	localStorage.setItem('username',$scope.username);
-
 	        		
 	        		if($scope.user=="Teacher")
 	        		 {
@@ -90,7 +88,7 @@ app.controller('RegisterController', function($scope, $http, $location) {
 					 }
 					 else
 					 {
-						 alert("hi");
+						 
 						 var url = "/student";
 						window.open(url, "_self");
 					 }

@@ -54,18 +54,16 @@
 						<ul class="nav navbar-nav navbar-right">
 							<li ng-show="teacher" class="active"><a href="/teacher">Home</a></li>
 							<li ng-hide="teacher" class="active"><a href="/student">Home</a></li>
-							<li><a ng-show="teacher"  href="/course">Create
-									Course</a></li>
-							<li><a ng-show="teacher"  href="/game">Create
-									Game</a></li>
+							<li><a ng-show="teacher" href="/course">Create Course</a></li>
+							<li><a ng-show="teacher" href="/game">Create Game</a></li>
 							<!-- Category -->
 							<li ng-repeat="Category in categories"><a
-								ng-click="CourseInCategory(Category)">{{Category.categoryName
+								ng-click="CourseInCategory(Category)" href="/CourseInCategory">{{Category.categoryName
 									}}</a></li>
 
 							<li><a ng-click="logout()" href="/">Log Out(
 									{{username}} )</a></li>
-						
+
 						</ul>
 					</div>
 				</div>
@@ -78,6 +76,7 @@
 
 							<div class="section-title">
 								<h1>My Games</h1>
+								<button ng-hide="registered" ng-click="RegisterStudnet()" >Register in Course</button>
 							</div>
 
 							<div ng-repeat="Game in Games" class="col-sm-4">
@@ -85,19 +84,17 @@
 									<div class="single-post-title">
 										<h2>{{Game.gameName}}</h2>
 									</div>
-
-
-
 									<div class="single-post-content">
 										<p>{{Game.description}}</p>
-										<a ng-click="playGame(Game)" class="btn">Play Now</a>
+										<a ng-click="playGame(Game)" href="/GameInCourse" class="btn">Play
+											Now</a>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-				</section>
+			</section>
 		</div>
 
 	</div>

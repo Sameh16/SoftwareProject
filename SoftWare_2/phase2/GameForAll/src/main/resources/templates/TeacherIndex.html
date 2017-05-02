@@ -63,7 +63,7 @@
 									Game</a></li>
 							<!-- Category -->
 							<li ng-repeat="Category in categories"><a
-								ng-click="CourseInCategory(Category)" href="{{path}}">{{Category.categoryName
+								ng-click="CourseInCategory(Category)" href="/CourseInCategory">{{Category.categoryName
 									}}</a></li>
 
 							<li><a ng-click="logout()" href="/">Log Out(
@@ -113,7 +113,7 @@
 								</div>
 								<div class="single-post-content">
 									<p>{{Game.description}}</p>
-									<button ng-click="playGame(Game)" class="btn btn-primary">Play Now</button>
+									<button ng-click="playGame(Game)" href="/playGameQ" class="btn btn-primary">Play Now</button>
 								</div>
 							</div>
 						</div>

@@ -1,5 +1,6 @@
 package com.GameForAll.RestCotrollers;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.GameForAll.Repository.GameRepository;
 import com.GameForAll.Repository.StudentRepository;
 import com.GameForAll.Repository.TeacherRepository;
+import com.GameForAll.models.Contributor;
 import com.GameForAll.models.Game;
 import com.GameForAll.models.Student;
 import com.GameForAll.models.StudentGame;
@@ -55,7 +57,11 @@ public class GameMangerRestController {
 		
 		if(teacher!=null)
 		{
-			return teacher.getGames();
+			Set<Game> Games = new HashSet<>();
+			for (Contributor contributor : teacher.getContributors()) {
+				Games.add(contributor.getGame());
+			}
+			return Games;
 		}
 		return null;
 		
