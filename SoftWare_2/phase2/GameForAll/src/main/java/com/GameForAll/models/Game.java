@@ -31,9 +31,9 @@ public class Game implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long GameId;
 
-	@Column(name = "GameName", unique = true)
-	private String GameName;
-
+	@Column(name = "gameName", unique = true)
+	private String gameName;
+	
 	@Column(name = "Cancled")
 	private boolean cancled;
 
@@ -72,12 +72,12 @@ public class Game implements Serializable {
 		GameId = gameId;
 	}
 
-	public String getGameName() {
-		return GameName;
+	public String getgameName() {
+		return gameName;
 	}
 
-	public void setGameName(String gameName) {
-		GameName = gameName;
+	public void setgameName(String gameName) {
+		this.gameName = gameName;
 	}
 
 	public int getNumOfLevels() {

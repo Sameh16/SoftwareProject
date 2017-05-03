@@ -1,7 +1,31 @@
 var app = angular.module('Teacher', []);
 
 app.controller('teacherController', function($scope, $http, $location) {
+	$scope.ShowGames=false;
+	
+	window.onload = function() {
+		  document.getElementById("myDropdown").classList.toggle("show");
+		};
+	
 
+	$scope.GetGames = function(){
+	var url = "/get-game/" + $scope.search;
+	
+	$http.get(url, config).then(function(GameResponse) {
+		$scope.SearchedGames=GameResponse.data;
+		if($scope.SearchedGames!="" && $scope.search!=""){
+			$scope.ShowGames=true;
+		}
+		else{
+			$scope.ShowGames=false;
+		}
+	}, function(GameResponse) {
+		$scope.getResultMessage = "Fail!";
+	});
+	
+	}
+	
+	
 	$scope.username = localStorage.getItem("username");
 	if (localStorage.getItem("username") == "") {
 

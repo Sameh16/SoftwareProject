@@ -3,6 +3,7 @@ package com.GameForAll.RestCotrollers;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,6 +55,33 @@ public class GameRestController {
 	
 	@Autowired
 	ContributorRepository contributorRepository; // add
+	
+	
+	@RequestMapping(value = "/get-game/{name}", method = RequestMethod.GET)
+	public List<Game> GetGame(@PathVariable String name) {
+		List<Game> games = new ArrayList<>();
+		games=gameRepository.findBygameNameStartingWith(name);
+		return games;
+	}
+	
+	/*
+	@RequestMapping(method = RequestMethod.GET,value = "/copygame/{GameName}/{NewGameName}/{TeacherName}/{CourseName}")
+	public boolean CopyGame(@PathVariable String GameName, @PathVariable String NewGameName,@PathVariable String TeacherName,@PathVariable String CourseName) {
+		Game OldGame=(Game) gameRepository.findBygameName(GameName);
+		Course course=courseRepository.findByCourseName(CourseName);
+		Contributor teacher=cont.findByUsername(TeacherName);
+		if(course!=null && teacher !=null && OldGame!=null){
+			Game NewGame=OldGame;
+			NewGame.setgameName(NewGameName);
+			NewGame.setCourse(course);
+			NewGame.setContributors(teacher);
+			gameRepository.save(NewGame);
+			course.getGames().add(NewGame);
+		}
+		return true;	
+	}
+	*/
+	
 	
 	
 	
