@@ -50,9 +50,10 @@ public class QuestionRestController {
 		
 		Game game= gameRepository.findOne(GameID);
 		if (game!=null) {
-			question.setGame(game);
+			question.getGames().add(game);
 			questionRepository.save(question);
 			game.getQuestions().add(question);
+			gameRepository.save(game);
 		}
 		return question.getQuestionId();
 			

@@ -2,19 +2,15 @@ package com.GameForAll.models;
 
 import java.io.Serializable;
 import java.util.Set;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "question")
@@ -32,9 +28,8 @@ public class Question implements Serializable {
 	@Column(name = "Question")
 	private String Question;
 
-	@ManyToOne
-	@JoinColumn(name = "GameId")
-	private Game game;
+	@ManyToMany(mappedBy = "questions")
+	private Set<Game> games;
 
 	@Column(name = "Level")
 	private int Level;
@@ -44,14 +39,6 @@ public class Question implements Serializable {
 
 	public Question() {
 		super();
-	}
-
-	public Question(String question, Game game, int level, Set<Answer> answers) {
-		super();
-		Question = question;
-		this.game = game;
-		Level = level;
-		this.answers = answers;
 	}
 
 	public long getQuestionId() {
@@ -70,15 +57,6 @@ public class Question implements Serializable {
 		Question = question;
 	}
 
-	public Game getGame() {
-		return game;
-	}
-
-	@JsonIgnore
-	public void setGame(Game game) {
-		this.game = game;
-	}
-
 	public int getLevel() {
 		return Level;
 	}
@@ -93,6 +71,14 @@ public class Question implements Serializable {
 
 	public void setAnswers(Set<Answer> answers) {
 		this.answers = answers;
+	}
+
+	public Set<Game> getGames() {
+		return games;
+	}
+
+	public void setGames(Set<Game> games) {
+		this.games = games;
 	}
 
 }

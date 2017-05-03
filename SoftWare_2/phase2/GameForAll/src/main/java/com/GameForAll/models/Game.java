@@ -10,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -31,14 +33,12 @@ public class Game implements Serializable {
 
 	@Column(name = "GameName", unique = true)
 	private String GameName;
-	
+
 	@Column(name = "Cancled")
 	private boolean cancled;
 
-	
 	@Column(name = "NumberOfLevels")
-	private  int NumOfLevels;
-		
+	private int NumOfLevels;
 
 	@Column(name = "Description")
 	private String Description;
@@ -51,13 +51,16 @@ public class Game implements Serializable {
 	@JoinColumn(name = "CourseId")
 	private Course course;
 
-
 	@OneToMany(mappedBy = "game", cascade = CascadeType.ALL)
+	private Set<Comment> comments;
+
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "gameQuestion", joinColumns = @JoinColumn(name = "gameId", referencedColumnName = "GameId"), inverseJoinColumns = @JoinColumn(name = "QuestionId", referencedColumnName = "Id"))
 	private Set<Question> questions;
 
 	@OneToMany(mappedBy = "game", cascade = CascadeType.ALL)
 	private Set<StudentGame> studentGames;
-	
+
 	@OneToMany(mappedBy = "game", cascade = CascadeType.ALL)
 	private Set<Contributor> contributors;
 
@@ -118,7 +121,6 @@ public class Game implements Serializable {
 	public void setQuestions(Set<Question> questions) {
 		this.questions = questions;
 	}
-	
 
 	public boolean isCancled() {
 		return cancled;
@@ -126,6 +128,14 @@ public class Game implements Serializable {
 
 	public void setCancled(boolean cancled) {
 		this.cancled = cancled;
+	}
+
+	public Set<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(Set<Comment> comments) {
+		this.comments = comments;
 	}
 
 	public Set<Contributor> getContributors() {
@@ -144,7 +154,5 @@ public class Game implements Serializable {
 	public void setStudentGames(Set<StudentGame> studentGames) {
 		this.studentGames = studentGames;
 	}
-	
-	
 
 }

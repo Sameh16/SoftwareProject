@@ -86,7 +86,7 @@
 								ng-options="categories as categories.categoryName for categories in CategoryResponse"
 								ng-init="getcategory()">
 							</select> Min Age : <input type="number" name="MinimunAge"
-								class="form-control" ng-model="MinimunAge" /><br></br>
+								class="form-control" min="3" ng-model="MinimunAge" /><br></br>
 
 							<p>Description:</p>
 							<p>
