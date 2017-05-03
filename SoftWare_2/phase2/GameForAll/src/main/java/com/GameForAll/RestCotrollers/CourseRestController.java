@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.GameForAll.Repository.CategoryRepository;
 import com.GameForAll.Repository.CourseRepository;
+import com.GameForAll.Repository.GameRepository;
 import com.GameForAll.Repository.TeacherRepository;
 import com.GameForAll.models.Category;
 import com.GameForAll.models.Course;
@@ -32,6 +33,9 @@ public class CourseRestController {
 	private TeacherRepository teacherRepository;
 
 
+	
+	
+	
 	/**
 	 * @param CategoryName
 	 * @return
