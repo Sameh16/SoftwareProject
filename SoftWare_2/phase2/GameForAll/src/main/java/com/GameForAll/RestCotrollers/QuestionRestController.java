@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.GameForAll.Repository.GameRepository;
-import com.GameForAll.Repository.QuestionRepository;
 import com.GameForAll.Repository.TypeRepository;
 import com.GameForAll.models.Game;
 import com.GameForAll.models.Question;
@@ -26,8 +25,6 @@ public class QuestionRestController {
 	private TypeRepository typeRepository;
 	@Autowired
 	private GameRepository gameRepository;
-	@Autowired
-	private QuestionRepository questionRepository;
 	
 	
 	/**
@@ -50,8 +47,6 @@ public class QuestionRestController {
 		
 		Game game= gameRepository.findOne(GameID);
 		if (game!=null) {
-			question.getGames().add(game);
-			questionRepository.save(question);
 			game.getQuestions().add(question);
 			gameRepository.save(game);
 		}

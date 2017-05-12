@@ -10,8 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -33,12 +31,15 @@ public class Game implements Serializable {
 
 	@Column(name = "gameName", unique = true)
 	private String gameName;
-	
+
 	@Column(name = "Cancled")
 	private boolean cancled;
 
 	@Column(name = "NumberOfLevels")
 	private int NumOfLevels;
+	
+	@Column(name = "newId" , nullable = true)
+	private int newId;
 
 	@Column(name = "Description")
 	private String Description;
@@ -54,8 +55,7 @@ public class Game implements Serializable {
 	@OneToMany(mappedBy = "game", cascade = CascadeType.ALL)
 	private Set<Comment> comments;
 
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "gameQuestion", joinColumns = @JoinColumn(name = "gameId", referencedColumnName = "GameId"), inverseJoinColumns = @JoinColumn(name = "QuestionId", referencedColumnName = "Id"))
+	@OneToMany(mappedBy = "game", cascade = CascadeType.ALL)
 	private Set<Question> questions;
 
 	@OneToMany(mappedBy = "game", cascade = CascadeType.ALL)

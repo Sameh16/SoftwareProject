@@ -212,7 +212,6 @@ public class GameRestController {
 	@RequestMapping(method = RequestMethod.POST, value = "/game/create-game/{courseID}/{typeID}/{username}")
 	public long CreateGame(@RequestBody Game game, @PathVariable long courseID, @PathVariable long typeID,@PathVariable String username) 
 	{
-		
 		Course course = courseRepository.findOne(courseID);
 		Type type = typeRepository.findOne(typeID);
 		Teacher teacher = teacherRepository.findByUsername(username);
@@ -231,6 +230,48 @@ public class GameRestController {
 		}
 		return game.getGameId();
 			
+	}
+	
+	
+	@RequestMapping(method = RequestMethod.POST, value = "/game/add-collaborators/teacher")
+	public long addCollaborators(@RequestBody Game game,@RequestBody Contributor teacher) 
+	{
+		List<Contributor> contributors=new ArrayList<>();
+		contributors.add(teacher);
+		game.setContributors((Set<Contributor>)contributors);
+		return contributors.get(contributors.size()-1).getTeacher().getId();
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, value = "/game/cancel-game/{username}")
+	public boolean cancelGame(@RequestBody Game game,@PathVariable String username) 
+	{
+		Contributor teacher=contributorRepository.findByTeacherUsername(username);
+		List<Contributor> contributors=(List<Contributor>) game.getContributors();
+		if(contributors.contains(teacher))
+		{
+			teacher.getGame().setCancled(true);	
+		}
+		boolean cancel=false;
+		Contributor contributor=new Contributor();
+		for(int i=0;i<contributors.size();i++)
+		{
+			contributor=contributors.get(i);
+			if(!contributor.getGame().isCancled())
+			{
+				cancel=false;
+				break;
+			}
+			else
+			{
+				cancel=true;
+			}
+		}
+		if(cancel==true)
+		{
+			gameRepository.delete(game);
+			return true;
+		}
+		return false;
 	}
 	
 	

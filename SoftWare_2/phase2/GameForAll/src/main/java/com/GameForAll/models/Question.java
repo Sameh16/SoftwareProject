@@ -8,7 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -28,8 +29,9 @@ public class Question implements Serializable {
 	@Column(name = "Question")
 	private String Question;
 
-	@ManyToMany(mappedBy = "questions")
-	private Set<Game> games;
+	@ManyToOne
+	@JoinColumn(name = "gameId")
+	private Game game;
 
 	@Column(name = "Level")
 	private int Level;
@@ -73,12 +75,22 @@ public class Question implements Serializable {
 		this.answers = answers;
 	}
 
-	public Set<Game> getGames() {
-		return games;
+	public long getId() {
+		return Id;
 	}
 
-	public void setGames(Set<Game> games) {
-		this.games = games;
+	public void setId(long id) {
+		Id = id;
 	}
+
+	public Game getGames() {
+		return game;
+	}
+
+	public void setGames(Game game) {
+		this.game = game;
+	}
+
+
 
 }
