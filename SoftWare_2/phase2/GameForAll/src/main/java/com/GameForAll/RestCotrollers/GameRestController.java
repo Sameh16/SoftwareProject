@@ -1,6 +1,5 @@
 package com.GameForAll.RestCotrollers;
 
-
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.DateFormat;
@@ -43,10 +42,9 @@ import com.mysql.fabric.xmlrpc.base.Data;
 
 import ch.qos.logback.core.net.SyslogOutputStream;
 
-
 @RestController
 public class GameRestController {
-	
+
 	@Autowired
 	GameRepository gameRepository;
 	@Autowired
@@ -55,104 +53,93 @@ public class GameRestController {
 	TypeRepository typeRepository;
 	@Autowired
 	TeacherRepository teacherRepository;
-	
+
 	@Autowired
 	QuestionRepository questionRepository;
-	
+
 	@Autowired
 	StudentRepository studentRepository;
-	
+
 	@Autowired
 	StudentGameRepository studentGameRepository;
-	
+
 	@Autowired
 	ContributorRepository contributorRepository; // add
 	@Autowired
 	CommentRepository commentRepository;
-	
-	
+
 	@RequestMapping(value = "/get-game/{name}", method = RequestMethod.GET)
 	public List<Game> GetGame(@PathVariable String name) {
 		List<Game> games = new ArrayList<>();
-		games=gameRepository.findBygameNameStartingWith(name);
+		games = gameRepository.findBygameNameStartingWith(name);
 		return games;
 	}
-	
+
 	/*
-	@RequestMapping(method = RequestMethod.GET,value = "/copygame/{GameName}/{NewGameName}/{TeacherName}/{CourseName}")
-	public boolean CopyGame(@PathVariable String GameName, @PathVariable String NewGameName,@PathVariable String TeacherName,@PathVariable String CourseName) {
-		Game OldGame=(Game) gameRepository.findBygameName(GameName);
-		Course course=courseRepository.findByCourseName(CourseName);
-		Contributor teacher=cont.findByUsername(TeacherName);
-		if(course!=null && teacher !=null && OldGame!=null){
-			Game NewGame=OldGame;
-			NewGame.setgameName(NewGameName);
-			NewGame.setCourse(course);
-			NewGame.setContributors(teacher);
-			gameRepository.save(NewGame);
-			course.getGames().add(NewGame);
+	 * @RequestMapping(method = RequestMethod.GET,value =
+	 * "/copygame/{GameName}/{NewGameName}/{TeacherName}/{CourseName}") public
+	 * boolean CopyGame(@PathVariable String GameName, @PathVariable String
+	 * NewGameName,@PathVariable String TeacherName,@PathVariable String
+	 * CourseName) { Game OldGame=(Game)
+	 * gameRepository.findBygameName(GameName); Course
+	 * course=courseRepository.findByCourseName(CourseName); Contributor
+	 * teacher=cont.findByUsername(TeacherName); if(course!=null && teacher
+	 * !=null && OldGame!=null){ Game NewGame=OldGame;
+	 * NewGame.setgameName(NewGameName); NewGame.setCourse(course);
+	 * NewGame.setContributors(teacher); gameRepository.save(NewGame);
+	 * course.getGames().add(NewGame); } return true; }
+	 */
+
+	Game game = null;
+	ArrayList<Question> questions = null;
+
+	@RequestMapping(value = "/course/show-games-specific-course/{CourseId}", method = RequestMethod.GET)
+	Set<Game> ShowGamesSpecificCourse(@PathVariable long CourseId) {
+		Course course = courseRepository.findOne(CourseId);
+		Set<Game> games = null;
+		if (course != null) {
+			games = (Set<Game>) course.getGames();
 		}
-		return true;	
+		return games;
+
 	}
-	*/
-	
-	
-	
-	
-	 Game game=null;
-	 ArrayList<Question> questions=null;
-	
-	 @RequestMapping(value= "/course/show-games-specific-course/{CourseId}",method=RequestMethod.GET)
-		Set<Game> ShowGamesSpecificCourse(@PathVariable long CourseId)
-		{
-			Course course=courseRepository.findOne(CourseId);
-			Set<Game> games = null;
-			if (course!= null){
-				games= (Set<Game>) course.getGames();
-			}
-			return games;
-			
-		}
-	
+
 	/**
 	 * @param type
 	 * @param gameID
 	 * @return
 	 */
-	@RequestMapping(value= "game/get-type-template/{type}/get-game/{gameID}" ,method=RequestMethod.GET)
-	Game GetGame(@PathVariable String type,@PathVariable long gameID)
-	{
-		 return gameRepository.findOne(gameID); 
-		
+	@RequestMapping(value = "game/get-type-template/{type}/get-game/{gameID}", method = RequestMethod.GET)
+	Game GetGame(@PathVariable String type, @PathVariable long gameID) {
+		return gameRepository.findOne(gameID);
+
 	}
-	
+
 	/**
 	 * @param gameID
 	 * @return
 	 */
-	@RequestMapping(value= "/playgame/{gameID}" ,method=RequestMethod.GET)
-	Set<Question>  PlayGame(@PathVariable long gameID)
-	{
+	@RequestMapping(value = "/playgame/{gameID}", method = RequestMethod.GET)
+	Set<Question> PlayGame(@PathVariable long gameID) {
 
-		 Game game= gameRepository.findOne(gameID);
-		 if (game != null )
-		 {
-			 this.game=game;
-			 this.questions= new ArrayList<Question>( game.getQuestions());
-			 this.questions.sort(new Comparator<Question>() {
+		Game game = gameRepository.findOne(gameID);
+		if (game != null) {
+			this.game = game;
+			this.questions = new ArrayList<Question>(game.getQuestions());
+			this.questions.sort(new Comparator<Question>() {
 
 				@Override
 				public int compare(Question q1, Question q2) {
-					
-					return q1.getLevel()-q2.getLevel();
+
+					return q1.getLevel() - q2.getLevel();
 				}
-				 
+
 			});
-			 return  game.getQuestions();
-		 }
-	
-		 return null;
-		
+			return game.getQuestions();
+		}
+
+		return null;
+
 	}
 
 	/**
@@ -160,41 +147,33 @@ public class GameRestController {
 	 * @param questionIndex
 	 * @return
 	 */
-	@RequestMapping(value= "/playgame/{gameID}/{questionIndex}" ,method=RequestMethod.GET)
-	Question  getQuestion(@PathVariable long gameID,@PathVariable long questionIndex)
-	{
-		
+	@RequestMapping(value = "/playgame/{gameID}/{questionIndex}", method = RequestMethod.GET)
+	Question getQuestion(@PathVariable long gameID, @PathVariable long questionIndex) {
 
-		if (game== null)
-		{
-			 game= gameRepository.findOne(gameID);
-			 this.questions= new ArrayList<Question>( game.getQuestions());
-			 this.questions.sort(new Comparator<Question>() {
+		if (game == null) {
+			game = gameRepository.findOne(gameID);
+			this.questions = new ArrayList<Question>(game.getQuestions());
+			this.questions.sort(new Comparator<Question>() {
 
-					@Override
-					public int compare(Question q1, Question q2) {
-						
-						return q1.getLevel()-q2.getLevel();
-					}
-					 
-				});
+				@Override
+				public int compare(Question q1, Question q2) {
+
+					return q1.getLevel() - q2.getLevel();
+				}
+
+			});
 		}
-		if (game != null )
-		 {
-	
-			
-			 if (questionIndex>questions.size())
-			 {
-				 return null;
-			 }
+		if (game != null) {
 
-			 return questions.get((int) questionIndex-1);
-		 }
-		 return null;
+			if (questionIndex > questions.size()) {
+				return null;
+			}
+
+			return questions.get((int) questionIndex - 1);
+		}
+		return null;
 	}
-	
-	
-	
+
 	/**
 	 * @param studentGame
 	 * @param GameID
@@ -202,22 +181,19 @@ public class GameRestController {
 	 * @return
 	 */
 	@RequestMapping(method = RequestMethod.POST, value = "/SaveStudentGame/{GameID}/{Username}")
-	public boolean SaveGame(@RequestBody StudentGame  studentGame, @PathVariable long GameID, @PathVariable String Username) 
-	{
+	public boolean SaveGame(@RequestBody StudentGame studentGame, @PathVariable long GameID,
+			@PathVariable String Username) {
 		Student student = studentRepository.findByUsername(Username);
-		Game game= gameRepository.findOne(GameID);
-		if (game != null && student != null ) {
+		Game game = gameRepository.findOne(GameID);
+		if (game != null && student != null) {
 			studentGame.setStudent(student);
 			studentGame.setGame(game);
 			studentGameRepository.save(studentGame);
 			return true;
 		}
-		return false;	
+		return false;
 	}
-	
-	
-	
-	
+
 	/**
 	 * @param game
 	 * @param courseID
@@ -226,138 +202,142 @@ public class GameRestController {
 	 * @return
 	 */
 	@RequestMapping(method = RequestMethod.POST, value = "/game/create-game/{courseID}/{typeID}/{username}")
-	public long CreateGame(@RequestBody Game game, @PathVariable long courseID, @PathVariable long typeID,@PathVariable String username) 
-	{
-		
+	public long CreateGame(@RequestBody Game game, @PathVariable long courseID, @PathVariable long typeID,
+			@PathVariable String username) {
 		Course course = courseRepository.findOne(courseID);
 		Type type = typeRepository.findOne(typeID);
 		Teacher teacher = teacherRepository.findByUsername(username);
-		if (course != null && type != null && teacher!=null) {
+		if (course != null && type != null && teacher != null) {
 			game.setCourse(course);
 			game.setType(type);
 			Contributor contributor = new Contributor();// add
 			contributor.setGame(game);// add
 			contributor.setTeacher(teacher);// add
-			//game.setTeacher(teacher);
+			// game.setTeacher(teacher);
 			course.getGames().add(game);
 			type.getGames().add(game);
-			//teacher.getGames().add(game);
+			// teacher.getGames().add(game);
 			gameRepository.save(game);
 			contributorRepository.save(contributor);// add
 		}
 		return game.getGameId();
-			
+
 	}
-	
-	
-	@RequestMapping(value= "/WriteComment/{gameID}/{username}" ,method=RequestMethod.POST)
-	public boolean SaveComment (@RequestBody  Comment comment ,@PathVariable long gameID ,@PathVariable String username)
-	{
+
+	@RequestMapping(value = "/WriteComment/{gameID}/{username}", method = RequestMethod.POST)
+	public boolean SaveComment(@RequestBody Comment comment, @PathVariable long gameID, @PathVariable String username) {
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-		
-		Game game= new Game ();
-		game =gameRepository.findOne(gameID);
-		if (game==null) 
+
+		Game game = new Game();
+		game = gameRepository.findOne(gameID);
+		if (game == null)
 			return false;
 		comment.setDate(timestamp);
 		comment.setGame(game);
 		comment.setUsername(username);
 		comment.setSeen(false);
 		commentRepository.save(comment);
-		return true  ;
+		return true;
 	}
-	
-	
-	
-	
-	@RequestMapping(value= "/GetComments/{username}" ,method=RequestMethod.GET)
-	public ArrayList <Comment> GetComments(@PathVariable String username)
-	{
-		ArrayList <Comment> comments= new ArrayList<>();//new HashSet<>();
-		ArrayList <Game> Games= new ArrayList<>();
-		Teacher teacher =teacherRepository.findByUsername(username);
-		
-		
-		if (teacher==null) 
+
+	@RequestMapping(value = "/GetComments/{username}", method = RequestMethod.GET)
+	public ArrayList<Comment> GetComments(@PathVariable String username) {
+		ArrayList<Comment> comments = new ArrayList<>();// new HashSet<>();
+		ArrayList<Game> Games = new ArrayList<>();
+		Teacher teacher = teacherRepository.findByUsername(username);
+
+		if (teacher == null)
 			return null;
 
-		ArrayList <Contributor> Cont= new ArrayList<>(teacher.getContributors());
-		for (int i=0;i<Cont.size();i++)
-		{
+		ArrayList<Contributor> Cont = new ArrayList<>(teacher.getContributors());
+		for (int i = 0; i < Cont.size(); i++) {
 			Games.add(Cont.get(i).getGame());
 		}
-		
-		for (int i=0;i<Games.size();i++)
-		{
-			ArrayList <Comment> tempcomments= new ArrayList<>();
-			tempcomments.addAll( Games.get(i).getComments());
+
+		for (int i = 0; i < Games.size(); i++) {
+			ArrayList<Comment> tempcomments = new ArrayList<>();
+			tempcomments.addAll(Games.get(i).getComments());
 			for (Comment comment : tempcomments) {
-					comments.add(comment); 
-					comment.setSeen(true);
-					commentRepository.save(comment);
-				
+				comments.add(comment);
+				comment.setSeen(true);
+				commentRepository.save(comment);
+
 			}
-			
+
 		}
-		
-		
-		
+
 		comments.sort(new Comparator<Comment>() {
 
 			@Override
 			public int compare(Comment comment1, Comment comment2) {
 				return comment1.getDate().compareTo(comment1.getDate());
 			}
-			 
+
 		});
-		
-		
-		
-		
+
 		return comments;
-		
+
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+	@RequestMapping(method = RequestMethod.POST, value = "/game/add-collaborators/teacher")
+	public long addCollaborators(@RequestBody Game game, @RequestBody Contributor teacher) {
+		List<Contributor> contributors = new ArrayList<>();
+		contributors.add(teacher);
+		game.setContributors((Set<Contributor>) contributors);
+		return contributors.get(contributors.size() - 1).getTeacher().getId();
+	}
+
+	@RequestMapping(method = RequestMethod.POST, value = "/game/cancel-game/{username}")
+	public boolean cancelGame(@RequestBody Game game, @PathVariable String username) {
+		Contributor teacher = contributorRepository.findByTeacherUsername(username);
+		List<Contributor> contributors = (List<Contributor>) game.getContributors();
+		if (contributors.contains(teacher)) {
+			teacher.getGame().setCancled(true);
+		}
+		boolean cancel = false;
+		Contributor contributor = new Contributor();
+		for (int i = 0; i < contributors.size(); i++) {
+			contributor = contributors.get(i);
+			if (!contributor.getGame().isCancled()) {
+				cancel = false;
+				break;
+			} else {
+				cancel = true;
+			}
+		}
+		if (cancel == true) {
+			gameRepository.delete(game);
+			return true;
+		}
+		return false;
+	}
+
 }
 
-
-
-
-
-
 //
-//Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-//System.out.println(timestamp+"  emam ");
+// Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+// System.out.println(timestamp+" emam ");
 //
 //
-//Timestamp timestamp2 = new Timestamp(System.currentTimeMillis());
-//System.out.println(timestamp2+"  emam22 ");
-//System.out.println(timestamp.compareTo(timestamp2)+"    com ");
+// Timestamp timestamp2 = new Timestamp(System.currentTimeMillis());
+// System.out.println(timestamp2+" emam22 ");
+// System.out.println(timestamp.compareTo(timestamp2)+" com ");
 //
 //
-//String timeStamp =      new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Calendar.getInstance().getTime());
-//System.out.println(timeStamp+"   kmkled");
+// String timeStamp = new SimpleDateFormat("yyyy/MM/dd
+// HH:mm:ss").format(Calendar.getInstance().getTime());
+// System.out.println(timeStamp+" kmkled");
 //
 //
 //
-//try{
-//    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-//    Date parsedDate = (Date) dateFormat.parse(timeStamp);
-//    Timestamp timestamp = new java.sql.Timestamp(parsedDate.getTime());
-//    System.out.println(timestamp.toString());
-//}catch(Exception e){//this generic but you can control another types of exception
+// try{
+// SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+// Date parsedDate = (Date) dateFormat.parse(timeStamp);
+// Timestamp timestamp = new java.sql.Timestamp(parsedDate.getTime());
+// System.out.println(timestamp.toString());
+// }catch(Exception e){//this generic but you can control another types of
+// exception
 //
 //
-//}
+// }
 //

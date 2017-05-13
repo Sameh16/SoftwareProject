@@ -7,4 +7,6 @@ import com.GameForAll.models.ContributorID;
 
 public interface ContributorRepository extends CrudRepository<Contributor, ContributorID> {
 
+	Contributor findByTeacherUsername(String username);
+
 }
