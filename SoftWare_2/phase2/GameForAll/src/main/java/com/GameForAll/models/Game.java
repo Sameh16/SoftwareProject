@@ -129,7 +129,7 @@ public class Game implements Serializable {
 	public void setCancled(boolean cancled) {
 		this.cancled = cancled;
 	}
-
+	@JsonIgnore
 	public Set<Comment> getComments() {
 		return comments;
 	}
@@ -137,7 +137,7 @@ public class Game implements Serializable {
 	public void setComments(Set<Comment> comments) {
 		this.comments = comments;
 	}
-
+	@JsonIgnore
 	public Set<Contributor> getContributors() {
 		return contributors;
 	}

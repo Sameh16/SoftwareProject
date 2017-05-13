@@ -1,8 +1,15 @@
 package com.GameForAll.RestCotrollers;
 
 
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -13,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.GameForAll.Repository.CommentRepository;
 import com.GameForAll.Repository.ContributorRepository;
 import com.GameForAll.Repository.CourseRepository;
 import com.GameForAll.Repository.GameRepository;
@@ -22,6 +30,7 @@ import com.GameForAll.Repository.QuestionRepository;
 import com.GameForAll.Repository.StudentGameRepository;
 import com.GameForAll.Repository.StudentRepository;
 import com.GameForAll.Repository.TypeRepository;
+import com.GameForAll.models.Comment;
 import com.GameForAll.models.Contributor;
 import com.GameForAll.models.Course;
 import com.GameForAll.models.Game;
@@ -30,6 +39,9 @@ import com.GameForAll.models.Student;
 import com.GameForAll.models.StudentGame;
 import com.GameForAll.models.Teacher;
 import com.GameForAll.models.Type;
+import com.mysql.fabric.xmlrpc.base.Data;
+
+import ch.qos.logback.core.net.SyslogOutputStream;
 
 
 @RestController
@@ -55,6 +67,8 @@ public class GameRestController {
 	
 	@Autowired
 	ContributorRepository contributorRepository; // add
+	@Autowired
+	CommentRepository commentRepository;
 	
 	
 	@RequestMapping(value = "/get-game/{name}", method = RequestMethod.GET)
@@ -202,6 +216,8 @@ public class GameRestController {
 	}
 	
 	
+	
+	
 	/**
 	 * @param game
 	 * @param courseID
@@ -234,4 +250,114 @@ public class GameRestController {
 	}
 	
 	
+	@RequestMapping(value= "/WriteComment/{gameID}/{username}" ,method=RequestMethod.POST)
+	public boolean SaveComment (@RequestBody  Comment comment ,@PathVariable long gameID ,@PathVariable String username)
+	{
+		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+		
+		Game game= new Game ();
+		game =gameRepository.findOne(gameID);
+		if (game==null) 
+			return false;
+		comment.setDate(timestamp);
+		comment.setGame(game);
+		comment.setUsername(username);
+		comment.setSeen(false);
+		commentRepository.save(comment);
+		return true  ;
+	}
+	
+	
+	
+	
+	@RequestMapping(value= "/GetComments/{username}" ,method=RequestMethod.GET)
+	public ArrayList <Comment> GetComments(@PathVariable String username)
+	{
+		ArrayList <Comment> comments= new ArrayList<>();//new HashSet<>();
+		ArrayList <Game> Games= new ArrayList<>();
+		Teacher teacher =teacherRepository.findByUsername(username);
+		
+		
+		if (teacher==null) 
+			return null;
+
+		ArrayList <Contributor> Cont= new ArrayList<>(teacher.getContributors());
+		for (int i=0;i<Cont.size();i++)
+		{
+			Games.add(Cont.get(i).getGame());
+		}
+		
+		for (int i=0;i<Games.size();i++)
+		{
+			ArrayList <Comment> tempcomments= new ArrayList<>();
+			tempcomments.addAll( Games.get(i).getComments());
+			for (Comment comment : tempcomments) {
+					comments.add(comment); 
+					comment.setSeen(true);
+					commentRepository.save(comment);
+				
+			}
+			
+		}
+		
+		
+		
+		comments.sort(new Comparator<Comment>() {
+
+			@Override
+			public int compare(Comment comment1, Comment comment2) {
+				return comment1.getDate().compareTo(comment1.getDate());
+			}
+			 
+		});
+		
+		
+		
+		
+		return comments;
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
+
+
+
+
+
+
+//
+//Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+//System.out.println(timestamp+"  emam ");
+//
+//
+//Timestamp timestamp2 = new Timestamp(System.currentTimeMillis());
+//System.out.println(timestamp2+"  emam22 ");
+//System.out.println(timestamp.compareTo(timestamp2)+"    com ");
+//
+//
+//String timeStamp =      new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Calendar.getInstance().getTime());
+//System.out.println(timeStamp+"   kmkled");
+//
+//
+//
+//try{
+//    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+//    Date parsedDate = (Date) dateFormat.parse(timeStamp);
+//    Timestamp timestamp = new java.sql.Timestamp(parsedDate.getTime());
+//    System.out.println(timestamp.toString());
+//}catch(Exception e){//this generic but you can control another types of exception
+//
+//
+//}
+//

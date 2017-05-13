@@ -24,5 +24,18 @@ public class GameController {
 
 		return "playGame";
 	}
+	
+	
+	@RequestMapping(value = "/comment", method = RequestMethod.GET)
+	public String GamePage2() {
+
+		return "comment";
+	}
+	
+	@RequestMapping(value = "/showComments", method = RequestMethod.GET)
+	public String GamePage3() {
+
+		return "showComment";
+	}
 
 }

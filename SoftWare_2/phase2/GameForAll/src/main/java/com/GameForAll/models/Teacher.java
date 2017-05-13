@@ -109,7 +109,7 @@ public class Teacher implements User {
 	
 	
 
-
+	@JsonIgnore
 	public Set<Contributor> getContributors() {
 		return contributors;
 	}

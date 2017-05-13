@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+ 
+<html>
+<head>
+      <title>Game</title>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <script src="/angular/angular.min.js"></script>
+      <script src="/js/showComments.js"></script>
+      <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" />
+       <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.radio.css" />
+       <link href="/Extend css/bootstrap.css" rel="stylesheet" />
+       
+</head>
+
+<body>
+
+	<div class="container" ng-app="ShowComment">
+		<div ng-controller="ShowCommentController" >
+	
+	
+					
+					<br></br>
+					<br></br>
+					
+					<label> all comments  </label>
+					
+					
+					<br></br>
+					<br></br>
+ 					
+ 				
+		
+ 					
+ 					 
+ 					<div >
+			 					<div ng-repeat="comment in comments"   ng-click= "checkbutton(comment ,$index)"   style="border : solid  2px  black;margin:10px;border-reduis:2px;padding-left: 25px; width: 33%;">
+				 					{{"  game name: "+comment.game.gameName}}<br></br>
+				 					{{"  game comment: "+comment.comment}}<br></br>
+				 					{{"  username: "+comment.username}} <br></br>
+				 					{{ "  comment date: "+comment.x}}
+				 					
+				 					
+			 					</div>
+ 					</div>
+		
+	  </div>
+	
+	</div>
+</body>
+</html>
