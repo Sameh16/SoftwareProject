@@ -23,7 +23,7 @@ import com.GameForAll.Repository.CommentRepository;
 import com.GameForAll.Repository.ContributorRepository;
 import com.GameForAll.Repository.CourseRepository;
 import com.GameForAll.Repository.GameRepository;
-
+import com.GameForAll.Repository.NotificationRepository;
 import com.GameForAll.Repository.TeacherRepository;
 import com.GameForAll.Repository.QuestionRepository;
 import com.GameForAll.Repository.StudentGameRepository;
@@ -33,6 +33,7 @@ import com.GameForAll.models.Comment;
 import com.GameForAll.models.Contributor;
 import com.GameForAll.models.Course;
 import com.GameForAll.models.Game;
+import com.GameForAll.models.Notification;
 import com.GameForAll.models.Question;
 import com.GameForAll.models.Student;
 import com.GameForAll.models.StudentGame;
@@ -68,27 +69,15 @@ public class GameRestController {
 	@Autowired
 	CommentRepository commentRepository;
 
+	@Autowired
+	NotificationRepository notificationRepository;
+
 	@RequestMapping(value = "/get-game/{name}", method = RequestMethod.GET)
 	public List<Game> GetGame(@PathVariable String name) {
 		List<Game> games = new ArrayList<>();
 		games = gameRepository.findBygameNameStartingWith(name);
 		return games;
 	}
-
-	/*
-	 * @RequestMapping(method = RequestMethod.GET,value =
-	 * "/copygame/{GameName}/{NewGameName}/{TeacherName}/{CourseName}") public
-	 * boolean CopyGame(@PathVariable String GameName, @PathVariable String
-	 * NewGameName,@PathVariable String TeacherName,@PathVariable String
-	 * CourseName) { Game OldGame=(Game)
-	 * gameRepository.findBygameName(GameName); Course
-	 * course=courseRepository.findByCourseName(CourseName); Contributor
-	 * teacher=cont.findByUsername(TeacherName); if(course!=null && teacher
-	 * !=null && OldGame!=null){ Game NewGame=OldGame;
-	 * NewGame.setgameName(NewGameName); NewGame.setCourse(course);
-	 * NewGame.setContributors(teacher); gameRepository.save(NewGame);
-	 * course.getGames().add(NewGame); } return true; }
-	 */
 
 	Game game = null;
 	ArrayList<Question> questions = null;
@@ -219,6 +208,7 @@ public class GameRestController {
 			// teacher.getGames().add(game);
 			gameRepository.save(game);
 			contributorRepository.save(contributor);// add
+			addNotification(course, game, teacher);
 		}
 		return game.getGameId();
 
@@ -312,32 +302,17 @@ public class GameRestController {
 		return false;
 	}
 
-}
+	private void addNotification(Course course, Game game, Teacher teacher) {
+		for (Student student : course.getStudents()) {
+			Notification temp = new Notification();
+			temp.setCourseName(course.getCourseName());
+			temp.setGameName(game.getgameName());
+			temp.setStudent(student);
+			temp.setTeacherName(teacher.getName());
+			notificationRepository.save(temp);
+			student.getNotifications().add(temp);
+			studentRepository.save(student);
+		}
+	}
 
-//
-// Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-// System.out.println(timestamp+" emam ");
-//
-//
-// Timestamp timestamp2 = new Timestamp(System.currentTimeMillis());
-// System.out.println(timestamp2+" emam22 ");
-// System.out.println(timestamp.compareTo(timestamp2)+" com ");
-//
-//
-// String timeStamp = new SimpleDateFormat("yyyy/MM/dd
-// HH:mm:ss").format(Calendar.getInstance().getTime());
-// System.out.println(timeStamp+" kmkled");
-//
-//
-//
-// try{
-// SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-// Date parsedDate = (Date) dateFormat.parse(timeStamp);
-// Timestamp timestamp = new java.sql.Timestamp(parsedDate.getTime());
-// System.out.println(timestamp.toString());
-// }catch(Exception e){//this generic but you can control another types of
-// exception
-//
-//
-// }
-//
+}
