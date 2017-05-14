@@ -71,6 +71,16 @@ app.controller('GameInCourseController', function($scope, $http, $location) {
 		var url = "/playGameQ";
 		window.open(url, "_self");
 	}
+	
+	$scope.CommentGame = function(Game) {
+
+		gameId = Game.gameId;
+		localStorage.setItem('gameId', gameId);
+		localStorage.setItem('username', $scope.username);
+		
+		var url = "/comment";
+		window.open(url, "_self");
+	}
 
 	$scope.logout = function() {
 		localStorage.setItem("username", "");

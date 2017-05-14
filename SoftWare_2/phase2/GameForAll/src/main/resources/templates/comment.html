@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+ 
+<html>
+<head>
+      <title>Game</title>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <script src="/angular/angular.min.js"></script>
+      <script src="/js/CommentController.js"></script>
+      <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" />
+       <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.radio.css" />
+       <link href="/Extend css/bootstrap.css" rel="stylesheet" />
+       
+</head>
+
+<body>
+
+	<div class="container" ng-app="Comment">
+		<div ng-controller="CommentController" >
+	
+	
+					
+					<br></br>
+					<br></br>
+					
+					<label> game name :{{GameName}} </label>
+					
+					
+					<br></br>
+					<br></br>
+ 					<p> <textarea rows="7" cols="100" name="description" form="usrform" ng-model="comment" >Enter your Comment</textarea></p>
+				     <button type="submit" class="btn btn-primary"    ng-click= "saveComment()">submit</button>		
+		
+	  </div>
+	
+	</div>
+</body>
+</html>

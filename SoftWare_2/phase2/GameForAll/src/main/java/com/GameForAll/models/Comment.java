@@ -1,6 +1,8 @@
 package com.GameForAll.models;
 
 import java.io.Serializable;
+import java.sql.Date;
+import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,11 +26,29 @@ public class Comment implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long commentId;
 
+	@Column(name = "seen")
+	private boolean seen;
+
+	
+	public boolean isSeen() {
+		return seen;
+	}
+
+	public void setSeen(boolean seen) {
+		this.seen = seen;
+	}
+
 	@Column(name = "comment")
 	private String comment;
 
 	@Column(name = "username")
 	private String username;
+	
+	@Column(name = "date")
+	private  Timestamp date;
+	
+	
+
 
 	@ManyToOne
 	@JoinColumn(name = "gameId")
@@ -74,6 +94,15 @@ public class Comment implements Serializable {
 
 	public void setGame(Game game) {
 		this.game = game;
+	}
+	
+
+	public Timestamp getDate() {
+		return date;
+	}
+
+	public void setDate(Timestamp date) {
+		this.date = date;
 	}
 
 }
