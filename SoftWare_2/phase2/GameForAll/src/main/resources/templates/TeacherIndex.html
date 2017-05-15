@@ -65,10 +65,10 @@
 							<li><a   href="/course">Create
 									Course</a></li>
 									
-							<li><a   href="/showComments">notification </a></li>
+							<li><a href="/showComments">notification </a></li>
 									
 								
-							<li><a   href="/game">Create
+							<li><a  href="/game">Create
 									Game</a></li>
 							<!-- Category -->
 							<li ng-repeat="Category in categories"><a
@@ -81,7 +81,7 @@
   							<input type="text" name="search"  ng-change="GetGames()" ng-model="search"  placeholder="Search.."/>
   							
   							<div id="myDropdown" class="dropdown-content" ng-show="ShowGames">
-   							 <a ng-repeat="games in SearchedGames" href="/copygame/{{games.gameName}}">{{games.gameName}}</a>
+   							 <a ng-repeat="games in SearchedGames" ng-click="CopyGame()" >{{games.gameName}}</a>
   							</div>
 						</li>
 						

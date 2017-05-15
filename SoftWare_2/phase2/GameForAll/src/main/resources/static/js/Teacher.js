@@ -7,11 +7,56 @@ app.controller('teacherController', function($scope, $http, $location) {
 		  document.getElementById("myDropdown").classList.toggle("show");
 		};
 	
+		
+		
+		$scope.CopyGame= function() {
+			alert($scope.games.gameName);
+			while(true){
+			$scope.NewGameName=prompt('Please Enter New Name for this game to copy it');
+			if($scope.NewGameName!=""){
+				break;
+			}
+			}
+			while(true){
+			$scope.NewCourseName=prompt('Please Enter New Course for this game to copy it');
+			if($scope.NewCourseName!=""){
+				break;
+			}
+			}
+			
+		$scope.teach = localStorage.getItem("username");
+		
+			var url ="/copygame/"+$scope.games.gameName+"/"+$scope.NewGameName+"/"+$scope.teach+"/"+$scope.NewCourseName; 
+				alert(url);
 
+			var config = {
+				headers : {
+					'Content-Type' : 'application/json;charset=utf-8;'
+				}
+			}
+			var data = {
+				};
+			$http.get(url, config).then(function(GameResponse) {
+			
+			}, function(GameResponse) {
+				$scope.getResultMessage = "Fail!";
+			});
+
+			
+		}
+
+		
+		
+		
 	$scope.GetGames = function(){
 	var url = "/get-game/" + $scope.search;
 	
+	if($scope.search==""){
+		$scope.ShowGames=false;
+	}
+
 	$http.get(url, config).then(function(GameResponse) {
+		
 		$scope.SearchedGames=GameResponse.data;
 		if($scope.SearchedGames!="" && $scope.search!=""){
 			$scope.ShowGames=true;

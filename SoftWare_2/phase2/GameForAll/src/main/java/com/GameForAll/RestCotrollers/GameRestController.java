@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.GameForAll.Repository.AnswerRepository;
 import com.GameForAll.Repository.CommentRepository;
 import com.GameForAll.Repository.ContributorRepository;
 import com.GameForAll.Repository.CourseRepository;
@@ -29,6 +30,7 @@ import com.GameForAll.Repository.QuestionRepository;
 import com.GameForAll.Repository.StudentGameRepository;
 import com.GameForAll.Repository.StudentRepository;
 import com.GameForAll.Repository.TypeRepository;
+import com.GameForAll.models.Answer;
 import com.GameForAll.models.Comment;
 import com.GameForAll.models.Contributor;
 import com.GameForAll.models.Course;
@@ -58,6 +60,9 @@ public class GameRestController {
 	QuestionRepository questionRepository;
 
 	@Autowired
+	AnswerRepository answerRepository;
+	
+	@Autowired
 	StudentRepository studentRepository;
 
 	@Autowired
@@ -65,6 +70,7 @@ public class GameRestController {
 
 	@Autowired
 	ContributorRepository contributorRepository; // add
+	
 	@Autowired
 	CommentRepository commentRepository;
 
@@ -75,20 +81,80 @@ public class GameRestController {
 		return games;
 	}
 
-	/*
-	 * @RequestMapping(method = RequestMethod.GET,value =
-	 * "/copygame/{GameName}/{NewGameName}/{TeacherName}/{CourseName}") public
-	 * boolean CopyGame(@PathVariable String GameName, @PathVariable String
-	 * NewGameName,@PathVariable String TeacherName,@PathVariable String
-	 * CourseName) { Game OldGame=(Game)
-	 * gameRepository.findBygameName(GameName); Course
-	 * course=courseRepository.findByCourseName(CourseName); Contributor
-	 * teacher=cont.findByUsername(TeacherName); if(course!=null && teacher
-	 * !=null && OldGame!=null){ Game NewGame=OldGame;
-	 * NewGame.setgameName(NewGameName); NewGame.setCourse(course);
-	 * NewGame.setContributors(teacher); gameRepository.save(NewGame);
-	 * course.getGames().add(NewGame); } return true; }
-	 */
+
+	@RequestMapping(method = RequestMethod.GET,value = "/copygame/{GameName}/{NewGameName}/{TeacherName}/{CourseName}")
+	public boolean CopyGame(@PathVariable String GameName, @PathVariable String NewGameName,@PathVariable String TeacherName,@PathVariable String CourseName) {
+		
+		List<Game> OldGames=gameRepository.findBygameName(GameName);
+		Course course=courseRepository.findByCourseName(CourseName);
+		Teacher teacher=teacherRepository.findByUsername(TeacherName);
+		Contributor contributor=new Contributor();
+		
+		if(course!=null && teacher !=null && OldGames!=null){
+			Game NewGame=new Game();
+			NewGame.setgameName(NewGameName);
+			NewGame.setCourse(course);
+			
+			
+			Game OldGame=new Game();
+		
+			for(int i=0;i<OldGames.size();i++){
+				if(OldGames.get(i).getGameId()==OldGames.get(i).getNewId()){
+					OldGame=OldGames.get(i);
+				}
+			}
+			
+			NewGame.setDescription(OldGame.getDescription());
+			
+			NewGame.setNumOfLevels(OldGame.getNumOfLevels());
+			
+			NewGame.setType(OldGame.getType());
+			
+			NewGame.setCancled(false);
+			
+			gameRepository.save(NewGame);
+			NewGame.setNewId(NewGame.getGameId());
+			gameRepository.save(NewGame);
+			course.getGames().add(NewGame);		
+			contributor.setGame(NewGame);
+			contributor.setTeacher(teacher);
+			contributorRepository.save(contributor);
+			
+			List<Question> OldGameQuestions=questionRepository.findBygame(OldGame);
+			
+			for(int i=0;i<OldGameQuestions.size();i++){
+				Question NewGameQuestion=new Question();
+				
+				NewGameQuestion.setQuestion(OldGameQuestions.get(i).getQuestion());
+				NewGameQuestion.setLevel(OldGameQuestions.get(i).getLevel());
+				NewGameQuestion.setGames(NewGame);
+				questionRepository.save(NewGameQuestion);
+				//NewGame.getQuestions().add(NewGameQuestion);
+				
+				
+				
+				
+				List<Answer> OldGameAnswers=answerRepository.findByquestion(OldGameQuestions.get(i));
+				for(int j=0;j<OldGameAnswers.size();j++){
+					Answer NewGameAnswer=new Answer();
+					
+					NewGameAnswer.setAnswer(OldGameAnswers.get(j).getAnswer());
+					NewGameAnswer.setCorrectAnswer(OldGameAnswers.get(j).isCorrectAnswer());
+					NewGameAnswer.setQuestion(NewGameQuestion);
+					
+					answerRepository.save(NewGameAnswer);
+					
+					//NewGameQuestion.getAnswers().add(NewGameAnswer);
+				}
+			}
+	
+					
+			
+			
+				
+		}
+		return true;	
+	}
 
 	Game game = null;
 	ArrayList<Question> questions = null;
@@ -219,6 +285,8 @@ public class GameRestController {
 			// teacher.getGames().add(game);
 			gameRepository.save(game);
 			contributorRepository.save(contributor);// add
+			game.setNewId(game.getGameId());
+			gameRepository.save(game);
 		}
 		return game.getGameId();
 
@@ -314,30 +382,3 @@ public class GameRestController {
 
 }
 
-//
-// Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-// System.out.println(timestamp+" emam ");
-//
-//
-// Timestamp timestamp2 = new Timestamp(System.currentTimeMillis());
-// System.out.println(timestamp2+" emam22 ");
-// System.out.println(timestamp.compareTo(timestamp2)+" com ");
-//
-//
-// String timeStamp = new SimpleDateFormat("yyyy/MM/dd
-// HH:mm:ss").format(Calendar.getInstance().getTime());
-// System.out.println(timeStamp+" kmkled");
-//
-//
-//
-// try{
-// SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-// Date parsedDate = (Date) dateFormat.parse(timeStamp);
-// Timestamp timestamp = new java.sql.Timestamp(parsedDate.getTime());
-// System.out.println(timestamp.toString());
-// }catch(Exception e){//this generic but you can control another types of
-// exception
-//
-//
-// }
-//
