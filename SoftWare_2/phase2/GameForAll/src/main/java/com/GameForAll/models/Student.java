@@ -50,7 +50,9 @@ public class Student implements User{
 
 	@OneToMany (mappedBy = "student" , cascade = CascadeType.ALL)
 	private Set<StudentGame> studentGames;
-
+	
+	@OneToMany (mappedBy = "student" , cascade = CascadeType.ALL)
+	private Set<Notification> notifications;
 
 
 	public Student() {
@@ -140,6 +142,15 @@ public class Student implements User{
 		this.studentGames = studentGames;
 	}
 
+	public Set<Notification> getNotifications() {
+		return notifications;
+	}
+
+	public void setNotifications(Set<Notification> notifications) {
+		this.notifications = notifications;
+	}
+
+	
 	
 	
 	

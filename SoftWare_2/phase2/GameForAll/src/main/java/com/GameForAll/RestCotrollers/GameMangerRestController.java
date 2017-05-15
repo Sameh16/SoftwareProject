@@ -16,6 +16,7 @@ import com.GameForAll.models.Game;
 import com.GameForAll.models.Student;
 import com.GameForAll.models.StudentGame;
 import com.GameForAll.models.Teacher;
+import com.GameForAll.models.Notification;
 
 @RestController
 public class GameMangerRestController {
@@ -66,5 +67,20 @@ public class GameMangerRestController {
 		return null;
 		
 	}
+	
+	
+	@RequestMapping(value = "/get-student-notification/{username}")
+	public Set<Notification> getStudentComments(@PathVariable String username)
+	{
+		Set<Notification> notifications = null ;
+		Student student = studentRepository.findByUsername(username);
+		if(student!=null)
+		{
+			notifications = student.getNotifications();
+		}
+		return notifications;
+	}
+	
+	
 	
 }

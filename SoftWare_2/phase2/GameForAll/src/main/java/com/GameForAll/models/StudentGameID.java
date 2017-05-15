@@ -11,10 +11,7 @@ public class StudentGameID implements Serializable {
 
 	private long student;
 	
-	private long game;
-
-
-	
+	private long game;	
 	
 	
 	public StudentGameID() {

@@ -75,13 +75,14 @@ public class CourseMangerRestController {
 		Student student = studentRepository.findByUsername(username);
 		if(course!=null && student!=null)
 		{
-			
+		
 			Set<Course> courses =student.getCourses();
 			courses.add(course);
 			Set<Student> students= course.getStudents();
 			students.add(student);
 			studentRepository.save(student);
 			courseRepository.save(course);
+			
 			return true;
 		}
 		return false;

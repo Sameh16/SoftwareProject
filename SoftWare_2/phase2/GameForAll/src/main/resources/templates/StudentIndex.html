@@ -8,15 +8,18 @@
 <script src="/angular/angular.min.js"></script>
 <script src="/js/Student.js"></script>
 <script src="/Extend js/jquery-1.9.1.min.js"></script>
+<script src="/Extend js/notification.js"></script>
 <script src="/Extend js/modernizr-2.6.2-respond-1.1.0.min.js"></script>
 <script src="/Extend js/scrolling-nav.js"></script>
+<script src="/Extend js/notification.js"></script>
 <!-- Bootstrap Core CSS -->
 
 <link rel="stylesheet"
 	href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" />
 
-<link href="/Extend css/bootstrap.css" rel="stylesheet" />
+<link href="/Extend css/notify.css" rel="stylesheet" />
 
+<link href="/Extend css/bootstrap.css" rel="stylesheet" />
 <!-- Custom CSS -->
 <link rel="stylesheet" href="/Extend css/main.css" />
 <link href="/Extend css/custom.css" rel="stylesheet" />
@@ -33,7 +36,7 @@
 </head>
 <body>
 
-	<div class="container" ng-app="Student">
+	<div ng-app="Student">
 
 
 		<div ng-controller="studentController">
@@ -60,15 +63,33 @@
 								ng-click="CourseInCategory(Category)" href="CourseInCategory">{{Category.categoryName
 									}}</a></li>
 
+							<li>
+								<div class="notifications">
+									<div class="messages">
+										<div class="message" ng-repeat="notification in notifications">
+											{{" Teacher : "+notification.teacherName}}<br></br> {{"Create
+											game name: "+notification.gameName}}<br></br> {{" In Course:
+											"+notification.courseName}}
+
+										</div>
+									</div>
+								</div>
+							</li>
+
 							<li><a ng-click="logout()" href="/">Log Out(
 									{{username}} )</a></li>
-
 						</ul>
 					</div>
+
 				</div>
 			</header>
 
+
+
 			<section id="main-slider" class="no-margin">
+
+
+			
 
 				<div class="section section-white">
 					<div class="container">

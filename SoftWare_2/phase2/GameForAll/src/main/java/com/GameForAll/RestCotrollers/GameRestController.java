@@ -24,7 +24,7 @@ import com.GameForAll.Repository.CommentRepository;
 import com.GameForAll.Repository.ContributorRepository;
 import com.GameForAll.Repository.CourseRepository;
 import com.GameForAll.Repository.GameRepository;
-
+import com.GameForAll.Repository.NotificationRepository;
 import com.GameForAll.Repository.TeacherRepository;
 import com.GameForAll.Repository.QuestionRepository;
 import com.GameForAll.Repository.StudentGameRepository;
@@ -35,6 +35,7 @@ import com.GameForAll.models.Comment;
 import com.GameForAll.models.Contributor;
 import com.GameForAll.models.Course;
 import com.GameForAll.models.Game;
+import com.GameForAll.models.Notification;
 import com.GameForAll.models.Question;
 import com.GameForAll.models.Student;
 import com.GameForAll.models.StudentGame;
@@ -74,12 +75,16 @@ public class GameRestController {
 	@Autowired
 	CommentRepository commentRepository;
 
+	@Autowired
+	NotificationRepository notificationRepository;
+
 	@RequestMapping(value = "/get-game/{name}", method = RequestMethod.GET)
 	public List<Game> GetGame(@PathVariable String name) {
 		List<Game> games = new ArrayList<>();
 		games = gameRepository.findBygameNameStartingWith(name);
 		return games;
 	}
+
 
 
 	@RequestMapping(method = RequestMethod.GET,value = "/copygame/{GameName}/{NewGameName}/{TeacherName}/{CourseName}")
@@ -155,6 +160,7 @@ public class GameRestController {
 		}
 		return true;	
 	}
+
 
 	Game game = null;
 	ArrayList<Question> questions = null;
@@ -285,8 +291,12 @@ public class GameRestController {
 			// teacher.getGames().add(game);
 			gameRepository.save(game);
 			contributorRepository.save(contributor);// add
+
 			game.setNewId(game.getGameId());
 			gameRepository.save(game);
+
+			addNotification(course, game, teacher);
+
 		}
 		return game.getGameId();
 
@@ -380,5 +390,17 @@ public class GameRestController {
 		return false;
 	}
 
+	private void addNotification(Course course, Game game, Teacher teacher) {
+		for (Student student : course.getStudents()) {
+			Notification temp = new Notification();
+			temp.setCourseName(course.getCourseName());
+			temp.setGameName(game.getgameName());
+			temp.setStudent(student);
+			temp.setTeacherName(teacher.getName());
+			notificationRepository.save(temp);
+			student.getNotifications().add(temp);
+			studentRepository.save(student);
+		}
+	}
 }
 

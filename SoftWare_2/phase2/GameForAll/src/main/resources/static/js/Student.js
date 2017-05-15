@@ -26,6 +26,15 @@ app.controller('studentController', function($scope, $http, $location) {
         });
    // }
     
+        
+        var url = "/get-student-notification/"+$scope.username;
+
+
+    	$http.get(url, config).then(function(notifications) {
+    		$scope.notifications = notifications.data
+    	}, function(notifications) {
+    		$scope.getResultMessage = "Fail!";
+    	});
     
 //	$scope.getCourses = function(){
         url = "/get-Student-courses/"+$scope.username;
@@ -77,6 +86,11 @@ app.controller('studentController', function($scope, $http, $location) {
     	var url= "/GameInCourse";
     	window.open(url,"_self");
     }
+	
+	 $(".notificationicon").click(function () {
+		    $(this).toggleClass("open");
+		    $("#notificationMenu").toggleClass("open");
+		  });
 	
 });
  

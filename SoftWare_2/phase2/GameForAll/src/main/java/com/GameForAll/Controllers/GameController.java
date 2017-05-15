@@ -37,5 +37,11 @@ public class GameController {
 
 		return "showComment";
 	}
+	
+	@RequestMapping(value = "/showNotifications", method = RequestMethod.GET)
+	public String Page4() {
+
+		return "notify";
+	}
 
 }
