@@ -1,7 +1,48 @@
 var app = angular.module('Student', []);
 
 app.controller('studentController', function($scope, $http, $location) {
+	$scope.ShowGames=false;
+	$scope.ShowCategories=false;
+	document.getElementById("CDropdown").classList.toggle("show");
+	document.getElementById("myDropdown").classList.toggle("show");
 	
+	
+	
+		$scope.ChangeCategoryShow= function() {
+			if($scope.ShowCategories==false){
+			document.getElementById("cat").classList.toggle("active");
+			document.getElementById("home").classList.remove("active");
+			}
+			else{
+				document.getElementById("home").classList.toggle("active");
+				document.getElementById("cat").classList.remove("active");
+			}
+			
+			$scope.ShowCategories=!$scope.ShowCategories;
+			
+			}
+		
+		$scope.GetGames = function(){
+			var url = "/get-game/" + $scope.search;
+			
+			if($scope.search==""){
+				$scope.ShowGames=false;
+			}
+
+			$http.get(url, config).then(function(GameResponse) {
+				
+				$scope.SearchedGames=GameResponse.data;
+				if($scope.SearchedGames!="" && $scope.search!=""){
+					$scope.ShowGames=true;
+				}
+				else{
+					$scope.ShowGames=false;
+				}
+			}, function(GameResponse) {
+				$scope.getResultMessage = "Fail!";
+			});
+			
+			}
 	
 	$scope.username = localStorage.getItem("username");
 		

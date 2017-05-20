@@ -57,15 +57,13 @@
 					</div>
 					<div class="collapse navbar-collapse">
 						<ul class="nav navbar-nav navbar-right">
-							<li class="active"><a href="/student">Home</a></li>
-							<!-- Category -->
-							<li ng-repeat="Category in categories"><a
-								ng-click="CourseInCategory(Category)" href="CourseInCategory">{{Category.categoryName
-									}}</a></li>
+							<li class="active" id="home"><a href="/student">Home</a></li>
+							
+						
 
 							<li>
-								<div class="notifications">
-									<div class="messages">
+								<div class="notifications" href="">
+									<div class="messages" >
 										<div class="message" ng-repeat="notification in notifications">
 											{{" Teacher : "+notification.teacherName}}<br></br> {{"Create
 											game name: "+notification.gameName}}<br></br> {{" In Course:
@@ -75,9 +73,24 @@
 									</div>
 								</div>
 							</li>
+							
+								<li id="cat">
+  							 	<a ng-click="ChangeCategoryShow();" ng-model="Category" href="">Category</a>
+  							<div id="CDropdown" class="dropdown-content2" ng-show="ShowCategories">
+   							 <a ng-repeat="Category in categories" ng-click="CourseInCategory(Category)" href="/CourseInCategory">{{Category.categoryName}}</a>
+  							</div>
+						</li>
+							
 
 							<li><a ng-click="logout()" href="/">Log Out(
 									{{username}} )</a></li>
+								<li class="ser" >
+  							<input type="text" name="search"  ng-change="GetGames()" ng-model="search"  placeholder="Search.."/>
+  							
+  							<div id="myDropdown" class="dropdown-content" ng-show="ShowGames">
+   							 <a ng-repeat="games in SearchedGames" ng-click="playGame(Game)" href="//playGameQ" >{{games.gameName}}</a>
+  							</div>
+						</li>
 						</ul>
 					</div>
 

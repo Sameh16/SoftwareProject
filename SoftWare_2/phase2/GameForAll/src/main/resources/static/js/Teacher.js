@@ -1,16 +1,52 @@
 var app = angular.module('Teacher', []);
 
 app.controller('teacherController', function($scope, $http, $location) {
+	
 	$scope.ShowGames=false;
+	$scope.ShowCategories=false;
+	document.getElementById("myDropdown").classList.toggle("show");
+	 document.getElementById("CDropdown").classList.toggle("show");
 	
-	window.onload = function() {
-		  document.getElementById("myDropdown").classList.toggle("show");
-		};
-	
+	  $scope.ChangeCategoryShow= function() {
+			if($scope.ShowCategories==false){
+			document.getElementById("cat").classList.toggle("active");
+			document.getElementById("home").classList.remove("active");
+			}
+			else{
+				document.getElementById("home").classList.toggle("active");
+				document.getElementById("cat").classList.remove("active");
+			}
+			
+			$scope.ShowCategories=!$scope.ShowCategories;
+			
+			}
+		
+		$scope.GetGames = function(){
+			var url = "/get-game/" + $scope.search;
+			
+			if($scope.search==""){
+				$scope.ShowGames=false;
+			}
+
+			$http.get(url, config).then(function(GameResponse) {
+				
+				$scope.SearchedGames=GameResponse.data;
+				if($scope.SearchedGames!="" && $scope.search!=""){
+					$scope.ShowGames=true;
+				}
+				else{
+					$scope.ShowGames=false;
+				}
+			}, function(GameResponse) {
+				$scope.getResultMessage = "Fail!";
+			});
+			
+			}
+		
 		
 		
 		$scope.CopyGame= function() {
-			alert($scope.games.gameName);
+			
 			while(true){
 			$scope.NewGameName=prompt('Please Enter New Name for this game to copy it');
 			if($scope.NewGameName!=""){
@@ -23,6 +59,28 @@ app.controller('teacherController', function($scope, $http, $location) {
 				break;
 			}
 			}
+			
+			$scope.GetGames = function(){
+				var url = "/get-game/" + $scope.search;
+				
+				if($scope.search==""){
+					$scope.ShowGames=false;
+				}
+
+				$http.get(url, config).then(function(GameResponse) {
+					
+					$scope.SearchedGames=GameResponse.data;
+					if($scope.SearchedGames!="" && $scope.search!=""){
+						$scope.ShowGames=true;
+					}
+					else{
+						$scope.ShowGames=false;
+					}
+				}, function(GameResponse) {
+					$scope.getResultMessage = "Fail!";
+				});
+				
+				}
 			
 		$scope.teach = localStorage.getItem("username");
 		
@@ -48,27 +106,7 @@ app.controller('teacherController', function($scope, $http, $location) {
 		
 		
 		
-	$scope.GetGames = function(){
-	var url = "/get-game/" + $scope.search;
 	
-	if($scope.search==""){
-		$scope.ShowGames=false;
-	}
-
-	$http.get(url, config).then(function(GameResponse) {
-		
-		$scope.SearchedGames=GameResponse.data;
-		if($scope.SearchedGames!="" && $scope.search!=""){
-			$scope.ShowGames=true;
-		}
-		else{
-			$scope.ShowGames=false;
-		}
-	}, function(GameResponse) {
-		$scope.getResultMessage = "Fail!";
-	});
-	
-	}
 	
 	
 	$scope.username = localStorage.getItem("username");

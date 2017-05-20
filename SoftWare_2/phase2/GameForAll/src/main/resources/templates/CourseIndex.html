@@ -52,17 +52,30 @@
 					<div class="collapse navbar-collapse">
 						<ul class="nav navbar-nav navbar-right">
 							<li><a href="/teacher">Home</a></li>
-							<li class="active"><a href="/course">Create Course</a></li>
-							<li><a href="/game">Create Game</a></li>
-							<!-- Category -->
-							<li ng-repeat="Category in categories"><a
-								ng-click="CourseInCategory(Category)" href="/CourseInCategory" >{{Category.categoryName
-									}}</a></li>
+							<li><a href="/showComments">notification </a></li>
+							
+							<li id="cat">
+  							 	<a ng-click="ChangeCategoryShow();" ng-model="Category" href="">Category</a>
+  							<div id="CDropdown" class="dropdown-content2" ng-show="ShowCategories">
+   							 <a ng-repeat="Category in categories" ng-click="CourseInCategory(Category)" href="/CourseInCategory">{{Category.categoryName}}</a>
+  							</div>
+  							
+						</li>
+							<li class="active" id="co"><a href="/course">Create Course</a></li>
+							
 
 							<li><a ng-click="logout()" href="/">Log Out(
 									{{username}} )</a></li>
-
+								
+								<li class="ser" >
+  							<input type="text" name="search"  ng-change="GetGames()" ng-model="search"  placeholder="Search.."/>
+  							<div id="myDropdown" class="dropdown-content" ng-show="ShowGames">
+   							 <a ng-repeat="games in SearchedGames" ng-click="playGame(Game)" href="/playGameQ">{{games.gameName}}</a>
+  							</div>
+						</li>
 						</ul>
+						
+						
 					</div>
 				</div>
 			</header>
@@ -79,7 +92,7 @@
 								<h1>Course</h1>
 							</div>
 
-							<br></br> Course Name : <input type="text" name="CourseName"
+							 Course Name : <input type="text" name="CourseName"
 								class="form-control" ng-model="CourseName" required="true" />
 							Category : <select required="true" class="form-control"
 								ng-model="Category"
