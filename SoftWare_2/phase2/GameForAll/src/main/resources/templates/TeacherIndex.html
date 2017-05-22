@@ -63,6 +63,7 @@
 						
 							<li class="active" id="home"><a href="/teacher">Home</a></li>
 							<li><a href="/showComments">notification </a></li>
+							
 							<li id="cat">
   								 	<a ng-click="ChangeCategoryShow();" ng-model="Category" href="">Category</a>
   							<div id="CDropdown" class="dropdown-content2" ng-show="ShowCategories">
@@ -81,7 +82,7 @@
   							<input type="text" name="search"  ng-change="GetGames()" ng-model="search"  placeholder="Search.."/>
   							
   							<div id="myDropdown" class="dropdown-content" ng-show="ShowGames">
-   							 <a ng-repeat="games in SearchedGames" ng-click="playGame(Game)" href="/playGameQ" >{{games.gameName}}</a>
+   							 <a ng-repeat="games in SearchedGames" ng-click="playGame(games)" href="/playGameQ" >{{games.gameName}}</a>
   							</div>
 						</li>
 						
@@ -120,7 +121,7 @@
 				<div class="container">
 					<div class="row">
 						<div class="section-title">
-							<h1>Our Games</h1>
+							<h1>My Games</h1>
 						</div>
 						<div ng-repeat="Game in Games" class="col-sm-4">
 							<div class="blog-post blog-single-post">

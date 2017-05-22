@@ -1,14 +1,13 @@
 package com.GameForAll.RestCotrollers;
 
-import java.sql.Date;
+
 import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+
+
 import java.util.ArrayList;
-import java.util.Calendar;
+
 import java.util.Comparator;
-import java.util.HashSet;
+
 import java.util.List;
 import java.util.Set;
 
@@ -41,9 +40,9 @@ import com.GameForAll.models.Student;
 import com.GameForAll.models.StudentGame;
 import com.GameForAll.models.Teacher;
 import com.GameForAll.models.Type;
-import com.mysql.fabric.xmlrpc.base.Data;
 
-import ch.qos.logback.core.net.SyslogOutputStream;
+
+
 
 @RestController
 public class GameRestController {
@@ -162,8 +161,7 @@ public class GameRestController {
 	}
 
 
-	Game game = null;
-	ArrayList<Question> questions = null;
+	
 
 	@RequestMapping(value = "/course/show-games-specific-course/{CourseId}", method = RequestMethod.GET)
 	Set<Game> ShowGamesSpecificCourse(@PathVariable long CourseId) {
@@ -191,59 +189,35 @@ public class GameRestController {
 	 * @param gameID
 	 * @return
 	 */
-	@RequestMapping(value = "/playgame/{gameID}", method = RequestMethod.GET)
-	Set<Question> PlayGame(@PathVariable long gameID) {
-
-		Game game = gameRepository.findOne(gameID);
-		if (game != null) {
-			this.game = game;
-			this.questions = new ArrayList<Question>(game.getQuestions());
-			this.questions.sort(new Comparator<Question>() {
-
-				@Override
-				public int compare(Question q1, Question q2) {
-
-					return q1.getLevel() - q2.getLevel();
-				}
-
-			});
-			return game.getQuestions();
-		}
-
-		return null;
-
-	}
+	
+	
+	
+	
 
 	/**
 	 * @param gameID
 	 * @param questionIndex
 	 * @return
 	 */
+	
 	@RequestMapping(value = "/playgame/{gameID}/{questionIndex}", method = RequestMethod.GET)
 	Question getQuestion(@PathVariable long gameID, @PathVariable long questionIndex) {
-
-		if (game == null) {
+			Game game = null;
+			ArrayList<Question> questions = null;
 			game = gameRepository.findOne(gameID);
-			this.questions = new ArrayList<Question>(game.getQuestions());
-			this.questions.sort(new Comparator<Question>() {
+			questions = new ArrayList<Question>(game.getQuestions());
+			questions.sort(new Comparator<Question>() {
 
 				@Override
 				public int compare(Question q1, Question q2) {
 
 					return q1.getLevel() - q2.getLevel();
 				}
-
 			});
-		}
-		if (game != null) {
-
 			if (questionIndex > questions.size()) {
 				return null;
 			}
-
 			return questions.get((int) questionIndex - 1);
-		}
-		return null;
 	}
 
 	/**

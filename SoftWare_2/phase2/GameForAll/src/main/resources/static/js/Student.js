@@ -114,9 +114,8 @@ app.controller('studentController', function($scope, $http, $location) {
 
     $scope.playGame=function (Game)
     {
-    	
-    	gameName=Game.gameName;
-    	localStorage.setItem('gameName',gameName);
+    	localStorage.setItem('gameId',Game.gameId);
+    	localStorage.setItem('GameName',Game.gameName);
     	var url= "/playGameQ";
     	window.open(url,"_self");
     }

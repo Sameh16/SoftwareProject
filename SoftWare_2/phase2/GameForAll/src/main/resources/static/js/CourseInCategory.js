@@ -2,7 +2,50 @@ var app = angular.module('CourseInCategory', []);
 
 app.controller('CourseInCategoryController',function($scope, $http, $location) {
 
+	
+	$scope.ShowGames=false;
+	$scope.ShowCategories=false;
+	document.getElementById("myDropdown").classList.toggle("show");
+	 document.getElementById("CDropdown").classList.toggle("show");
+	
+	  $scope.ChangeCategoryShow= function() {
+			if($scope.ShowCategories==false){
+			document.getElementById("cat").classList.toggle("active");
+			
+			}
+			else{
+				
+				document.getElementById("cat").classList.remove("active");
+			}
+			
+			$scope.ShowCategories=!$scope.ShowCategories;
+			
+			}
+		
+		$scope.GetGames = function(){
+			var url = "/get-game/" + $scope.search;
+			
+			if($scope.search==""){
+				$scope.ShowGames=false;
+			}
+
+			$http.get(url, config).then(function(GameResponse) {
+				
+				$scope.SearchedGames=GameResponse.data;
+				if($scope.SearchedGames!="" && $scope.search!=""){
+					$scope.ShowGames=true;
+				}
+				else{
+					$scope.ShowGames=false;
+				}
+			}, function(GameResponse) {
+				$scope.getResultMessage = "Fail!";
+			});
+			
+			}
+		
 			var categoryName = localStorage.getItem('categoryName');
+			$scope.Name=categoryName;
 			$scope.username =  localStorage.getItem('username');
 			
 			if (localStorage.getItem("username") == "") {
@@ -76,5 +119,13 @@ app.controller('CourseInCategoryController',function($scope, $http, $location) {
 				var url = "/";
 				windows.open(url, "_self");
 			}
+			
+			  $scope.playGame=function (Game)
+			    {
+			    	localStorage.setItem('gameId',Game.gameId);
+			    	localStorage.setItem('GameName',Game.gameName);
+			    	var url= "/playGameQ";
+			    	window.open(url,"_self");
+			    }
 
 		});

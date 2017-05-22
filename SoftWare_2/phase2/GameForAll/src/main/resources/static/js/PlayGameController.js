@@ -4,41 +4,24 @@ var number_of_wrong_answers=0;
 
 app.controller('PlayGameController', function($scope, $http, $location) {
 	
-
-	 $scope.number_of_correct_answers=0;
+	$scope.number_of_correct_answers=0;
 	 $scope.number_of_wrong_answers=0;
 	 $scope.currentQuestion=1;
 	 $scope.studentName=localStorage.getItem("username");
 	 $scope.gameId=localStorage.getItem("gameId");
-	 
+	 $scope.GameName=localStorage.getItem("GameName");
+	
 	 if (localStorage.getItem("username") == "") {
-
 			var url = "/";
 			window.open(url, '_self');
 		}
-	 var url ="/playgame/"+$scope.gameId;    
-	    var config = {
-	            headers : {
-	                'Content-Type': 'application/json;charset=utf-8;'
-	            }
-	    }
-		  $http.get(url, config).then(function (Questions1) {
-		 	 $scope.questions = Questions1.data
-		  }, function (Questions) {
-			         $scope.getResultMessage = "Fail!";
-	     });
-	 
 	 
 	 $scope.radio=1;
 
 	 
-	 
-	 
+	
 	 $scope.SaveGameData= function()
 		{
-			
-			
-			
 			
 			var url ="/SaveStudentGame/"+$scope.gameId+"/"+$scope.studentName;  
 		        
@@ -81,8 +64,7 @@ app.controller('PlayGameController', function($scope, $http, $location) {
 	 
 	$scope.getQuestionAtIndex= function()
 	{
-		
-		var url ="/playgame/"+$scope.gameId+"/"+$scope.currentQuestion;  
+		var url ="/playgame/"+$scope.gameId+"/"+$scope.currentQuestion;
 	    var config = {
 	            headers : {
 	                'Content-Type': 'application/json;charset=utf-8;'
@@ -90,6 +72,7 @@ app.controller('PlayGameController', function($scope, $http, $location) {
 	    }
      $http.get(url, config).then(function (Question) {
     	 $scope.Quest = Question.data;
+    	 
     	 if(typeof($scope.Quest.questionId) == "undefined")
     		 {
     		 $scope.achievements=($scope.number_of_correct_answers*10);
@@ -103,6 +86,7 @@ app.controller('PlayGameController', function($scope, $http, $location) {
     		 	$scope.show=true;
     		 	$scope.score=false;
     		 }
+    	 
     	 
 	     }, function (Question) {
 	         $scope.getResultMessage = "Fail!";
@@ -127,21 +111,7 @@ app.controller('PlayGameController', function($scope, $http, $location) {
 		}
 	}
 	
-	$scope.getQuestions= function()
-	{
-		
-		var url ="/playgame/"+id;    
-	    var config = {
-	            headers : {
-	                'Content-Type': 'application/json;charset=utf-8;'
-	            }
-	    }
-     $http.get(url, config).then(function (Questions) {
-    	 $scope.questions = Questions.data
-     }, function (Questions) {
-	         $scope.getResultMessage = "Fail!";
-	     });
-	}
+	
 	
      
 

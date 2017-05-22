@@ -161,12 +161,13 @@ app.controller('teacherController', function($scope, $http, $location) {
 		window.open(url, "_self");
 	}
 
-	$scope.playGame = function(Game) {
-		gameId = Game.gameId;
-		localStorage.setItem('gameId', gameId);
-		var url = "/playGameQ";
-		window.open(url, "_self");
-	}
+	  $scope.playGame=function (Game)
+	    {
+	    	localStorage.setItem('gameId',Game.gameId);
+	    	localStorage.setItem('GameName',Game.gameName);
+	    	var url= "/playGameQ";
+	    	window.open(url,"_self");
+	    }
 
 	$scope.GameInCourse = function(course) {
 		courseName = course.courseName;
