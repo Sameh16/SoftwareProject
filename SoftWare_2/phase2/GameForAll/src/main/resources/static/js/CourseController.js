@@ -2,6 +2,50 @@ var app = angular.module('Course', []);
 
 app.controller('CourseController', function($scope, $http, $location) {
 
+	$scope.ShowGames=false;
+	$scope.ShowCategories=false;
+	document.getElementById("myDropdown").classList.toggle("show");
+	 document.getElementById("CDropdown").classList.toggle("show");
+	
+	  $scope.ChangeCategoryShow= function() {
+			if($scope.ShowCategories==false){
+			document.getElementById("cat").classList.toggle("active");
+			document.getElementById("co").classList.remove("active");
+			}
+			else{
+				document.getElementById("co").classList.toggle("active");
+				document.getElementById("cat").classList.remove("active");
+			}
+			
+			$scope.ShowCategories=!$scope.ShowCategories;
+			
+			}
+		
+		$scope.GetGames = function(){
+			var url = "/get-game/" + $scope.search;
+			
+			if($scope.search==""){
+				$scope.ShowGames=false;
+			}
+
+			$http.get(url, config).then(function(GameResponse) {
+				
+				$scope.SearchedGames=GameResponse.data;
+				if($scope.SearchedGames!="" && $scope.search!=""){
+					$scope.ShowGames=true;
+				}
+				else{
+					$scope.ShowGames=false;
+				}
+			}, function(GameResponse) {
+				$scope.getResultMessage = "Fail!";
+			});
+			
+			}
+		
+	
+	
+	
 	$scope.username = localStorage.getItem("username");
 
 	if (localStorage.getItem("username") == "") {

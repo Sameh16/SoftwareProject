@@ -3,6 +3,7 @@ package com.GameForAll.RestCotrollers;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Comparator;
+
 import java.util.List;
 import java.util.Set;
 
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.GameForAll.Repository.AnswerRepository;
 import com.GameForAll.Repository.CommentRepository;
 import com.GameForAll.Repository.ContributorRepository;
 import com.GameForAll.Repository.CourseRepository;
@@ -23,6 +25,7 @@ import com.GameForAll.Repository.QuestionRepository;
 import com.GameForAll.Repository.StudentGameRepository;
 import com.GameForAll.Repository.StudentRepository;
 import com.GameForAll.Repository.TypeRepository;
+import com.GameForAll.models.Answer;
 import com.GameForAll.models.Comment;
 import com.GameForAll.models.Contributor;
 import com.GameForAll.models.Course;
@@ -33,6 +36,7 @@ import com.GameForAll.models.Student;
 import com.GameForAll.models.StudentGame;
 import com.GameForAll.models.Teacher;
 import com.GameForAll.models.Type;
+
 
 @RestController
 public class GameRestController {
@@ -50,6 +54,9 @@ public class GameRestController {
 	QuestionRepository questionRepository;
 
 	@Autowired
+	AnswerRepository answerRepository;
+	
+	@Autowired
 	StudentRepository studentRepository;
 
 	@Autowired
@@ -57,6 +64,7 @@ public class GameRestController {
 
 	@Autowired
 	ContributorRepository contributorRepository; // add
+	
 	@Autowired
 	CommentRepository commentRepository;
 
@@ -70,8 +78,84 @@ public class GameRestController {
 		return games;
 	}
 
-	Game game = null;
-	ArrayList<Question> questions = null;
+
+
+	@RequestMapping(method = RequestMethod.GET,value = "/copygame/{GameName}/{NewGameName}/{TeacherName}/{CourseName}")
+	public boolean CopyGame(@PathVariable String GameName, @PathVariable String NewGameName,@PathVariable String TeacherName,@PathVariable String CourseName) {
+		
+		List<Game> OldGames=gameRepository.findBygameName(GameName);
+		Course course=courseRepository.findByCourseName(CourseName);
+		Teacher teacher=teacherRepository.findByUsername(TeacherName);
+		Contributor contributor=new Contributor();
+		
+		if(course!=null && teacher !=null && OldGames!=null){
+			Game NewGame=new Game();
+			NewGame.setgameName(NewGameName);
+			NewGame.setCourse(course);
+			
+			
+			Game OldGame=new Game();
+		
+			for(int i=0;i<OldGames.size();i++){
+				if(OldGames.get(i).getGameId()==OldGames.get(i).getNewId()){
+					OldGame=OldGames.get(i);
+				}
+			}
+			
+			NewGame.setDescription(OldGame.getDescription());
+			
+			NewGame.setNumOfLevels(OldGame.getNumOfLevels());
+			
+			NewGame.setType(OldGame.getType());
+			
+			NewGame.setCancled(false);
+			
+			gameRepository.save(NewGame);
+			NewGame.setNewId(NewGame.getGameId());
+			gameRepository.save(NewGame);
+			course.getGames().add(NewGame);		
+			contributor.setGame(NewGame);
+			contributor.setTeacher(teacher);
+			contributorRepository.save(contributor);
+			
+			List<Question> OldGameQuestions=questionRepository.findBygame(OldGame);
+			
+			for(int i=0;i<OldGameQuestions.size();i++){
+				Question NewGameQuestion=new Question();
+				
+				NewGameQuestion.setQuestion(OldGameQuestions.get(i).getQuestion());
+				NewGameQuestion.setLevel(OldGameQuestions.get(i).getLevel());
+				NewGameQuestion.setGames(NewGame);
+				questionRepository.save(NewGameQuestion);
+				//NewGame.getQuestions().add(NewGameQuestion);
+				
+				
+				
+				
+				List<Answer> OldGameAnswers=answerRepository.findByquestion(OldGameQuestions.get(i));
+				for(int j=0;j<OldGameAnswers.size();j++){
+					Answer NewGameAnswer=new Answer();
+					
+					NewGameAnswer.setAnswer(OldGameAnswers.get(j).getAnswer());
+					NewGameAnswer.setCorrectAnswer(OldGameAnswers.get(j).isCorrectAnswer());
+					NewGameAnswer.setQuestion(NewGameQuestion);
+					
+					answerRepository.save(NewGameAnswer);
+					
+					//NewGameQuestion.getAnswers().add(NewGameAnswer);
+				}
+			}
+	
+					
+			
+			
+				
+		}
+		return true;	
+	}
+
+
+	
 
 	@RequestMapping(value = "/course/show-games-specific-course/{CourseId}", method = RequestMethod.GET)
 	Set<Game> ShowGamesSpecificCourse(@PathVariable long CourseId) {
@@ -99,59 +183,35 @@ public class GameRestController {
 	 * @param gameID
 	 * @return
 	 */
-	@RequestMapping(value = "/playgame/{gameID}", method = RequestMethod.GET)
-	Set<Question> PlayGame(@PathVariable long gameID) {
-
-		Game game = gameRepository.findOne(gameID);
-		if (game != null) {
-			this.game = game;
-			this.questions = new ArrayList<Question>(game.getQuestions());
-			this.questions.sort(new Comparator<Question>() {
-
-				@Override
-				public int compare(Question q1, Question q2) {
-
-					return q1.getLevel() - q2.getLevel();
-				}
-
-			});
-			return game.getQuestions();
-		}
-
-		return null;
-
-	}
+	
+	
+	
+	
 
 	/**
 	 * @param gameID
 	 * @param questionIndex
 	 * @return
 	 */
+	
 	@RequestMapping(value = "/playgame/{gameID}/{questionIndex}", method = RequestMethod.GET)
 	Question getQuestion(@PathVariable long gameID, @PathVariable long questionIndex) {
-
-		if (game == null) {
+			Game game = null;
+			ArrayList<Question> questions = null;
 			game = gameRepository.findOne(gameID);
-			this.questions = new ArrayList<Question>(game.getQuestions());
-			this.questions.sort(new Comparator<Question>() {
+			questions = new ArrayList<Question>(game.getQuestions());
+			questions.sort(new Comparator<Question>() {
 
 				@Override
 				public int compare(Question q1, Question q2) {
 
 					return q1.getLevel() - q2.getLevel();
 				}
-
 			});
-		}
-		if (game != null) {
-
 			if (questionIndex > questions.size()) {
 				return null;
 			}
-
 			return questions.get((int) questionIndex - 1);
-		}
-		return null;
 	}
 
 	/**
@@ -199,7 +259,12 @@ public class GameRestController {
 			// teacher.getGames().add(game);
 			gameRepository.save(game);
 			contributorRepository.save(contributor);// add
+
+			game.setNewId(game.getGameId());
+			gameRepository.save(game);
+
 			addNotification(course, game, teacher);
+
 		}
 		return game.getGameId();
 
@@ -272,5 +337,5 @@ public class GameRestController {
 			studentRepository.save(student);
 		}
 	}
-
 }
+

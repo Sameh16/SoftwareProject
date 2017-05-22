@@ -29,7 +29,7 @@ public class Game implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long GameId;
 
-	@Column(name = "gameName", unique = true)
+	@Column(name = "gameName")
 	private String gameName;
 
 	@Column(name = "Cancled")
@@ -39,7 +39,7 @@ public class Game implements Serializable {
 	private int NumOfLevels;
 	
 	@Column(name = "newId" , nullable = true)
-	private int newId;
+	private long newId;
 
 	@Column(name = "Description")
 	private String Description;
@@ -71,6 +71,7 @@ public class Game implements Serializable {
 	public void setGameId(long gameId) {
 		GameId = gameId;
 	}
+	
 
 	public String getgameName() {
 		return gameName;
@@ -113,7 +114,8 @@ public class Game implements Serializable {
 	public void setCourse(Course course) {
 		this.course = course;
 	}
-
+	
+	@JsonIgnore
 	public Set<Question> getQuestions() {
 		return questions;
 	}
@@ -155,4 +157,16 @@ public class Game implements Serializable {
 		this.studentGames = studentGames;
 	}
 
+	
+
+	public long getNewId() {
+		return newId;
+	}
+
+	public void setNewId(long newId) {
+		this.newId = newId;
+	}
+
+	
+	
 }
