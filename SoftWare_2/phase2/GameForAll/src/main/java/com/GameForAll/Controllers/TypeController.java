@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class TypeController {
-	@RequestMapping(value="/game/get-type-template/{type}",method=RequestMethod.GET)
+	@RequestMapping(value="get-type-template/{type}",method=RequestMethod.GET)
 	public String GamePage(@PathVariable String type)
 	{
 		type+="TemplateIndex";

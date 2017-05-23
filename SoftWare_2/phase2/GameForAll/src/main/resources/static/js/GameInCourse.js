@@ -46,7 +46,7 @@ app.controller('GameInCourseController', function($scope, $http, $location) {
 	$scope.username = localStorage.getItem('username');
 	var courseName = localStorage.getItem('courseName');
 	$scope.cours=courseName;
-	alert($scope.cours);
+	
 	if (localStorage.getItem("username") == "") {
 
 		var url = "/";
@@ -123,6 +123,13 @@ app.controller('GameInCourseController', function($scope, $http, $location) {
 		var url = "/comment";
 		window.open(url, "_self");
 	}
+	
+	$scope.CourseInCategory = function(Category){
+		categoryName=Category.categoryName;
+    	localStorage.setItem('categoryName',categoryName);
+    	$scope.path= "/CourseInCategory";
+    	window.open($scope.path,"_self");
+    }
 
 	$scope.logout = function() {
 		localStorage.setItem("username", "");

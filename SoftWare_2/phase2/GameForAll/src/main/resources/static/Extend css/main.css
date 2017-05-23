@@ -1274,17 +1274,19 @@ outline: 0;
 }
 
 .ser > input[type=text] {
+	position: relative;
+    left:20px;
     width: 130px;
     box-sizing: border-box;
     border: 2px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
     background-color: white;
-    background-image: url(https://www.google.com.eg/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=0ahUKEwjR4JStsdLTAhXL7RQKHaphD54QjRwIBw&url=https%3A%2F%2Fwww.iconfinder.com%2Ficons%2F314478%2Fsearch_icon&psig=AFQjCNHBUk6yvaB9-atxSVmqevL4f0T7Qw&ust=1493853886474343);
+    background-image: url("search.png");
     background-position: 10px 10px; 
     background-repeat: no-repeat;
-    padding: 12px 20px 12px 40px;
-    -webkit-transition: width 0.4s ease-in-out;
+    padding: 12px 20px 12px 35px;
+    -webkit-transition: width 0.8s ease-in-out;
     transition: width 0.4s ease-in-out;
 }
 

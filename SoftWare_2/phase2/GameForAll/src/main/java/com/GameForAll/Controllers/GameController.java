@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class GameController {
 	
 	
-	@RequestMapping(value = "/game", method = RequestMethod.GET)
+	@RequestMapping(value = "/Game", method = RequestMethod.GET)
 	public String GamePage() {
 
 		return "GameIndex";

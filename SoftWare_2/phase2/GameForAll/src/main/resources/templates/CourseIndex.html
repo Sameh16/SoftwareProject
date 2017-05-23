@@ -81,9 +81,6 @@
 			</header>
 
 			<section id="main-slider" class="no-margin">
-
-
-
 				<div class="section section-white">
 					<div class="container">
 						<div class="row">
@@ -99,12 +96,12 @@
 								ng-options="categories as categories.categoryName for categories in CategoryResponse"
 								ng-init="getcategory()">
 							</select> Min Age : <input type="number" name="MinimunAge"
-								class="form-control" min="3" ng-model="MinimunAge" /><br></br>
+								class="form-control" min="3" ng-model="MinimunAge" required="true"/><br></br>
 
 							<p>Description:</p>
 							<p>
 								<textarea rows="7" cols="100" name="description" form="usrform"
-									ng-model="description">Enter description here...</textarea>
+									ng-model="description" required="true">Enter description here...</textarea>
 							</p>
 
 							<button ng-click="submitForm()" class="btn btn-primary">Create</button>

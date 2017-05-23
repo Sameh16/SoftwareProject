@@ -19,7 +19,7 @@ public class TypeRestController {
 	/**
 	 * @return
 	 */
-	@RequestMapping(value = "/game/get-type", method = RequestMethod.GET)
+	@RequestMapping(value = "/get-type", method = RequestMethod.GET)
 	public List<Type> GetAllTypes() {
 		
 		return (List<Type>) typeRepository.findAll();

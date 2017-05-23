@@ -61,8 +61,20 @@
 							
 						
 
+							
+							
+								<li id="cat">
+  							 	<a ng-click="ChangeCategoryShow();" ng-model="Category" href="">Category</a>
+  							<div id="CDropdown" class="dropdown-content2" ng-show="ShowCategories">
+   							 <a ng-repeat="Category in categories" ng-click="CourseInCategory(Category)" href="/CourseInCategory">{{Category.categoryName}}</a>
+  							</div>
+						</li>
+						
+						<li><a ng-click="logout()" href="/">Log Out(
+									{{username}} )</a></li>
+							
 							<li>
-								<div class="notifications" href="">
+								<div class="notifications" >
 									<div class="messages" >
 										<div class="message" ng-repeat="notification in notifications">
 											{{" Teacher : "+notification.teacherName}}<br></br> {{"Create
@@ -73,17 +85,8 @@
 									</div>
 								</div>
 							</li>
-							
-								<li id="cat">
-  							 	<a ng-click="ChangeCategoryShow();" ng-model="Category" href="">Category</a>
-  							<div id="CDropdown" class="dropdown-content2" ng-show="ShowCategories">
-   							 <a ng-repeat="Category in categories" ng-click="CourseInCategory(Category)" href="/CourseInCategory">{{Category.categoryName}}</a>
-  							</div>
-						</li>
-							
 
-							<li><a ng-click="logout()" href="/">Log Out(
-									{{username}} )</a></li>
+							
 								<li class="ser" >
   							<input type="text" name="search"  ng-change="GetGames()" ng-model="search"  placeholder="Search.."/>
   							
@@ -91,6 +94,8 @@
    							 <a ng-repeat="games in SearchedGames" ng-click="playGame(games)" href="/playGameQ" >{{games.gameName}}</a>
   							</div>
 						</li>
+						
+						
 						</ul>
 					</div>
 

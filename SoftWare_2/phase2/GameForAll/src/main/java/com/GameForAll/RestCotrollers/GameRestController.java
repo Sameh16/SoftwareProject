@@ -81,6 +81,12 @@ public class GameRestController {
 	public List<Game> GetGame(@PathVariable String name) {
 		List<Game> games = new ArrayList<>();
 		games = gameRepository.findBygameNameStartingWith(name);
+		for(int i=0;i<games.size();i++){
+			if(games.get(i).getGameId()!=games.get(i).getNewId()){
+				games.remove(games.get(i));
+				i--;
+			}
+		}
 		return games;
 	}
 
@@ -219,6 +225,16 @@ public class GameRestController {
 			}
 			return questions.get((int) questionIndex - 1);
 	}
+	
+	@RequestMapping(value = "/verify-game-name/{GameName}", method = RequestMethod.GET)
+	boolean VerifyGameName(@PathVariable String GameName) {
+		List<Game>games=gameRepository.findBygameName(GameName);
+		if(games.size()!=0){
+			return false;
+		}
+		return true;
+	}
+	
 
 	/**
 	 * @param studentGame
@@ -247,10 +263,11 @@ public class GameRestController {
 	 * @param username
 	 * @return
 	 */
-	@RequestMapping(method = RequestMethod.POST, value = "/game/create-game/{courseID}/{typeID}/{username}")
-	public long CreateGame(@RequestBody Game game, @PathVariable long courseID, @PathVariable long typeID,
+	@RequestMapping(method = RequestMethod.POST, value = "/create-game/{courseName}/{typeID}/{username}")
+	public long CreateGame(@RequestBody Game game, @PathVariable String courseName, @PathVariable long typeID,
 			@PathVariable String username) {
-		Course course = courseRepository.findOne(courseID);
+		
+		Course course = courseRepository.findByCourseName(courseName);
 		Type type = typeRepository.findOne(typeID);
 		Teacher teacher = teacherRepository.findByUsername(username);
 		if (course != null && type != null && teacher != null) {
