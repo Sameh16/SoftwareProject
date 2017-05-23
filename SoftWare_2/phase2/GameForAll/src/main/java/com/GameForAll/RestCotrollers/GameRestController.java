@@ -1,11 +1,7 @@
 package com.GameForAll.RestCotrollers;
 
-
 import java.sql.Timestamp;
-
-
 import java.util.ArrayList;
-
 import java.util.Comparator;
 
 import java.util.List;
@@ -40,8 +36,6 @@ import com.GameForAll.models.Student;
 import com.GameForAll.models.StudentGame;
 import com.GameForAll.models.Teacher;
 import com.GameForAll.models.Type;
-
-
 
 
 @RestController
@@ -346,39 +340,6 @@ public class GameRestController {
 
 		return comments;
 
-	}
-
-	@RequestMapping(method = RequestMethod.POST, value = "/game/add-collaborators/teacher")
-	public long addCollaborators(@RequestBody Game game, @RequestBody Contributor teacher) {
-		List<Contributor> contributors = new ArrayList<>();
-		contributors.add(teacher);
-		game.setContributors((Set<Contributor>) contributors);
-		return contributors.get(contributors.size() - 1).getTeacher().getId();
-	}
-
-	@RequestMapping(method = RequestMethod.POST, value = "/game/cancel-game/{username}")
-	public boolean cancelGame(@RequestBody Game game, @PathVariable String username) {
-		Contributor teacher = contributorRepository.findByTeacherUsername(username);
-		List<Contributor> contributors = (List<Contributor>) game.getContributors();
-		if (contributors.contains(teacher)) {
-			teacher.getGame().setCancled(true);
-		}
-		boolean cancel = false;
-		Contributor contributor = new Contributor();
-		for (int i = 0; i < contributors.size(); i++) {
-			contributor = contributors.get(i);
-			if (!contributor.getGame().isCancled()) {
-				cancel = false;
-				break;
-			} else {
-				cancel = true;
-			}
-		}
-		if (cancel == true) {
-			gameRepository.delete(game);
-			return true;
-		}
-		return false;
 	}
 
 	private void addNotification(Course course, Game game, Teacher teacher) {

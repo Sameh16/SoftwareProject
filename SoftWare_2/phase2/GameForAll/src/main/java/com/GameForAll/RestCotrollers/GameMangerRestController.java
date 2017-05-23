@@ -1,13 +1,16 @@
 package com.GameForAll.RestCotrollers;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.GameForAll.Repository.ContributorRepository;
 import com.GameForAll.Repository.GameRepository;
 import com.GameForAll.Repository.StudentRepository;
 import com.GameForAll.Repository.TeacherRepository;
@@ -29,6 +32,9 @@ public class GameMangerRestController {
 	
 	@Autowired
 	TeacherRepository teacherRepository;
+	
+	@Autowired
+	ContributorRepository contributorRepository;
 	
 	/**
 	 * @param username
@@ -79,6 +85,65 @@ public class GameMangerRestController {
 			notifications = student.getNotifications();
 		}
 		return notifications;
+	}
+	
+	
+	@RequestMapping(method = RequestMethod.POST, value = "/game/add-collaborators/teacher/{username}/gameId}")
+	public boolean addCollaborators(@PathVariable long gameId,@PathVariable String username) 
+	{
+		Teacher teacher = teacherRepository.findByUsername(username);
+		Game game = gameRepository.findOne(gameId);
+		if(game != null && teacher != null)
+		{
+			Contributor contributor = new Contributor();
+			contributor.setTeacher(teacher);
+			contributor.setGame(game);
+			Set<Contributor> contributors=game.getContributors();
+			contributors.add(contributor);
+			contributors=teacher.getContributors();
+			contributors.add(contributor);
+			contributorRepository.save(contributor);
+			teacherRepository.save(teacher);
+			gameRepository.save(game);
+			return true;
+		}
+		return false;
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, value = "/game/cancel-game/{username}/{gameId}")
+	public boolean cancelGame(@PathVariable long gameId,@PathVariable String username) 
+	{
+		Teacher teacher =teacherRepository.findByUsername(username);
+		Game game= gameRepository.findOne(gameId);
+		if(game!=null && teacher!=null)
+		{
+			Contributor contributor = contributorRepository.findByGameAndTeacher(game, teacher);
+			contributor.getGame().setCancled(true);
+		    contributorRepository.save(contributor);
+			teacherRepository.save(teacher);
+			gameRepository.save(game);
+		      return true;
+			
+		}	
+		return false;
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, value = "/game/uncancel-game/{username}/{gameId}")
+	public boolean unCancelGame(@PathVariable long gameId,@PathVariable String username) 
+	{
+		Teacher teacher =teacherRepository.findByUsername(username);
+		Game game= gameRepository.findOne(gameId);
+		if(game!=null && teacher!=null)
+		{
+			Contributor contributor = contributorRepository.findByGameAndTeacher(game, teacher);
+			contributor.getGame().setCancled(false);
+		    contributorRepository.save(contributor);
+			teacherRepository.save(teacher);
+			gameRepository.save(game);
+		      return true;
+			
+		}
+		return false;
 	}
 	
 	
